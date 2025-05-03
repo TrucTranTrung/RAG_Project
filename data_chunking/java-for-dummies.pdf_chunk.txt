@@ -39,2213 +39,1588 @@ Manufactured in the United States of America
 10   9   8   7   6   5   4   3   2   1
 Contents at a Glance
 Introduction  . .
-
 --- Chunk #2 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #3 ---
 . 1
 Part 1: Getting Started with Java  . .
-
 --- Chunk #4 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #5 ---
 . 9
 CHAPTER 1:  All about Java  . .
-
 --- Chunk #6 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #7 ---
 . 11
 CHAPTER 2:  All about Software . .
-
 --- Chunk #8 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #9 ---
 . 25
 CHAPTER 3:  Using the Basic Building Blocks  . .
-
 --- Chunk #10 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #11 ---
 . 43
 Part 2: Writing Your Own Java Programs  . .
-
 --- Chunk #12 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #13 ---
 . 65
 CHAPTER 4:  Making the Most of Variables and Their Values  . .
-
 --- Chunk #14 ---
 . . . . . . . . . . . . . . . . .
-
 --- Chunk #15 ---
 . 67
 CHAPTER 5:  Controlling Program Flow with Decision-Making Statements  . .
-
 --- Chunk #16 ---
 . . . . .
-
 --- Chunk #17 ---
 . 105
 CHAPTER 6:  Controlling Program Flow with Loops  . .
-
 --- Chunk #18 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #19 ---
 . 139
 Part 3: Working with the Big Picture:  
 Object-Oriented Programming  . .
-
 --- Chunk #20 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #21 ---
 . 159
 CHAPTER 7:  Thinking in Terms of Classes and Objects  . .
-
 --- Chunk #22 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #23 ---
 . 161
 CHAPTER 8:  Saving Time and Money: Reusing Existing Code  . .
-
 --- Chunk #24 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #25 ---
 . 197
 CHAPTER 9:  Constructing New Objects  . .
-
 --- Chunk #26 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #27 ---
 . 231
 Part 4: Smart Java Techniques  . .
-
 --- Chunk #28 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #29 ---
 . 257
 CHAPTER 10:  Putting Variables and Methods Where They Belong  . .
-
 --- Chunk #30 ---
 . . . . . . . . . . . .
-
 --- Chunk #31 ---
 . 259
 CHAPTER 11:  Using Arrays to Juggle Values  . .
-
 --- Chunk #32 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #33 ---
 . 293
 CHAPTER 12:  Using Collections and Streams (When Arrays Aren’t  
 Good Enough)  . .
-
 --- Chunk #34 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #35 ---
 . 321
 CHAPTER 13:  Looking Good When Things Take Unexpected Turns  . .
-
 --- Chunk #36 ---
 . . . . . . . . . . .
-
 --- Chunk #37 ---
 . 351
 CHAPTER 14:  Sharing Names among the Parts of a Java Program  . .
-
 --- Chunk #38 ---
 . . . . . . . . . . . .
-
 --- Chunk #39 ---
 . 383
 CHAPTER 15:  Fancy Reference Types . .
-
 --- Chunk #40 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #41 ---
 . .409
 CHAPTER 16: 	Responding	to	Keystrokes	and	Mouse Clicks . .
-
 --- Chunk #42 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #43 ---
 . .427
 CHAPTER 17:  Using Java Database Connectivity  . .
-
 --- Chunk #44 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #45 ---
 . 445
 Part 5: The Part of Tens  . .
-
 --- Chunk #46 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #47 ---
 . 455
 CHAPTER 18:  Ten Ways to Avoid Mistakes  . .
-
 --- Chunk #48 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #49 ---
 . 457
 CHAPTER 19:  Ten Websites for Java  . .
-
 --- Chunk #50 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #51 ---
 . 463
 Index  . .
-
 --- Chunk #52 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #53 ---
 . 465
 Table of Contents      v
 Table of Contents
 INTRODUCTION   . .
-
 --- Chunk #54 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #55 ---
 . 1
 How to Use This Book  . .
-
 --- Chunk #56 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #57 ---
 . 1
 Conventions Used in This Book  . .
-
 --- Chunk #58 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #59 ---
 . 2
 What You Don’t Have to Read  . .
-
 --- Chunk #60 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #61 ---
 . 2
 Foolish Assumptions  . .
-
 --- Chunk #62 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #63 ---
 . 3
 How This Book Is Organized   . .
-
 --- Chunk #64 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #65 ---
 . 4
 Part 1: Getting Started with Java  . .
-
 --- Chunk #66 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #67 ---
 . 4
 Part 2: Writing Your Own Java Program  . .
-
 --- Chunk #68 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #69 ---
 . 4
 Part 3: Working with the Big Picture: Object-Oriented 
 Programming  . .
-
 --- Chunk #70 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #71 ---
 . 5
 Part 4: Smart Java Techniques  . .
-
 --- Chunk #72 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #73 ---
 . 5
 Part 5: The Part of Tens   . .
-
 --- Chunk #74 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #75 ---
 . 5
 Icons Used in This Book  . .
-
 --- Chunk #76 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #77 ---
 . 5
 Beyond the Book  . .
-
 --- Chunk #78 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #79 ---
 . 6
 Where to Go from Here  . .
-
 --- Chunk #80 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #81 ---
 . 7
 PART 1: GETTING STARTED WITH JAVA  . .
-
 --- Chunk #82 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #83 ---
 . 9
 CHAPTER 1:  All about Java  . .
-
 --- Chunk #84 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #85 ---
 . 11
 What You Can Do with Java  . .
-
 --- Chunk #86 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #87 ---
 . 12
 Why You Should Use Java  . .
-
 --- Chunk #88 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #89 ---
 . 13
 Getting Perspective: Where Java Fits In  . .
-
 --- Chunk #90 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #91 ---
 . 14
 Object-Oriented Programming (OOP)   . .
-
 --- Chunk #92 ---
 . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #93 ---
 . 16
 Object-oriented languages  . .
-
 --- Chunk #94 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #95 ---
 . 16
 Objects and their classes  . .
-
 --- Chunk #96 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #97 ---
 . 18
 What’s so good about an object-oriented language? .
-
 --- Chunk #98 ---
 . . . . . . . . . .
-
 --- Chunk #99 ---
 . 19
 Refining	your	understanding	of	classes	and	objects  . .
-
 --- Chunk #100 ---
 . . . . . . . . .
-
 --- Chunk #101 ---
 . 21
 What’s Next? .
-
 --- Chunk #102 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #103 ---
 . 23
 CHAPTER 2:  All about Software  . .
-
 --- Chunk #104 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #105 ---
 . 25
 Quick-Start Instructions  . .
-
 --- Chunk #106 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #107 ---
 . 25
 What You Install on Your Computer  . .
-
 --- Chunk #108 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #109 ---
 . 28
 What is a compiler? .
-
 --- Chunk #110 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #111 ---
 . 29
 What is a Java Virtual Machine? .
-
 --- Chunk #112 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #113 ---
 . 32
 Developing software  . .
-
 --- Chunk #114 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #115 ---
 . 39
 What is an integrated development environment? .
-
 --- Chunk #116 ---
 . . . . . . . . . . .
-
 --- Chunk #117 ---
 . 40
 CHAPTER 3:  Using the Basic Building Blocks  . .
-
 --- Chunk #118 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #119 ---
 . 43
 Speaking the Java Language   . .
-
 --- Chunk #120 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #121 ---
 . 43
 The grammar and the common names  . .
-
 --- Chunk #122 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #123 ---
 . 44
 The words in a Java program  . .
-
 --- Chunk #124 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #125 ---
 . 45
 vi      Java For Dummies
 Checking Out Java Code for the First Time   . .
-
 --- Chunk #126 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #127 ---
 . 47
 Understanding a Simple Java Program   . .
-
 --- Chunk #128 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #129 ---
 . 48
 The Java class  . .
-
 --- Chunk #130 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #131 ---
 . 49
 The Java method  . .
-
 --- Chunk #132 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #133 ---
 . 50
 The main method in a program   . .
-
 --- Chunk #134 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #135 ---
 . 52
 How	you	finally	tell	the	computer	to	do	something  . .
-
 --- Chunk #136 ---
 . . . . . . . . . .
-
 --- Chunk #137 ---
 . 53
 Curly braces  . .
-
 --- Chunk #138 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #139 ---
 . 55
 And Now, a Few Comments  . .
-
 --- Chunk #140 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #141 ---
 . 59
 Adding comments to your code   . .
-
 --- Chunk #142 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #143 ---
 . 60
 What’s Barry’s excuse? .
-
 --- Chunk #144 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #145 ---
 . 63
 Using comments to experiment with your code  . .
-
 --- Chunk #146 ---
 . . . . . . . . . . . . .
-
 --- Chunk #147 ---
 . 63
 PART 2: WRITING YOUR OWN JAVA PROGRAMS  . .
-
 --- Chunk #148 ---
 . . . . . . . .
-
 --- Chunk #149 ---
 . 65
 CHAPTER 4:  Making the Most of Variables and Their Values  . . . 67
 Varying a Variable  . .
-
 --- Chunk #150 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #151 ---
 . 68
 Assignment statements  . .
-
 --- Chunk #152 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #153 ---
 . 70
 The types of values that variables may have  . .
-
 --- Chunk #154 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #155 ---
 . 71
 Displaying text  . .
-
 --- Chunk #156 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #157 ---
 . 74
 Numbers without decimal points  . .
-
 --- Chunk #158 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #159 ---
 . 75
 Combining declarations and initializing variables   . .
-
 --- Chunk #160 ---
 . . . . . . . . . . .
-
 --- Chunk #161 ---
 . 77
 Experimenting with JShell  . .
-
 --- Chunk #162 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #163 ---
 . 78
 What	Happened	to	All	the	Cool	Visual	Effects? .
-
 --- Chunk #164 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #165 ---
 . 82
 The Atoms: Java’s Primitive Types  . .
-
 --- Chunk #166 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #167 ---
 . 82
 The char type  . .
-
 --- Chunk #168 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #169 ---
 . 83
 The boolean type  . .
-
 --- Chunk #170 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #171 ---
 . 85
 The Molecules and Compounds: Reference Types   . .
-
 --- Chunk #172 ---
 . . . . . . . . . . . . .
-
 --- Chunk #173 ---
 . 87
 An Import Declaration   . .
-
 --- Chunk #174 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #175 ---
 . 91
 Creating New Values by Applying Operators   . .
-
 --- Chunk #176 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #177 ---
 . 93
 Initialize once, assign often  . .
-
 --- Chunk #178 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #179 ---
 . 97
 The increment and decrement operators  . .
-
 --- Chunk #180 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #181 ---
 . 98
 Assignment operators   . .
-
 --- Chunk #182 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #183 ---
 . 102
 CHAPTER 5:  Controlling Program Flow with Decision-Making 
 Statements  . .
-
 --- Chunk #184 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #185 ---
 . 105
 Making Decisions (Java if Statements)  . .
-
 --- Chunk #186 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #187 ---
 . 106
 Guess the number  . .
-
 --- Chunk #188 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #189 ---
 . 106
 She controlled keystrokes from the keyboard  . .
-
 --- Chunk #190 ---
 . . . . . . . . . . . . .
-
 --- Chunk #191 ---
 . 107
 Creating randomness  . .
-
 --- Chunk #192 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #193 ---
 . 110
 The if statement  . .
-
 --- Chunk #194 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #195 ---
 . 111
 The double equal sign  . .
-
 --- Chunk #196 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #197 ---
 . 112
 Brace yourself   . .
-
 --- Chunk #198 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #199 ---
 . 112
 Indenting if statements in your code  . .
-
 --- Chunk #200 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #201 ---
 . 113
 Elseless in Ifrica  . .
-
 --- Chunk #202 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #203 ---
 . 114
 Table of Contents      vii
 Using Blocks in JShell   . .
-
 --- Chunk #204 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #205 ---
 . 116
 Forming Conditions with Comparisons and Logical Operators  . .
-
 --- Chunk #206 ---
 . .
-
 --- Chunk #207 ---
 . 117
 Comparing numbers; comparing characters   . .
-
 --- Chunk #208 ---
 . . . . . . . . . . . . . .
-
 --- Chunk #209 ---
 . 117
 Comparing objects   . .
-
 --- Chunk #210 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #211 ---
 . 118
 Importing everything in one fell swoop  . .
-
 --- Chunk #212 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #213 ---
 . 121
 Java’s logical operators  . .
-
 --- Chunk #214 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #215 ---
 . 121
 Vive les nuls! .
-
 --- Chunk #216 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #217 ---
 . 124
 (Conditions in parentheses)  . .
-
 --- Chunk #218 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #219 ---
 . 125
 Building a Nest  . .
-
 --- Chunk #220 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #221 ---
 . 127
 Choosing among Many Alternatives (Java switch Statements)  . .
-
 --- Chunk #222 ---
 . . .
-
 --- Chunk #223 ---
 . 130
 Your basic switch statement  . .
-
 --- Chunk #224 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #225 ---
 . 130
 To break or not to break  . .
-
 --- Chunk #226 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #227 ---
 . 134
 Strings in a switch statement  . .
-
 --- Chunk #228 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #229 ---
 . 136
 CHAPTER 6:  Controlling Program Flow with Loops  . .
-
 --- Chunk #230 ---
 . . . . . . . . . . .
-
 --- Chunk #231 ---
 . 139
 Repeating Instructions Over and Over Again  
 (Java while Statements)  . .
-
 --- Chunk #232 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #233 ---
 . 140
 Repeating a Certain Number of Times (Java for Statements)  . .
-
 --- Chunk #234 ---
 . . . .
-
 --- Chunk #235 ---
 . 143
 The anatomy of a for statement  . .
-
 --- Chunk #236 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #237 ---
 . 145
 The world premiere of “Al’s All Wet”  . .
-
 --- Chunk #238 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #239 ---
 . 147
 Repeating	until	You	Get	What	You	Want (Java	do	Statements)  . .
-
 --- Chunk #240 ---
 . .
-
 --- Chunk #241 ---
 . 150
 Reading a single character  . .
-
 --- Chunk #242 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #243 ---
 . 154
 File handling in Java  . .
-
 --- Chunk #244 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #245 ---
 . 154
 Variable declarations and blocks   . .
-
 --- Chunk #246 ---
 . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #247 ---
 . 156
 PART 3: WORKING WITH THE BIG PICTURE:  
 OBJECT-ORIENTED PROGRAMMING  . .
-
 --- Chunk #248 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #249 ---
 . 159
 CHAPTER 7:  Thinking in Terms of Classes and Objects  . .
-
 --- Chunk #250 ---
 . . . . . . .
-
 --- Chunk #251 ---
 . 161
 Defining	a	Class	(What	It	Means	to	Be	an	Account)  . .
-
 --- Chunk #252 ---
 . . . . . . . . . . . .
-
 --- Chunk #253 ---
 . 162
 Declaring variables and creating objects  . .
-
 --- Chunk #254 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #255 ---
 . 164
 Initializing a variable  . .
-
 --- Chunk #256 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #257 ---
 . 167
 Using	an	object’s	fields  . .
-
 --- Chunk #258 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #259 ---
 . 167
 One program; several classes  . .
-
 --- Chunk #260 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #261 ---
 . 168
 Public classes  . .
-
 --- Chunk #262 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #263 ---
 . 168
 Defining	a	Method	within	a	Class	(Displaying	an	Account)  . .
-
 --- Chunk #264 ---
 . . . . . .
-
 --- Chunk #265 ---
 . 169
 An account that displays itself  . .
-
 --- Chunk #266 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #267 ---
 . 171
 The display method’s header  . .
-
 --- Chunk #268 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #269 ---
 . 172
 Sending Values to and from Methods (Calculating Interest)  . .
-
 --- Chunk #270 ---
 . . . . .
-
 --- Chunk #271 ---
 . 173
 Passing a value to a method  . .
-
 --- Chunk #272 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #273 ---
 . 176
 Returning a value from the getInterest method  . .
-
 --- Chunk #274 ---
 . . . . . . . . . . . .
-
 --- Chunk #275 ---
 . 178
 Making Numbers Look Good  . .
-
 --- Chunk #276 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #277 ---
 . 180
 viii      Java For Dummies
 Hiding Details with Accessor Methods  . .
-
 --- Chunk #278 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #279 ---
 . 185
 Good programming . .
-
 --- Chunk #280 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #281 ---
 . .185
 Public	lives	and	private	dreams:	Making	a	field	inaccessible  . .
-
 --- Chunk #282 ---
 .
-
 --- Chunk #283 ---
 . 188
 Enforcing rules with accessor methods  . .
-
 --- Chunk #284 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #285 ---
 . 190
 Barry’s Own GUI Class . .
-
 --- Chunk #286 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #287 ---
 . .190
 CHAPTER 8:  Saving Time and Money: Reusing  
 Existing Code  . .
-
 --- Chunk #288 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #289 ---
 . 197
 Defining	a	Class	(What	It	Means	to	Be	an	Employee)  . .
-
 --- Chunk #290 ---
 . . . . . . . . . . .
-
 --- Chunk #291 ---
 . 198
 The last word on employees  . .
-
 --- Chunk #292 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #293 ---
 . 198
 Putting your class to good use   . .
-
 --- Chunk #294 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #295 ---
 . 200
 Cutting a check  . .
-
 --- Chunk #296 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #297 ---
 . 204
 Working with Disk Files (a Brief Detour)  . .
-
 --- Chunk #298 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #299 ---
 . 205
 Storing	data	in	a	file  . .
-
 --- Chunk #300 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #301 ---
 . 205
 Copying and pasting code  . .
-
 --- Chunk #302 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #303 ---
 . 206
 Reading	from	a	file  . .
-
 --- Chunk #304 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #305 ---
 . 208
 Who	moved	my	file? .
-
 --- Chunk #306 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #307 ---
 . 210
 Adding	directory	names	to	your	filenames  . .
-
 --- Chunk #308 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #309 ---
 . 211
 Reading a line at a time   . .
-
 --- Chunk #310 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #311 ---
 . 212
 Closing	the	connection	to	a	disk	file  . .
-
 --- Chunk #312 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #313 ---
 . 213
 Defining	Subclasses	(What	It	Means	to	Be	a	Full-Time	 
 or Part-Time Employee)  . .
-
 --- Chunk #314 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #315 ---
 . 214
 Creating a subclass  . .
-
 --- Chunk #316 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #317 ---
 . 216
 Creating subclasses is habit-forming  . .
-
 --- Chunk #318 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #319 ---
 . 219
 Using Subclasses  . .
-
 --- Chunk #320 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #321 ---
 . 219
 Making types match   . .
-
 --- Chunk #322 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #323 ---
 . 221
 The second half of the story   . .
-
 --- Chunk #324 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #325 ---
 . 222
 Overriding Existing Methods (Changing the Payments  
 for Some Employees)  . .
-
 --- Chunk #326 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #327 ---
 . 224
 A Java annotation  . .
-
 --- Chunk #328 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #329 ---
 . 226
 Using methods from classes and subclasses   . .
-
 --- Chunk #330 ---
 . . . . . . . . . . . . . .
-
 --- Chunk #331 ---
 . 226
 CHAPTER 9:  Constructing New Objects  . .
-
 --- Chunk #332 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #333 ---
 . 231
 Defining	Constructors	(What	It	Means	to	Be	a	Temperature)  . .
-
 --- Chunk #334 ---
 . . .
-
 --- Chunk #335 ---
 . 232
 What is a temperature? .
-
 --- Chunk #336 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #337 ---
 . 233
 What is a temperature scale? (Java’s enum type)  . .
-
 --- Chunk #338 ---
 . . . . . . . . . . .
-
 --- Chunk #339 ---
 . 233
 Okay, so then what is a temperature? .
-
 --- Chunk #340 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #341 ---
 . 234
 What you can do with a temperature  . .
-
 --- Chunk #342 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #343 ---
 . 236
 Calling new Temperature(32 .0): A case study  . .
-
 --- Chunk #344 ---
 . . . . . . . . . . . . . .
-
 --- Chunk #345 ---
 . 239
 Some things never change  . .
-
 --- Chunk #346 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #347 ---
 . 241
 More Subclasses (Doing Something about the Weather)  . .
-
 --- Chunk #348 ---
 . . . . . . .
-
 --- Chunk #349 ---
 . 243
 Building better temperatures   . .
-
 --- Chunk #350 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #351 ---
 . 243
 Constructors for subclasses  . .
-
 --- Chunk #352 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #353 ---
 . 245
 Using	all	this	stuff  . .
-
 --- Chunk #354 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #355 ---
 . 246
 The default constructor   . .
-
 --- Chunk #356 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #357 ---
 . 247
 Table of Contents      ix
 A Constructor That Does More  . .
-
 --- Chunk #358 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #359 ---
 . 250
 Classes and methods from the Java API  . .
-
 --- Chunk #360 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #361 ---
 . 253
 The SuppressWarnings annotation   . .
-
 --- Chunk #362 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #363 ---
 . 254
 PART 4: SMART JAVA TECHNIQUES  . .
-
 --- Chunk #364 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #365 ---
 . 257
 CHAPTER 10:  Putting Variables and Methods  
 Where They Belong  . .
-
 --- Chunk #366 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #367 ---
 . 259
 Defining	a	Class	(What	It	Means	to	Be	a	Baseball	Player)  . .
-
 --- Chunk #368 ---
 . . . . . . .
-
 --- Chunk #369 ---
 . 260
 Another way to beautify your numbers  . .
-
 --- Chunk #370 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #371 ---
 . 261
 Using the Player class  . .
-
 --- Chunk #372 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #373 ---
 . 261
 One class; nine objects  . .
-
 --- Chunk #374 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #375 ---
 . 264
 Don’t get all GUI on me  . .
-
 --- Chunk #376 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #377 ---
 . 265
 Tossing an exception from method to method   . .
-
 --- Chunk #378 ---
 . . . . . . . . . . . .
-
 --- Chunk #379 ---
 . 266
 Making Static (Finding the Team Average)  . .
-
 --- Chunk #380 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #381 ---
 . 267
 Why is there so much static? .
-
 --- Chunk #382 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #383 ---
 . 269
 Meet the static initializer   . .
-
 --- Chunk #384 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #385 ---
 . 270
 Displaying the overall team average   . .
-
 --- Chunk #386 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #387 ---
 . 271
 The static keyword is yesterday’s news  . .
-
 --- Chunk #388 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #389 ---
 . 273
 Could cause static; handle with care   . .
-
 --- Chunk #390 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #391 ---
 . 274
 Experiments with Variables  . .
-
 --- Chunk #392 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #393 ---
 . 277
 Putting a variable in its place  . .
-
 --- Chunk #394 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #395 ---
 . 277
 Telling a variable where to go  . .
-
 --- Chunk #396 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #397 ---
 . 280
 Passing Parameters . .
-
 --- Chunk #398 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #399 ---
 . .285
 Pass by value  . .
-
 --- Chunk #400 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #401 ---
 . 285
 Returning a result  . .
-
 --- Chunk #402 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #403 ---
 . 287
 Pass by reference   . .
-
 --- Chunk #404 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #405 ---
 . 287
 Returning an object from a method  . .
-
 --- Chunk #406 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #407 ---
 . 289
 Epilogue   . .
-
 --- Chunk #408 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #409 ---
 . 292
 CHAPTER 11:  Using Arrays to Juggle Values  . .
-
 --- Chunk #410 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #411 ---
 . 293
 Getting Your Ducks All in a Row   . .
-
 --- Chunk #412 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #413 ---
 . 293
 Creating an array in two easy steps  . .
-
 --- Chunk #414 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #415 ---
 . 296
 Storing values  . .
-
 --- Chunk #416 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #417 ---
 . 297
 Tab stops and other special things  . .
-
 --- Chunk #418 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #419 ---
 . 299
 Using an array initializer  . .
-
 --- Chunk #420 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #421 ---
 . 299
 Stepping through an array with the enhanced for loop   . .
-
 --- Chunk #422 ---
 . . . . .
-
 --- Chunk #423 ---
 . 300
 Searching   . .
-
 --- Chunk #424 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #425 ---
 . 302
 Writing	to	a	file  . .
-
 --- Chunk #426 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #427 ---
 . 305
 When	to	close	a	file  . .
-
 --- Chunk #428 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #429 ---
 . 306
 Arrays of Objects  . .
-
 --- Chunk #430 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #431 ---
 . 307
 Using the Room class  . .
-
 --- Chunk #432 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #433 ---
 . 309
 Yet another way to beautify your numbers  . .
-
 --- Chunk #434 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #435 ---
 . 312
 The conditional operator  . .
-
 --- Chunk #436 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #437 ---
 . 313
 x      Java For Dummies
 Command Line Arguments   . .
-
 --- Chunk #438 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #439 ---
 . 315
 Using	command	line	arguments	in	a	Java program  . .
-
 --- Chunk #440 ---
 . . . . . . . . .
-
 --- Chunk #441 ---
 . 317
 Checking for the right number of command line arguments  . .
-
 --- Chunk #442 ---
 .
-
 --- Chunk #443 ---
 . 319
 CHAPTER 12:  Using Collections and Streams (When  
 Arrays Aren’t Good Enough)  . .
-
 --- Chunk #444 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #445 ---
 . 321
 Understanding the Limitations of Arrays  . .
-
 --- Chunk #446 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #447 ---
 . 321
 Collection Classes to the Rescue  . .
-
 --- Chunk #448 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #449 ---
 . 323
 Using an ArrayList  . .
-
 --- Chunk #450 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #451 ---
 . 323
 Using generics  . .
-
 --- Chunk #452 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #453 ---
 . 325
 Wrapper classes  . .
-
 --- Chunk #454 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #455 ---
 . 328
 Testing for the presence of more data  . .
-
 --- Chunk #456 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #457 ---
 . 330
 Using an iterator  . .
-
 --- Chunk #458 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #459 ---
 . 330
 Java’s many collection classes  . .
-
 --- Chunk #460 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #461 ---
 . 331
 Functional Programming  . .
-
 --- Chunk #462 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #463 ---
 . 333
 Solving a problem the old-fashioned way  . .
-
 --- Chunk #464 ---
 . . . . . . . . . . . . . . . . .
-
 --- Chunk #465 ---
 . 336
 Streams  . .
-
 --- Chunk #466 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #467 ---
 . 338
 Lambda expressions  . .
-
 --- Chunk #468 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #469 ---
 . 339
 A taxonomy of lambda expressions  . .
-
 --- Chunk #470 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #471 ---
 . 342
 Using streams and lambda expressions   . .
-
 --- Chunk #472 ---
 . . . . . . . . . . . . . . . . . .
-
 --- Chunk #473 ---
 . 342
 Why bother? .
-
 --- Chunk #474 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #475 ---
 . 348
 Method references  . .
-
 --- Chunk #476 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #477 ---
 . 350
 CHAPTER 13:  Looking Good When Things Take  
 Unexpected Turns  . .
-
 --- Chunk #478 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #479 ---
 . 351
 Handling Exceptions  . .
-
 --- Chunk #480 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #481 ---
 . 352
 The parameter in a catch clause  . .
-
 --- Chunk #482 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #483 ---
 . 356
 Exception types  . .
-
 --- Chunk #484 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #485 ---
 . 357
 Who’s going to catch the exception? .
-
 --- Chunk #486 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #487 ---
 . 359
 Catching two or more exceptions at a time  . .
-
 --- Chunk #488 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #489 ---
 . 365
 Throwing caution to the wind  . .
-
 --- Chunk #490 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #491 ---
 . 366
 Doing useful things  . .
-
 --- Chunk #492 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #493 ---
 . 367
 Our friends, the good exceptions  . .
-
 --- Chunk #494 ---
 . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #495 ---
 . 368
 Handle an Exception or Pass the Buck  . .
-
 --- Chunk #496 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #497 ---
 . 369
 Finishing	the	Job	with	a	finally	Clause  . .
-
 --- Chunk #498 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #499 ---
 . 376
 A try Statement with Resources   . .
-
 --- Chunk #500 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #501 ---
 . 379
 CHAPTER 14:  Sharing Names among the Parts of a  
 Java Program  . .
-
 --- Chunk #502 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #503 ---
 . 383
 Access	Modifiers  . .
-
 --- Chunk #504 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #505 ---
 . 384
 Classes, Access, and Multipart Programs   . .
-
 --- Chunk #506 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #507 ---
 . 385
 Members versus classes  . .
-
 --- Chunk #508 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #509 ---
 . 385
 Access	modifiers	for	members  . .
-
 --- Chunk #510 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #511 ---
 . 386
 Table of Contents      xi
 Putting a drawing on a frame   . .
-
 --- Chunk #512 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #513 ---
 . 389
 Directory structure   . .
-
 --- Chunk #514 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #515 ---
 . 391
 Making a frame  . .
-
 --- Chunk #516 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #517 ---
 . 392
 Sneaking Away from the Original Code  . .
-
 --- Chunk #518 ---
 . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #519 ---
 . 394
 Default access   . .
-
 --- Chunk #520 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #521 ---
 . 396
 Crawling back into the package  . .
-
 --- Chunk #522 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #523 ---
 . 399
 Protected Access  . .
-
 --- Chunk #524 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #525 ---
 . 400
 Subclasses that aren’t in the same package  . .
-
 --- Chunk #526 ---
 . . . . . . . . . . . . . . .
-
 --- Chunk #527 ---
 . 400
 Classes that aren’t subclasses (but are in the same package)  . .
-
 --- Chunk #528 ---
 .
-
 --- Chunk #529 ---
 . 402
 Access	Modifiers	for	Java	Classes  . .
-
 --- Chunk #530 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #531 ---
 . 406
 Public classes  . .
-
 --- Chunk #532 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #533 ---
 . 406
 Nonpublic classes  . .
-
 --- Chunk #534 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #535 ---
 . 406
 CHAPTER 15:  Fancy Reference Types  . .
-
 --- Chunk #536 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #537 ---
 . 409
 Java’s Types  . .
-
 --- Chunk #538 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #539 ---
 . 409
 The Java Interface   . .
-
 --- Chunk #540 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #541 ---
 . 410
 Two interfaces  . .
-
 --- Chunk #542 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #543 ---
 . 411
 Implementing interfaces   . .
-
 --- Chunk #544 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #545 ---
 . 412
 Putting the pieces together  . .
-
 --- Chunk #546 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #547 ---
 . 415
 Abstract Classes  . .
-
 --- Chunk #548 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #549 ---
 . 417
 Caring for your pet   . .
-
 --- Chunk #550 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #551 ---
 . 420
 Using all your classes   . .
-
 --- Chunk #552 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #553 ---
 . 422
 Relax! You’re Not Seeing Double! .
-
 --- Chunk #554 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #555 ---
 . 424
 CHAPTER 16: 	Responding	to	Keystrokes	and	Mouse Clicks  . .
-
 --- Chunk #556 ---
 . . .
-
 --- Chunk #557 ---
 . 427
 Go	On . .
-
 --- Chunk #558 ---
 . Click	That	Button  . .
-
 --- Chunk #559 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #560 ---
 . 428
 Events and event handling  . .
-
 --- Chunk #561 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #562 ---
 . 430
 Threads of execution   . .
-
 --- Chunk #563 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #564 ---
 . 431
 The keyword this  . .
-
 --- Chunk #565 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #566 ---
 . 432
 Inside the actionPerformed method   . .
-
 --- Chunk #567 ---
 . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #568 ---
 . 434
 The serialVersionUID  . .
-
 --- Chunk #569 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #570 ---
 . 435
 Responding to Things Other Than Button Clicks   . .
-
 --- Chunk #571 ---
 . . . . . . . . . . . . . .
-
 --- Chunk #572 ---
 . 436
 Creating Inner Classes   . .
-
 --- Chunk #573 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #574 ---
 . 441
 CHAPTER 17:  Using Java Database Connectivity  . .
-
 --- Chunk #575 ---
 . . . . . . . . . . . . . . . .
-
 --- Chunk #576 ---
 . 445
 Creating a Database and a Table   . .
-
 --- Chunk #577 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #578 ---
 . 446
 What happens when you run the code   . .
-
 --- Chunk #579 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #580 ---
 . 447
 Using SQL commands  . .
-
 --- Chunk #581 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #582 ---
 . 447
 Connecting and disconnecting   . .
-
 --- Chunk #583 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #584 ---
 . 449
 Putting Data in the Table  . .
-
 --- Chunk #585 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #586 ---
 . 450
 Retrieving Data   . .
-
 --- Chunk #587 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #588 ---
 . 451
 Destroying Data  . .
-
 --- Chunk #589 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #590 ---
 . 453
 xii      Java For Dummies
 PART 5: THE PART OF TENS  . .
-
 --- Chunk #591 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #592 ---
 . 455
 CHAPTER 18:  Ten Ways to Avoid Mistakes  . .
-
 --- Chunk #593 ---
 . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #594 ---
 . 457
 Putting Capital Letters Where They Belong  . .
-
 --- Chunk #595 ---
 . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #596 ---
 . 457
 Breaking Out of a switch Statement  . .
-
 --- Chunk #597 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #598 ---
 . 458
 Comparing Values with a Double Equal Sign   . .
-
 --- Chunk #599 ---
 . . . . . . . . . . . . . . . . .
-
 --- Chunk #600 ---
 . 458
 Adding Components to a GUI  . .
-
 --- Chunk #601 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #602 ---
 . 459
 Adding Listeners to Handle Events  . .
-
 --- Chunk #603 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #604 ---
 . 459
 Defining	the	Required	Constructors  . .
-
 --- Chunk #605 ---
 . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #606 ---
 . 459
 Fixing Non-Static References  . .
-
 --- Chunk #607 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #608 ---
 . 460
 Staying within Bounds in an Array  . .
-
 --- Chunk #609 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #610 ---
 . 460
 Anticipating Null Pointers  . .
-
 --- Chunk #611 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #612 ---
 . 461
 Helping Java Find Its Files  . .
-
 --- Chunk #613 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #614 ---
 . 462
 CHAPTER 19:  Ten Websites for Java  . .
-
 --- Chunk #615 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #616 ---
 . 463
 This Book’s Website  . .
-
 --- Chunk #617 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #618 ---
 . 463
 The Horse’s Mouth   . .
-
 --- Chunk #619 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #620 ---
 . 463
 Finding News, Reviews, and Sample Code  . .
-
 --- Chunk #621 ---
 . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #622 ---
 . 464
 Got a Technical Question? .
-
 --- Chunk #623 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #624 ---
 . 464
 INDEX   . .
-
 --- Chunk #625 ---
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 --- Chunk #626 ---
 . 465
 Introduction      1
@@ -2266,7 +1641,6 @@ chapter. I’ve tried to make the examples interesting without making one chapte
 depend on another. When I use an important idea from another chapter, I include 
 a note to help you find your way around. In general, my advice is as follows:
  » If you already know something, don’t bother reading about it. » If you’re curious, don’t be afraid to skip ahead.
-
 --- Chunk #627 ---
 You can always sneak a peek at 
 an earlier chapter, if you really need to do so. 2      Java For Dummies
@@ -2288,7 +1662,6 @@ up on your own. Words that you need to replace with your own words are set
 in italicized computerese. What You Don’t Have to Read
 Pick the first chapter or section that has material you don’t already know and start 
 reading there.
-
 --- Chunk #628 ---
 Of course, you may hate making decisions as much as I do. If so, 
 here are some guidelines that you can follow:
@@ -2308,7 +1681,6 @@ you want to skip anything at all, feel free. Foolish Assumptions
 In this book, I make a few assumptions about you, the reader. If one of these 
 assumptions is incorrect, you’re probably okay. If all these assumptions are 
  incorrect . .
-
 --- Chunk #629 ---
 . well, buy the book anyway:
  » I assume that you have access to a computer. Here’s the good news: You 
@@ -2318,10 +1690,8 @@ than ten years old (give or take a few years). » I assume that you can navigate
 menus and dialog boxes. You don’t have to be a Windows, Linux, or 
 Macintosh power user, but you should be able to start a program, find a file, 
 put a file into a certain directory . .
-
 --- Chunk #630 ---
 .
-
 --- Chunk #631 ---
 that sort of thing. Most of the time, when 
 you practice the stuff in this book, you’re typing code on the keyboard, not 
@@ -2371,7 +1741,6 @@ gram example. Part 4: Smart Java Techniques
 If you’ve tasted some Java and you want more, you can find what you need in this 
 part of the book. This part’s chapters are devoted to details — the things that you 
 don’t see when you first glance at the material.
-
 --- Chunk #632 ---
 After you read the earlier parts and 
 write some programs on your own, you can dive in a little deeper by reading Part 4. Part 5: The Part of Tens
@@ -2389,7 +1758,6 @@ icon or a Remember icon, you know that I’m taking a quick detour. 6      Java 
 Here’s a list of icons that I use in this book:
 A tip is an extra piece of information — something helpful that the other books 
 may forget to tell you. Everyone makes mistakes.
-
 --- Chunk #633 ---
 Heaven knows that I’ve made a few in my time. Any-
 way, when I think people are especially prone to make a mistake, I mark it with a 
@@ -2401,7 +1769,6 @@ knowledge. Many of these are confidence-builders, but some are a bit more chal-
 lenging. When you first start putting things into practice, you’ll discover all kinds 
 of issues, quandaries, and roadblocks that didn’t occur to you when you started 
 reading about the material. But that’s a good thing.
-
 --- Chunk #634 ---
 Keep at it! Don’t become frus-
 trated. Or, if you do become frustrated, visit this book’s website (www.allmycode. com/JavaForDummies) for hints and solutions. This icon calls attention to useful material that you can find online. Check it out! Occasionally, I run across a technical tidbit. The tidbit may help you understand 
@@ -2455,7 +1822,6 @@ paperless, horseless, and messengerless. Chapter 1
 The neat thing about computers is that they carry ideas efficiently. They carry 
 nothing but the ideas, a couple of photons, and a little electrical power. They 
 do this with no muss, no fuss, and no extra physical baggage.
-
 --- Chunk #635 ---
 When you start dealing efficiently with ideas, something very nice happens. Sud-
 denly, all the overhead is gone. Instead of pushing paper and trees, you’re pushing 
@@ -2476,7 +1842,6 @@ lips of flange A to grommet C.”
  » An English sentence has lots of extra baggage. “Sentence has unneeded 
 words.”
  » English is difficult to interpret.
-
 --- Chunk #636 ---
 “As part of this Publishing Agreement 
 between John Wiley & Sons, Inc. (‘Wiley’) and the Author (‘Barry Burd’), Wiley 
@@ -2503,10 +1868,8 @@ It’s time to celebrate! You’ve just picked up a copy of Java For Dummies, 7t
 and you’re reading Chapter 1. At this rate, you’ll be an expert Java programmer* in 
 no time at all, so rejoice in your eventual success by throwing a big party. To prepare for the party, I’ll bake a cake. I’m lazy, so I’ll use a ready-to-bake cake 
 mix. Let me see .
-
 --- Chunk #637 ---
 .
-
 --- Chunk #638 ---
 . add water to the mix and then add butter and eggs — hey, 
 wait! I just looked at the list of ingredients. What’s MSG? And what about propyl-
@@ -2584,7 +1947,6 @@ grumpy, “Hello, who’s this?” A voice answers, “I’m a reporter from the
 Times. I’m writing an article about Java, and I need to know all about the program-
 ming language in five words or less. Can you explain it?”
 My mind is too hazy.
-
 --- Chunk #639 ---
 I can’t think. So I say the first thing that comes to my mind 
 and then go back to sleep. Come morning, I hardly remember the conversation with the reporter. In fact,  
@@ -2601,7 +1963,6 @@ the data, and the commands come later. Object-oriented languages are better than
 they organize data in a way that helps people do all kinds of things with it. To 
 modify the data, you can build on what you already have rather than scrap every-
 thing you’ve done and start over each time you need to do something new.
-
 --- Chunk #640 ---
 Although computer programmers are generally smart people, they took a while to 
 figure this out. For the full history lesson, see the sidebar “The winding road from 
@@ -2636,7 +1997,6 @@ FORTRAN/C programming style and adopted C++ as their standard. 18      PART 1  G
 Objects and their classes
 In an object-oriented language, you use objects and classes to organize your data. Imagine that you’re writing a computer program to keep track of the houses in a 
 new condominium development (still under construction).
-
 --- Chunk #641 ---
 The houses differ only 
 slightly from one another. Each house has a distinctive siding color, an indoor 
@@ -2665,7 +2025,6 @@ that made the development of objects smoother and easier. All in all, Gosling cr
 language whose object-oriented philosophy is pure and clean. When you program in 
 Java, you have no choice but to work with objects. That’s the way it should be. CHAPTER 1  All about Java      19
 Now notice that I put the word classes first. How dare I do this!
-
 --- Chunk #642 ---
 Well, maybe I’m 
 not so crazy. Think again about a housing development that’s under construction. Somewhere on the lot, in a rickety trailer parked on bare dirt, is a master list of 
@@ -2752,10 +2111,8 @@ object-oriented
 programming. 22      PART 1  Getting Started with Java
 Close your eyes for a minute and think about what it means for something to be a 
 chair . .
-
 --- Chunk #643 ---
 .
-
 --- Chunk #644 ---
 . A chair has a seat, a back, and legs. Each seat has a shape, a color, a degree of soft-
 ness, and so on. These are the properties that a chair possesses. What I describe is 
@@ -2790,13 +2147,11 @@ an object with account number 16-17238-13344-7. This same object has type Sav-
 ings and a balance of 247.38. If you opened a new account, you would have another 
 object, and the table would grow an additional row. The new object would be an 
 instance of the same Account class. What’s Next?
-
 --- Chunk #645 ---
 This chapter is filled with general descriptions of things. A general description is 
 good when you’re just getting started, but you don’t really understand things 
 until you get to know some specifics. That’s why the next several chapters deal 
 with specifics. So please, turn the page.
-
 --- Chunk #646 ---
 The next chapter can’t wait for you to read it. CHAPTER 2  All about Software      25
 IN THIS CHAPTER
@@ -2828,7 +2183,6 @@ SE JDK. Look for the Standard Edition (SE). Don’t bother with the Enterprise E
 or any other such edition. Also, go for the JDK, not the JRE. If you see a code 
 number, such as 9u3, this stands for "the 3rd update of Java 9." Generally, 
 anything marked Java 9 or later is good for running the examples in this book. 2.
-
 --- Chunk #647 ---
 Install an integrated development environment. An integrated development environment (IDE) is a program to help you compose 
 and test new software. For this book’s examples, you can use almost any IDE 
@@ -2850,7 +2204,6 @@ Baeldung’s survey of Java IDEs (http://www.baeldung.com/java-ides-
 Java IDE. If the site offers you a choice of download bundles, choose the 
 Java SE bundle. To get your own copy of NetBeans, visit https://netbeans.org/
 downloads. NetBeans is free for commercial and noncommercial use. 3.
-
 --- Chunk #648 ---
 Test your installed software. What you do in this step depends on which IDE you choose in Step 2. Anyway, 
 here are some general instructions:
@@ -2859,13 +2212,11 @@ d. Edit the new Displayer.java file by typing the code from Listing 3-1 (the
 first code listing in Chapter 3). For most IDEs, you add the code into a big (mostly blank) editor pane. Try to 
 type the code exactly as you see it in Listing 3-1. If you see an uppercase 
 letter, type an uppercase letter.
-
 --- Chunk #649 ---
 Do the same with all lowercase letters. What? You say you don’t want to type a bunch of code from the book? Well, all right then! Visit this book’s website (www.allmycode.com/
 JavaForDummies) to find out how to download all the code examples and 
 load them into the IDE of your choice. e. Run Displayer.java and check to make sure that the run’s output reads 
 You'll love Java!. That’s it!
-
 --- Chunk #650 ---
 But remember: Not everyone (computer geek or not) can follow these 
 skeletal instructions flawlessly. So you have several alternatives:
@@ -2873,7 +2224,6 @@ skeletal instructions flawlessly. So you have several alternatives:
 the more detailed instructions that you find at www.allmycode.com/
 JavaForDummies. 28      PART 1  Getting Started with Java
  » Try this section’s quick-start instructions. You can’t hurt anything by trying.
-
 --- Chunk #651 ---
 If you accidentally install the wrong software, 
 you can probably leave the wrong software on your computer. (You don’t 
@@ -2990,7 +2340,6 @@ invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 return
 The instructions in Listing 2-2 aren’t Java source code instructions. They’re Java 
 bytecode instructions.
-
 --- Chunk #652 ---
 When you write a Java program, you write source code 
 instructions (like the instructions in Listing 2-1). After writing the source code, 
@@ -3098,7 +2447,6 @@ is one of those three tools that you must have on your computer. Imagine that yo
 Council. (See Figure 2-1.) The Macintosh representative is seated to your right, 
 and the Linux representative is on your left. (Naturally, you don’t get along with 
 either of these people.
-
 --- Chunk #653 ---
 You’re always cordial to one another, but you’re never sin-
 cere. What do you expect? It’s politics!) The distinguished representative from 
@@ -3265,7 +2613,6 @@ to multiply two numbers.”
 interface (API) contains thousands of names that were added to Java after the 
 language’s grammar was defined. These names range from the commonplace 
 to the exotic.
-
 --- Chunk #654 ---
 For example, one name — the name JFrame — represents a 
 window on your computer’s screen. A more razzle-dazzle name — pow — 
@@ -3281,7 +2628,6 @@ API contains thousands and thousands of names and keeps growing with each
 new Java language release. Pretty scary, eh? Well, the good news is that you don’t 
 CHAPTER 3  Using the Basic Building Blocks      45
 have to memorize anything in the API. Nothing.
-
 --- Chunk #655 ---
 None of it. You can look up the 
 stuff you need to use in the documentation and ignore the stuff you don’t need. What you use often, you’ll remember. What you don’t use often, you’ll forget (like 
@@ -3590,7 +2936,6 @@ into a Java
 program. 58      PART 1  Getting Started with Java
 Here are some things for you to try to help you understand the material in this 
 section. If trying these things builds your confidence, that’s good.
-
 --- Chunk #656 ---
 If trying these 
 things makes you question what you’ve read, that’s good too. If trying these 
@@ -3617,7 +2962,6 @@ than a statement. CHAPTER 3  Using the Basic Building Blocks      59
  » Try to run the code in Listing 3-1 with additional semicolons added at the ends 
 of some of the lines. What happens? » Try to run the code in Listing 3-1 with the text "You'll love Java!" 
 changed to " Use a straight quote \", not a curly quote \u201D". What happens?
-
 --- Chunk #657 ---
 And Now, a Few Comments
 People gather around campfires to hear the old legend about a programmer whose 
@@ -3764,7 +3108,6 @@ Writing Your
 Own Java 
 Programs
 IN THIS PART . .
-
 --- Chunk #658 ---
 . Create new values and modify existing values. Put decision-making into your application’s logic. Repeat things as needed when your program runs. CHAPTER 4  Making the Most of Variables and Their Values      67
 IN THIS CHAPTER
@@ -3780,7 +3123,6 @@ T
 he following conversation between Mr. Van Doren and Mr. Barasch never 
 took place:
 Charles: A sea squirt eats its brain, turning itself from an animal into a plant. Jack: Is that your final answer, Charles?
-
 --- Chunk #659 ---
 Charles: Yes, it is. Jack: How much money do you have in your account today, Charles? Charles: I have fifty dollars and twenty-two cents in my checking account. Jack: Well, you better call the IRS, because your sea squirt answer is correct. You 
 just won a million dollars to add to your checking account. What do you think of 
@@ -3937,7 +3279,6 @@ The big million-dollar jackpot in Listing 4-2 is impressive. But Listing 4-2 d
 illustrate the best way to deal with dollar amounts. In a Java program, the best 
 way to represent currency is to shun the double and float types and opt instead 
 for a type named BigDecimal. For more information, see this book’s website (www.
-
 --- Chunk #660 ---
 allmycode.com/JavaForDummies). Displaying text
 The last three statements in Listing 4-2 use a neat formatting trick. You want to 
@@ -4065,7 +3406,6 @@ CHAPTER 4  Making the Most of Variables and Their Values      79
 A Java program requires this verbose introduction because
  » In Java the entire program is a class. » The main method is called into action automatically when the program begins 
 running.
-
 --- Chunk #661 ---
 I explain all of this in Chapter 3. Anyway, retyping this boilerplate code into an editor window can be annoying, 
 especially when your goal is to test the effect of executing a few simple state-
@@ -4278,7 +3618,6 @@ public class ShowAFrame {
 The program in Listing  4-6 uses two references types. Both types are defined 
 in the Java API. One of the types (the one that you’ll use all the time) is called 
 String. The other type (the one that you can use to create GUIs) is called JFrame. A String is a bunch of characters.
-
 --- Chunk #662 ---
 It’s like having several char values in a row. So, 
 with the myTitle variable declared to be of type String, assigning "Blank Frame" 
@@ -4293,7 +3632,6 @@ myTitle and myFrame. According to the declarations, myTitle is of type String,
 and myFrame is of type JFrame. You can look up String and JFrame in Java’s API documentation. But, even before 
 you do, I can tell you what you’ll find. You’ll find that String and JFrame are the 
 names of Java classes. So that’s the big news.
-
 --- Chunk #663 ---
 Every class is the name of a refer -
 ence type. You can reserve amountInAccount for double values by writing
@@ -4351,10 +3689,8 @@ Herbert Blythe Barrymore. Born in Philadelphia, Barrymore appeared in more than 
 Wonderful Life, Key Largo, and Dr. Kildare’s Wedding Day. In addition, Barrymore 
 was a writer, composer, and director. Barrymore did the voice of Ebenezer Scrooge 
 every year on radio . .
-
 --- Chunk #664 ---
 .
-
 --- Chunk #665 ---
 . PRIMITIVE TYPE STEW
 While I’m on the subject of frames, what’s a frame, anyway? A frame is a window that 
@@ -4380,10 +3716,8 @@ Welcome once again to the History of Film. Born in Philadelphia, Lionel Barrymor
 a Wonderful Life, Key Largo, and Dr. Kildare’s Wedding Day. In addition, Barrymore 
 (not Ethel, John, or Drew) was a writer, composer, and director. Lionel Barrymore did 
 the voice of Ebenezer Scrooge every year on radio . .
-
 --- Chunk #666 ---
 .
-
 --- Chunk #667 ---
 . Without a proper introduction, a speaker may have to remind you constantly that 
 the discussion is about Lionel Barrymore and not about any other Barrymore. The 
@@ -4464,7 +3798,6 @@ computer prints 2.75. Another useful arithmetic operator is called the remainder
 for the remainder operator is the percent sign ( %). When you put System.out. println(11 % 4) in your program, the computer prints 3. It does this because 4 
 goes into 11 who-cares-how-many times with a remainder of 3. The remainder 
 operator turns out to be fairly useful.
-
 --- Chunk #668 ---
 Listing 4-7 has an example. CHAPTER 4  Making the Most of Variables and Their Values      95
 LISTING 4-7: Making Change
@@ -4504,7 +3837,6 @@ make the code work in any country’s coinage. You can always get a set of coins
 ing up to a total. But, for the denominations of coins in some countries, you won’t 
 always get the smallest number of coins that add up to a total. In fact, I’m looking for 
 examples.
-
 --- Chunk #669 ---
 If your country’s coinage prevents MakeChange from always giving the 
 best answer, please, send me an email (JavaForDummies@allmycode.com). IMPORT DECLARATIONS: THE UGLY TRUTH
@@ -4525,10 +3857,8 @@ read after you’ve made the journey through Part 3 of this book. And when you h
 decide whether to use the word static in an import declaration, remember these hints:
 • The vast majority of import declarations in Java program do not use the word static. • In this book, I never use import static to import anything except System.out. (Well, 
 almost never .
-
 --- Chunk #670 ---
 .
-
 --- Chunk #671 ---
 . .)
 • Most import declarations don’t use the word static because most declarations 
@@ -4565,7 +3895,6 @@ operators add 1, and the decrement operators subtract 1. The increment operators
 use double plus signs ( ++), and the decrement operators use double minus 
 signs (--). To see how they work, you need some examples. The first example is 
 shown in Figure 4-13.
-
 --- Chunk #672 ---
 Figure 4-14 shows a run of the program in Figure 4-13. In this horribly uneventful 
 run, the count of bunnies prints three times. The double plus signs go by two names, depending on where you put them. When 
@@ -4667,7 +3996,6 @@ If you read the preceding section, which is about operators that add 1, you may 
 wondering whether you can manipulate these operators to add 2 or add 5 or add 
 1000000. Can you write numberOfBunnies++++ and still call yourself a Java pro-
 grammer? Well, you can’t.
-
 --- Chunk #673 ---
 If you try it, an error message appears when you try to 
 compile your code. What can you do? As luck would have it, Java has plenty of assignment operators 
@@ -4717,7 +4045,6 @@ the value of numberOfBunnies -= 7  is 165. So the code System.out.println
 (numberOfBunnies -= 7)  really means System.out.println(165) . The num-
 ber 165 displays on the computer screen. For a richer explanation of this kind of thing, see the sidebar “Statements and 
 expressions,” earlier in this chapter.
-
 --- Chunk #674 ---
 Before you run the following code, try to predict what the code’s output will be. Then run the code to find out whether your prediction is correct:
 public class Main {
@@ -4761,7 +4088,6 @@ Chapter 5
 hours on end? Would I make my decisions by the careful weighing and tallying of 
 options? Or would I shoot in the dark, take risks, and act on impulse? Only time 
 would tell.
-
 --- Chunk #675 ---
 Making Decisions ( Java if Statements)
 When you’re writing computer programs, you’re constantly hitting forks in roads. Did the user correctly type the password? If yes, let the user work; if no, kick the 
@@ -4890,10 +4216,8 @@ between 1 and 10. But it’s all a fake. The computer only follows instructions.
 not really random, but without bending a computer over backward, it’s the best 
 that anyone can do. *Diaconis, Persi. “The Search for Randomness.” American Association for the 
 Advancement of Science annual meeting. Seattle.
-
 --- Chunk #676 ---
 14 Feb.
-
 --- Chunk #677 ---
 2004. CHAPTER 5  Controlling Program Flow with Decision-Making Statements      111
 Once again, I ask you to take this code on blind faith. Don’t worry about what new 
@@ -5010,7 +4334,6 @@ CHAPTER 5  Controlling Program Flow with Decision-Making Statements      115
 The if statement in Listing 5-2 has no else part. When inputNumber is the same 
 as randomNumber, the computer prints You win. When inputNumber is different 
 from randomNumber, the computer doesn’t print You win. Listing 5-2 illustrates another new idea.
-
 --- Chunk #678 ---
 With an import declaration for System. in, I can reduce new Scanner(System.in) to the shorter new Scanner(in). Add-
 ing this import declaration is hardly worth the effort. In fact, I do more typing 
@@ -5096,7 +4419,6 @@ calculate 9.0 / 5 * 21 + 32 by hand, you get 69.8. But the condition 9.0 / 5 *
 lates 9.0 / 5 * 21 + 32, it gets 69.80000000000001, not 69.8. Comparing objects
 When you start working with objects, you find that you can use == and != to com-
 pare objects with one another.
-
 --- Chunk #679 ---
 For instance, a button you see on the computer 
 screen is an object. You can ask whether the thing that was just mouse-clicked is 
@@ -5193,7 +4515,6 @@ things, see Chapter 10. Java’s logical operators
 Mr. Spock would be pleased: Java has all the operators that you need for mixing 
 and matching logical tests. The operators are shown in Table 5-2. You can use these operators to form all kinds of elaborate conditions. Listing 5-4 
 has an example.
-
 --- Chunk #680 ---
 TABLE 5-2 Logical Operators
 Operator Symbol What It Means Example
@@ -5227,7 +4548,6 @@ and the password is preakston, the user gets a nice message. Otherwise, the user
 a bum who gets the nasty message that he or she deserves. Confession: Figure 5-5 is a fake! To help you read the usernames and passwords, I 
 added an extra statement to Listing  5-4. The extra statement ( UIManager. put("TextField.font", new Font("Dialog", Font.BOLD, 14))) enlarges each 
 text field’s font size. Yes, I modified the code before creating the figure.
-
 --- Chunk #681 ---
 Shame 
 on me! Listing 5-4 illustrates a new way to get user input; namely, to show the user an 
@@ -5362,12 +4682,10 @@ to
 !(username == null && password == null)
 This is almost the same as the previous experiment. The only difference is the 
 use of && instead of || between the two == null tests. Does the program still work?
-
 --- Chunk #682 ---
 Why, or why not? Building a Nest
 Have you seen those cute Russian matryoshka nesting dolls? Open one, and 
 another one is inside.
-
 --- Chunk #683 ---
 Open the second, and a third one is inside it. You can do 
 the same thing with Java’s if statements. (Talk about fun!) Listing 5-5 shows 
@@ -5405,13 +4723,10 @@ terrible job with real-world user authentication. First, never show a password i
 plain view (without asterisks to masquerade the password). Second, don’t handle 
 passwords without encrypting them. Third, don’t tell the malicious user which of 
 the two words (the username or the password) was entered incorrectly. Fourth .
-
 --- Chunk #684 ---
 .
-
 --- Chunk #685 ---
 .
-
 --- Chunk #686 ---
 well, I could go on and on. The code in Listing 5-5 just isn’t meant to 
 illustrate good username/password practices. CHAPTER 5  Controlling Program Flow with Decision-Making Statements      129
@@ -5643,7 +4958,6 @@ the heart of all instruction-giving  — the notion of repetition. That last wo
 REPEAT, took an otherwise bland instructional drone and turned it into a sophis -
 ticated recipe for action. The fundamental idea is that when you’re following directions, you don’t just fol-
 low one instruction after another.
-
 --- Chunk #687 ---
 Instead, you take turns in the road. You make 
 decisions (“If HAIR IS DRY, then USE CONDITIONER”) and you go into loops 
@@ -5907,7 +5221,6 @@ able i. You can even create a for statement with nothing inside the parentheses.
 piece of machinery. Usually, when you write a for statement, you’re counting how 
 many times to repeat something. But, in truth, you can do just about any kind of 
 repetition with a for statement. Look!
-
 --- Chunk #688 ---
 I have some experiments for you to try! » Listing 6-3 uses break statements to jump out of a switch. But a break 
 statement can also play a role inside a loop. To find out how it works, run a 
@@ -5978,7 +5291,6 @@ any other character (any digit, uppercase letter, punctuation symbol, or whateve
 the program asks the user for another response. To write this program, you need a loop — a loop that repeatedly asks the user 
 whether the file should be deleted. The loop keeps asking until the user gives a 
 meaningful response.
-
 --- Chunk #689 ---
 Now, the thing to notice is that the loop doesn’t need to 
 check anything before asking the user the first time. Indeed, before the user gives 
@@ -5990,7 +5302,6 @@ the first response, the loop has nothing to check. The loop doesn’t start with
 long as such-and-such is true, then get a response from the user.” Instead, the 
 loop just leaps ahead, gets a response from the user, and then checks the response 
 to see whether it makes sense. That’s why the program in Listing 6-4 has a do loop (also known as a do . .
-
 --- Chunk #690 ---
 . while 
 loop). With a do loop, the program jumps right in, takes action, and then checks a 
@@ -6064,7 +5375,6 @@ tion looks like this:
 keyboard.findWithinHorizon(".", 0).charAt(0)
 You can use this code exactly as it appears in Listing 6-4 whenever you want to 
 read a single character. A String variable can contain many characters or just one.
-
 --- Chunk #691 ---
 But a String variable 
 that contains only one character isn’t the same as a char variable. No matter what 
@@ -6134,7 +5444,6 @@ code, you get three error messages — two for the reply words in while (reply 
 variable is inside the loop. But to make that variable available after the loop, you 
 have to declare reply before the loop. In this situation, you’re best off declaring 
 the reply variable without initializing the variable. Very interesting!
-
 --- Chunk #692 ---
 To read more about variable initializations, see Chapter 4. To find out more about 
 blocks, see Chapter 5. All versions of Java have the three kinds of loops described in this chapter (while 
@@ -6155,7 +5464,6 @@ Copy the code from Listing 6-1, but with the following change:
         out.print("You win after ");
         out.println(numGuesses + " guesses.");
 The code in Listing 6-1 has a while loop, but this modified code has a do loop. Does this modified code work correctly?
-
 --- Chunk #693 ---
 Why, or why not? 3
 Working with 
@@ -6163,7 +5471,6 @@ the Big Picture:
 Object-Oriented 
 Programming
 IN THIS PART . .
-
 --- Chunk #694 ---
 . Find out what classes and objects are (without bending 
 your brain out of shape). Find out how object-oriented programming helps you 
@@ -6181,7 +5488,6 @@ A
 s a computer book author, I’ve been told this over and over again: I 
 shouldn’t expect people to read sections and chapters in their logical order. People jump around, picking what they need and skipping what they don’t 
 feel like reading. With that in mind, I realize that you may have skipped Chapter 1.
-
 --- Chunk #695 ---
 If that’s the case, please don’t feel guilty. You can compensate in just 60 seconds 
 by reading the following information, culled from Chapter 1:
@@ -6190,7 +5496,6 @@ describe classes and objects. A class is the idea behind a certain kind of thing
 is a concrete instance of a class. The programmer defines a class, and from the class 
 definition, Java makes individual objects. Of course, you can certainly choose to skip over the 60-second summary para -
 graph. If that’s the case, you may want to recoup some of your losses.
-
 --- Chunk #696 ---
 You can do 
 that by reading the following two-word summary of Chapter 1:
@@ -6210,7 +5515,6 @@ how do I separate my balance variable from your balance variable? The answer is 
 one of the objects and let the other balance variable live inside the other object. While you’re at it, put a name variable and an address variable in each of the 
 objects. And there you have it: two objects, and each object represents an account. More precisely, each object is an instance of the Account class. (See Figure 7-1.)
 So far, so good.
-
 --- Chunk #697 ---
 However, you still haven’t solved the original problem. In your 
 computer program, how do you refer to my balance variable, as opposed to your 
@@ -6396,7 +5700,6 @@ ters M, I, and C and all other letters lowercase. This file-naming rule has an
 important consequence: If your code declares two public classes, your code must 
 consist of at least two .java files. In other words, you can’t declare two public 
 classes in one .java file. For more news about the word public and other such words, see Chapter 14. In this section, I create an Account class.
-
 --- Chunk #698 ---
 You can create classes too. » An Organization has a name (such as XYZ Company), an annual revenue 
 (such as $100,000.00), and a boolean value indicating whether the organiza-
@@ -6404,7 +5707,6 @@ tion is or is not a profit-making organization. Companies that manufacture
 and sell products are generally profit-making organizations; groups that 
 provide aid to victims of natural disasters are generally not profit-making 
 organizations. Declare your own Organization class.
-
 --- Chunk #699 ---
 Declare another class that creates 
 organizations and displays information about those organizations. » A product for sale in a food store has several characteristics: a type of food 
@@ -6429,13 +5731,11 @@ String.java. Anything having to do with year numbers (whether they have two
 or four digits, for instance) is handled right inside the Year class. Therefore, if 
 anybody has problems with your Account class or your Year class, he or she knows 
 just where to look for all the code. That’s great!
-
 --- Chunk #700 ---
 Imagine an enhanced account table. In this new table, each object has built-in 
 functionality. Each account knows how to display itself on the screen. Each row of 
 the table has its own copy of a display method. Of course, you don’t need much 
 imagination to picture this table. I just happen to have a table you can look at.
-
 --- Chunk #701 ---
 It’s 
 Table 7-2. TABLE 7-1 Without Object-Oriented Programming
@@ -6515,7 +5815,6 @@ use of these display methods. Sending Values to and from Methods
 (Calculating Interest)
 Think about sending someone to the supermarket to buy bread. When you do this, 
 you say, “Go to the supermarket and buy some bread.” (Try it at home.
-
 --- Chunk #702 ---
 You’ll 
 have a fresh loaf of bread in no time at all!) Of course, some other time, you send 
@@ -6594,7 +5893,6 @@ So, when the call is made, the expression balance * percentageRate /
 100.00 stands for 55.63 * 7.00 / 100.00. By the way, the main method in Listing 7-6 contains two calls to getInterest. One call has the literal 5.00 in its parameter list; the other call has the variable 
 yourInterestRate in its parameter list. Why does one call use a literal and the 
 other call use a variable? No reason.
-
 --- Chunk #703 ---
 I just want to show you that you can do it 
 either way. FIGURE 7-4: 
@@ -6621,7 +5919,6 @@ back to the code that called the method. » The word getInterest is the method�
 the method when you’re writing the code for the UseAccount class. » The parentheses contain all the things that you pass to the method 
 when you call it. When you call a method, you can pass information to that 
 method on the fly.
-
 --- Chunk #704 ---
 This information is the method’s parameter list. The 
 getInterest method’s header says that the getInterest method takes one 
@@ -6693,7 +5990,6 @@ salami scam. In a salami scam, someone shaves tiny amounts off millions of
 accounts. People don’t notice their tiny little losses, but the person doing the 
 shaving collects enough for a quick escape to Barbados (or for a whole truckload 
 of salami). Wait a minute!
-
 --- Chunk #705 ---
 What about you? In Listing 7-6, you have yourAccount. And in 
 Figure 7-4, your name is Jane Q. Public. Nothing is motivating you to come with 
@@ -6805,11 +6101,9 @@ To do this, look for clues in the java.util.Formatter page of Java’s API
  documentation at https://docs.oracle.com/javase/8/docs/api/java/util/
 Formatter.html. Hiding Details with Accessor Methods
 Put down this book and put on your hat.
-
 --- Chunk #706 ---
 You’ve been such a loyal reader that I’m 
 taking you out to lunch!
-
 --- Chunk #707 ---
 I have just one problem. I’m a bit short on cash. Would you mind if, on the way to 
 lunch, we stopped at an automatic teller machine and picked up a few bucks? Also, 
@@ -6820,7 +6114,6 @@ currentBalance, b$, BALANCE, asj999, or conStanTinople. Having selected a
 variable name, you’re ready to select a memory location for the variable’s value. You can select any number between 022FFF and 0555AA. (Those numbers are in 
 hexadecimal format.) After you configure the teller machine’s software, you can 
 easily get your cash. You did bring a screwdriver, didn’t you?
-
 --- Chunk #708 ---
 Good programming
 When it comes to good computer programming practice, one word stands out 
@@ -6836,17 +6129,14 @@ dental programming errors. Secure code (a completely different story) keeps
 malicious hackers from doing intentional damage. 186      PART 3  Working with the Big Picture: Object-Oriented Programming
 So, everything connected with every aspect of a computer program has to be sim-
 ple, right? Well, no.
-
 --- Chunk #709 ---
 That’s not right.
-
 --- Chunk #710 ---
 Sometimes, to make things simple in the 
 long run, you have to do lots of preparatory work up front. The people who built 
 the automated teller machine worked hard to make sure that the machine is 
  consumer-proof. The machine’s interface, with its screen messages and buttons, 
 makes the machine a very complicated, but carefully designed, device.
-
 --- Chunk #711 ---
 The point is that making things look simple takes some planning. In the case of 
 object-oriented programming, one of the ways to make things look simple is to 
@@ -7323,7 +6613,6 @@ Java’s Formatter class (https://docs.oracle.com/javase/8/docs/api/java/
 util/Formatter.html and Locale class (https://docs.oracle.com/javase/8/
 docs/api/java/util/Locale.html). CHAPTER 8  Saving Time and Money: Reusing Existing Code      203
 popular Java IDEs (Eclipse, NetBeans, or IntelliJ IDEA).
-
 --- Chunk #712 ---
 If you import into Eclipse, 
 you get a project named 08-01. That project typically lives on your hard drive in a 
@@ -7435,10 +6724,8 @@ a call to close. Occasionally, copying and pasting code can get you into trouble
 writing a program that doesn’t fit the simple Listing 8-2 pattern. You need to 
 tweak the pattern a bit. But to tweak the pattern, you need to understand some of 
 the ideas behind the pattern. That’s how the next section comes to your rescue.
-
 --- Chunk #713 ---
 It covers some of these ideas.
-
 --- Chunk #714 ---
 This paragraph is actually a confession. In almost every computer programming 
 language, input from a disk file is a nasty business. There’s no such thing as a 
@@ -7527,7 +6814,6 @@ method isn’t automatically known inside the payOneEmployee method. To make
 the payOneEmployee method aware of the disk file, you pass diskScanner from 
 the main method to the payOneEmployee method. To read more about things that you declare inside (and outside) of methods, see 
 Chapter 10.
-
 --- Chunk #715 ---
 Who moved my file? When you download the code from this book’s website ( www.allmycode.com/
 JavaForDummies), you’ll find files named Employee.java and DoPayroll.java —  
@@ -7608,7 +6894,6 @@ approaches the problem a little differently. What you find out about nextLine in
 Java helps you understand the issues when you get to know C++ or Visual Basic, 
 but it doesn’t tell you all the details. Each language’s details are unique to that 
 language.
-
 --- Chunk #716 ---
 (Yes, it’s a big pain. But because all computer programmers become rich 
 and famous, the pain eventually pays off.)
@@ -7678,10 +6963,8 @@ software. Tell Dr. Burd that you want the next version of his software to
 differentiate between full-time and part-time employees. “No problem,” says Dr. Burd. “It’ll be ready by the start of the next fiscal 
 quarter.” That evening, Dr. Burd makes a discreet phone call to his next-door 
 neighbor. .
-
 --- Chunk #717 ---
 .
-
 --- Chunk #718 ---
 . » Create two new Java classes named FullTimeEmployee and 
 PartTimeEmployee. Have each new class extend the existing functionality of 
@@ -7775,7 +7058,6 @@ Why does the title for Listing  8-4 call that code fake? (Should the code feel
 insulted?) Well, the main difference between Listing 8-4 and the inheritance situ-
 ation in Listings  8-1 and  8-3 is this: A child class can’t directly reference the 
 private fields of its parent class.
-
 --- Chunk #719 ---
 To do anything with the parent class’s private 
 fields, the child class has to call the parent class’s accessor methods. Back in 
@@ -7866,7 +7148,6 @@ Employee class extends the Employee class. Because cutCheck is declared in the E
 PaymentAmount method is in the FullTimeEmployee class. Making types match
 Look again at the first half of Listing  8-6. Take special notice of that last 
  statement — the one in which the full-time employee is actually cut a check.
-
 --- Chunk #720 ---
 The 
 statement forms a nice, long chain of values and their types. You can see this by 
@@ -7997,7 +7278,6 @@ code only if you’re willing to replace the annotation with lots and lots of un
 notated Java code. Using methods from classes and subclasses
 If you need clarification on this notion of overriding a method, look at the code in 
 Listing 8-8.
-
 --- Chunk #721 ---
 A run of that code is shown in Figure 8-10. CHAPTER 8  Saving Time and Money: Reusing Existing Code      227
 LISTING 8-8: Testing the Code from Listing 8-7
@@ -8023,7 +7303,6 @@ public class DoPayrollTypeF {
 }
 The code in Listing 8-8 writes checks to three employees. The first employee is a 
 full-timer.
-
 --- Chunk #722 ---
 The second is a part-time employee who hasn’t yet gotten wind of the 
 overtime payment scheme. The third employee knows about the overtime pay -
@@ -8042,7 +7321,6 @@ variable is an instance of the PartTimeEmployee class. So the method that’s
 called is the one in Listing 8-5. » In the third call, ptoEmployee.findPaymentAmount, the ptoEmployee 
 variable is an instance of the PartTimeWithOver class. So the method that’s 
 called is the one in Listing 8-7. This code is fantastic.
-
 --- Chunk #723 ---
 It’s clean, elegant, and efficient. With all the money that 
 you save on software, you can afford to pay everyone double for overtime hours. (Whether you do that or keep the money for yourself is another story.)
@@ -8098,7 +7376,6 @@ s. Jennie Burd
 121 Schoolhouse Lane
 Anywhere, Kansas
 Dear Ms.
-
 --- Chunk #724 ---
 Burd,
 In response to your letter of June 21, I believe I can say with complete assurance 
@@ -8114,12 +7391,10 @@ the present economic outlook. Chapter 9
 Please be assured that I have taken all steps necessary to ensure the safety and 
 well-being of you, our loyal customer. If you have any further questions, please do 
 not hesitate to contact our complaint department.
-
 --- Chunk #725 ---
 The department’s manager is 
 Mr. Blake Wholl. You can contact him by visiting our company’s website. Once again, let me thank you for your concern, and I hope you continue to patron-
 ize ObjectsAndClasses.com.
-
 --- Chunk #726 ---
 Yours truly,
 Mr. Scott Brickenchicker
@@ -8406,7 +7681,6 @@ variable’s value. Of course, in a 10,000-line program, I can become confused a
 try to assign a new value to format somewhere deep down in the code. To prevent 
 me from accidentally changing the format string, I declare the format variable to 
 be final. It’s just good, safe programming practice.
-
 --- Chunk #727 ---
 There’s always more stuff for you to try. » Create a Student class with a name, an ID number, a grade point average 
 (GPA), and a major area of study. The student’s name is a String. The 
@@ -8450,28 +7724,21 @@ if you develop a display method, you probably want to share the method with
 other people who use temperatures. So put the method right inside the declaration 
 of a temperature object. That way, anyone who uses the code for temperatures 
 has easy access to your display method. Now replay the tape from Chapter 8.
-
 --- Chunk #728 ---
 “Blah, blah, blah . .
-
 --- Chunk #729 ---
 . don’t want to modify 
 existing code . .
-
 --- Chunk #730 ---
 . blah, blah, blah . .
-
 --- Chunk #731 ---
 . too costly to start again from scratch . .
-
 --- Chunk #732 ---
 . blah, 
 blah, blah . .
-
 --- Chunk #733 ---
 . extend existing functionality.” It all adds up to one thing:
 Don’t abuse it.
-
 --- Chunk #734 ---
 Instead, reuse it. So you decide to create a subclass of the Temperature class — the class defined in 
 Listing 9-2. Your new subclass complements the Temperature class’s functional-
@@ -8622,7 +7889,6 @@ FullTimeEmployee ftEmployee = new FullTimeEmployee();
 It doesn’t work because, having declared a FullTimeEmployee constructor that 
 takes one double parameter, you no longer get a default parameterless construc-
 tor for free. What do you do about this?
-
 --- Chunk #735 ---
 If you declare any constructors, declare all construc -
 tors that you’ll possibly need. Take the constructor in Listing 9-7 and add it to the 
@@ -8662,7 +7928,6 @@ interested in doing more than filling fields? Perhaps, when the computer creates
 a new object, you have a whole list of jobs for the computer to carry out.” Okay, 
 what if? This section’s example has a constructor that does more than just assign values to 
 fields. The example is in Listings 9-9 and 9-10.
-
 --- Chunk #736 ---
 The result of running the exam -
 ple’s code is shown in Figure 9-3. CHAPTER 9  Constructing New Objects      251
@@ -8792,7 +8057,6 @@ having a serialVersionUID field generates a warning, not an error. So live dan-
 gerously! Just suppress the warning (with the annotation in Listing  9-9) and 
 don’t worry about serialVersionUID fields. » In JShell, type the following sequence of declarations and statements. What 
 happens?
-
 --- Chunk #737 ---
 Why? jshell> import javax.swing.JFrame
 jshell> JFrame frame
@@ -8816,7 +8080,6 @@ UID field. 4
 Smart Java 
 Techniques
 IN THIS PART .
-
 --- Chunk #738 ---
 . . Decide where declarations belong in your Java program. Deal with bunches of things (bunches of rooms, bunches 
 of sales, and even bunches of bunches). Fully embrace Java’s object-oriented features. Create a windowed app and respond to mouse clicks. Talk to your favorite database. CHAPTER 10  Putting Variables and Methods Where They Belong      259
@@ -8832,7 +8095,6 @@ Belong
 H
 ello, again. You’re listening to radio station WWW, and I’m your host, Sam 
 Burd.
-
 --- Chunk #739 ---
 It’s the start again of the big baseball season, and today station 
 WWW brought you live coverage of the Hankees-versus-Socks game. At 
@@ -8844,13 +8106,10 @@ nose-to-nose with the Hankees. We’ll get the final score in a minute, but firs
 few reminders. Stay tuned after this broadcast for the big Jersey’s game. And don’t 
 forget to tune in next week when the Cleveland Gowns play the Bermuda Shorts. Okay, here’s the final score. Which team has the upper hand? Which team will 
 come out a head? And the winner is .
-
 --- Chunk #740 ---
 .
-
 --- Chunk #741 ---
 .
-
 --- Chunk #742 ---
 oh, no — it’s a tie! Chapter 10
 260      PART 4  Smart Java Techniques
@@ -8895,7 +8154,6 @@ field (a player’s batting average), converts that value (normally of type doub
 into a String, and then sends that String value right back to the method caller. The use of DecimalFormat, which comes right from the Java API (Application Pro-
 gramming Interface), ensures that the String value looks like a baseball player’s 
 batting average. According to the decFormat.setMaximum ...
-
 --- Chunk #743 ---
 and decFormat. setMinimum ... method calls, the String value has no digits to the left of the 
 decimal point and has exactly three digits to the right of the decimal point. Java’s DecimalFormat class can be quite handy. For example, to display the values 
@@ -8963,7 +8221,6 @@ comma) instead of 3.14159 (with a period). If you do, the file shown in Figure 
 won’t work for you. The program will crash with an InputMismatchException. To 
 run this section’s example, you have to change the periods in the Hankees.txt file 
 into commas. Alternatively, you can add a statement such as Locale.
-
 --- Chunk #744 ---
 setDefault(Locale.US) to your code. For details, see Chapter 8. You must have the Hankees.txt file in a certain place on your hard drive. If you’re 
 using Eclipse, that “certain place” is a project directory within your Eclipse work-
@@ -9066,7 +8323,6 @@ code) called the main method. So the JVM takes care of the IOException in
 responsibility ultimately falls on the JVM. The JVM takes care of the situation by 
 displaying an error message and then ending the run of your program. How 
 convenient!
-
 --- Chunk #745 ---
 Would you like some practice with the material in this section? If so, try this:
  » The code in Listing 10-2 reads from a file named Hankees.txt. Delete that 
@@ -9096,7 +8352,6 @@ Player class because an instance of the Player class represents just one
 player on the team. What business does a single player have storing overall 
 team data? Sure, you could make the code work, but it wouldn’t be an elegant 
 solution to the problem.
-
 --- Chunk #746 ---
 Finally, you discover the keyword static. Anything that’s declared to be static 
 belongs to the whole class, not to any particular instance of the class. When you 
@@ -9187,7 +8442,6 @@ exactly what you want for something called “static.”
 Displaying the overall team average
 You may be noticing a pattern. When you create code for a class, you generally 
 write two pieces of code.
-
 --- Chunk #747 ---
 One piece of code defines the class, and the other piece of 
 code uses the class. (The ways to use a class include calling the class’s constructor, 
@@ -9292,7 +8546,6 @@ are at least two ways to make the dreaded message appear:
  » Put Class.nonstaticThing somewhere in your program. » Put nonstaticThing somewhere inside a static method. In either case, you’re getting yourself into trouble. You’re taking something that 
 belongs to an object (the non-static thing) and putting it in a place where no 
 objects are in sight. Take, for instance, the first of the two situations I just described.
-
 --- Chunk #748 ---
 To see this 
 calamity in action, go back to Listing 10-5. Toward the end of the listing, change 
@@ -9303,7 +8556,6 @@ at Listing  10-1. The getName method isn’t static. Each instance of the Playe
 (or  PlayerPlus) class has a getName method. None of the getName methods 
 belongs to the entire class. So the call Player.getName doesn’t make any sense. (Maybe the computer is pulling punches when it displays the inoffensive cannot 
 be referenced ...
-
 --- Chunk #749 ---
 message. Perhaps a harsh, nonsensical expression message 
 would be more fitting.)
@@ -9328,7 +8580,6 @@ designer. The color can be a static field from Java’s own Color class. (See
 https://docs.oracle.com/javase/8/docs/api/java/awt/Color.html.)
 Write code to display a frame (like the frame in Figure 10-1). The frame has 
 eight rows.
-
 --- Chunk #750 ---
 The first row displays the name of the designer. The next six rows 
 describe one complete men’s wardrobe. The last row shows the wardrobe’s 
@@ -9371,7 +8622,6 @@ CHAPTER 10  Putting Variables and Methods Where They Belong      277
 Experiments with Variables
 One summer during my college days, I was sitting on the front porch, loafing 
 around, talking with someone I’d just met. I think her name was Janine.
-
 --- Chunk #751 ---
 “Where 
 are you from?” I asked. “Mars,” she answered. She paused to see whether I’d ask 
@@ -9390,10 +8640,8 @@ local residents:
 You: How do I get to Mars? Local resident: You’re in Mars, pal. What particular part of Mars are you looking for? You: No, I don’t mean Mars, Pennsylvania. I mean the planet Mars. Local resident: Oh, the planet! Well, then, catch the 8:19 train leaving for Cape 
 Canaveral . . . No, wait — that’s the local train. That’d take you through West 
 Virginia. .
-
 --- Chunk #752 ---
 .
-
 --- Chunk #753 ---
 . So the meaning of a name depends on where you’re using the name. Although 
 most English-speaking people think of Mars as a place with a carbon dioxide 
@@ -9541,10 +8789,8 @@ and 10-9. CHAPTER 10  Putting Variables and Methods Where They Belong      283
 value of the mars field.)
  » When the visitNewJersey method is executed, the method prints the mars 
 value once again. In this way, the mars field’s value is passed from one method to another. Try out these programs.
-
 --- Chunk #754 ---
 See what you think. » What’s the output of the following code?
-
 --- Chunk #755 ---
 Why? public class Main1 {
   static String name = "George";
@@ -9710,7 +8956,6 @@ smackoverAR to aCity. Now aCity refers to that same object — the
 instance of the City class. 3. When the statement aCity.population++ is executed inside the birth 
 method, the computer adds 1 to the object’s population field. Now the 
 program’s one and only City instance has 2233 stored in its population field. 4.
-
 --- Chunk #756 ---
 The flow of execution goes back to the main method. The value of smackoverAR. population is printed. But smackoverAR refers to that one instance of the City 
 class. So smackoverAR.population has the value 2233. The Kermongoos family 
@@ -9778,7 +9023,6 @@ Values
 W
 elcome to the Java Motel! No haughty bellhops, no overpriced room 
 service, none of the usual silly puns.
-
 --- Chunk #757 ---
 Just a clean double room that’s a 
 darn good value! Getting Your Ducks All in a Row
@@ -9802,7 +9046,6 @@ nextInt method ten times. guestsInRoomNum0 = diskScanner.nextInt();
 guestsInRoomNum1 = diskScanner.nextInt();
 guestsInRoomNum2 = diskScanner.nextInt();
 // ... and so on.
-
 --- Chunk #758 ---
 Surely a better way exists. That better way involves an array. An array  is a row of values, like the row of 
 rooms in a 1-floor motel. To picture the array, just picture the Java Motel:
@@ -9834,7 +9077,6 @@ guests[9]. In creating an array, you always specify the number of components. Th
 indices start with 0 and end with the number that’s one less than the total number 
 of components. The snippets that I show you give you two ways to create an array. The first way 
 uses one line.
-
 --- Chunk #759 ---
 The second way uses two lines. If you take the single-line route, you 
 can put that line inside or outside a method. The choice is yours. On the other 
@@ -9873,7 +9115,6 @@ Storing values
 After you’ve created an array, you can put values into the array’s components. For 
 instance, you want to store the fact that Room 6 contains four guests. To put the 
 value 4 in the component with index 6, you write guests[6] = 4. Now business starts to pick up.
-
 --- Chunk #760 ---
 A big bus pulls up to the motel. On the side of the 
 bus is a sign that says Noah’s Ark. Out of the bus come 25 couples, each walking, 
@@ -9901,7 +9142,6 @@ for (int roomNum = 0; roomNum < 10; roomNum++) {
 But because this book doesn’t cover databases until Chapter 17, you may be better 
 off reading numbers of guests from a plain-text file. A sample file named 
 GuestList.txt is shown in Figure 11-3.
-
 --- Chunk #761 ---
 FIGURE 11-3: 
 The GuestList. txt file. 298      PART 4  Smart Java Techniques
@@ -9974,7 +9214,6 @@ public class ShowGuests {
 An array initializer can contain expressions as well as literals. In plain English, 
 this means that you can put all kinds of things between the commas in the initial-
 izer.
-
 --- Chunk #762 ---
 For instance, an initializer like {1 + 3, keyboard.nextInt(), 2, 0, 2, 1, 
 4, 3, 0, 2} works just fine. Use my DummiesFrame (from Chapter  7) to create a GUI program based on the 
@@ -9983,7 +9222,6 @@ a Room number row. If the user types 3 in the Room number row and then clicks th
 button, the program displays the number of guests in Room 3. Stepping through an array with the  
 enhanced for loop
 Java has an enhanced for loop — a for loop that doesn’t use counters or indices. Listing 11-3 shows you how to do it.
-
 --- Chunk #763 ---
 The material in this section applies to Java 5.0 and later Java versions. But this 
 section’s material doesn’t work with older versions of Java — versions such as 1.3, 
@@ -10033,20 +9271,16 @@ numGuests += 1 statement doesn’t change the values stored in this guests array
 Write a program that stores five double values in an array and then displays the 
 average of the values in the array. Searching
 You’re sitting behind the desk at the Java Motel.
-
 --- Chunk #764 ---
 Look!
-
 --- Chunk #765 ---
 Here comes a party of 
 five. These people want a room, so you need software that checks whether a room 
 is vacant. If one is, the software modifies the GuestList.txt file (refer to 
  Figure 11-3) by replacing the number 0 with the number 5. As luck would have it, 
 the software is on your hard drive.
-
 --- Chunk #766 ---
 The software is shown in Listing 11-4.
-
 --- Chunk #767 ---
 LISTING 11-4: Do You Have a Room? import static java.lang.System.out;
 import java.util.Scanner;
@@ -10231,7 +9465,6 @@ code that calls the Listing 11-5 code. After you read about arrays of rooms (sh
 in Listing 11-6), check out my description of the Listing 11-5 quirks. This warning is a deliberate repeat of an idea from Chapter 4, Chapter 7, and from 
 who-knows-what-other chapter: Be careful  when you use type double or type 
 float to store money values. Calculations with double or float can be inaccurate. For more information (and more finger wagging), see Chapters 4 and 7.
-
 --- Chunk #768 ---
 This tip has absolutely nothing to do with Java. If you’re the kind of person who 
 prefers a smoking room (with boolean field smoking = true in Listing 11-5), find 
@@ -10270,7 +9503,6 @@ A file of
 Room data. FIGURE 11-10: 
 A run of the code 
 in Listing 11-6.
-
 --- Chunk #769 ---
 LISTING 11-6: (continued)
 CHAPTER 11  Using Arrays to Juggle Values      311
@@ -10384,7 +9616,6 @@ Type the new line: I'll teach these ideas to the masses!"
 Line to replace (or -1 to quit): 3
 Type the new line: It's not only for me. > There once was an old man with glasses
 > Who learned about objects and classes. > "At last, I see!
-
 --- Chunk #770 ---
 > It's not only for me. > I'll teach these ideas to the masses!"
 Line to replace (or -1 to quit): -1
@@ -10580,7 +9811,6 @@ whose name belongs in position 7, you can just call a class’s add method. The
 method inserts the name at a position of your choice and deals reasonably with 
 whatever ripple effects have to take place. In the best circumstances, the insertion 
 is very efficient.
-
 --- Chunk #771 ---
 In the worst circumstances, you can rest assured that the code 
 does everything the best way it can. Using an ArrayList
@@ -10865,7 +10095,6 @@ there’s already an eighth line of text, that existing line becomes the seventh
 line of text.)
 This word processor program may be quite challenging. Work slowly and 
 carefully and don’t be discouraged.
-
 --- Chunk #772 ---
 If you don’t get it at first, put the project 
 aside and come back to it later. Functional Programming
@@ -10905,7 +10134,6 @@ multicore chip. CHAPTER 12  Using Collections and Streams (When Arrays Aren’t 
 In imperative programming, your code’s pieces interact with one another. All the 
 pieces might be updating the current price of Oracle stock shares (ticker symbol: 
 ORCL). The simultaneous updates become tangled.
-
 --- Chunk #773 ---
 It’s like several high school 
 boys asking the same girl to the senior prom — nothing good ever comes of it. You’ve experienced the same phenomenon if you’ve ever clicked a website’s 
@@ -10930,7 +10158,6 @@ multicore chip. 336      PART 4  Smart Java Techniques
 Solving a problem the old-fashioned way
 In Chapter 11, you use arrays to manage the Java Motel. But that venture is behind 
 you now.
-
 --- Chunk #774 ---
 You’ve given up the hotel business. (You tell people that you decided to 
 move on. But in all honesty, the hotel was losing a lot of money. According to the 
@@ -10999,7 +10226,6 @@ values together). Here are some other examples:
  » Step through your list of employees. Find each employee whose performance 
 evaluation scored 3 or higher. Give each such employee a $100 bonus and 
 then determine the total amount of money you’ll pay in bonuses. » Step through your list of customers.
-
 --- Chunk #775 ---
 For each customer who has shown 
 interest in buying a smartphone, send the customer an email about this 
@@ -11042,11 +10268,9 @@ method resembling itemIsDVD on each object. The result is a bunch of boolean
 values — true for each sale of a DVD and false for a sale of something other than 
 a DVD. * I attended a lecture given by Alonzo Church many years ago at the University of 
 Illinois.
-
 --- Chunk #776 ---
 He was the world’s most meticulous presenter. Every detail of his lecture 
 was carefully planned and scrupulously executed.
-
 --- Chunk #777 ---
 He handed out paper copies of 
 his notes, and I spent half the lecture staring at the notes, trying to decide whether 
@@ -11095,7 +10319,6 @@ a purely functional program. A taxonomy of lambda expressions
 Java divides lambda expressions into about 45 different categories. Table  12-2 
 lists a few of the categories. The categories in Table  12-2 aren’t mutually exclusive. For example, every  
 Predicate is a Function.
-
 --- Chunk #778 ---
 (Every Predicate accepts one parameter and returns a 
 result. The result happens to be boolean.)
@@ -11217,7 +10440,6 @@ public class TallySales {
 }
 The code in Listing 12-5 requires Java 8 or later. If your IDE is set for an earlier 
 Java version, you might have to tinker with the IDE’s settings.
-
 --- Chunk #779 ---
 You may even have 
 to download a newer version of Java. The boldface code in Listing 12-5 is one big Java assignment statement. The right 
@@ -11277,7 +10499,6 @@ to parallel processing. Imagine that the price of an item depends on the number 
 similar items being sold. In that case, you can’t divide the problem among four 
 independently operating cores. If you try, each core has to know what the other 
 cores are doing. You lose the advantage of having four threads of execution. NO VARIABLES?
-
 --- Chunk #780 ---
 NO PROBLEM! Consider the problems posed at the start of the earlier section “Functional 
 Programming.” Several clients try to update Oracle’s stock price at the same time, or two 
@@ -11293,7 +10514,6 @@ would do its update correctly!) But the functional programming code in Listing 
 no total variable. A running total plays no role in the functional version of the code. Instead, in Listing 12-5, the reduce method applies the sum operation to values coming 
 from a stream. This incoming stream pops out of the previous method call (the map 
 method), so the incoming stream has no name. That’s nice.
-
 --- Chunk #781 ---
 You don’t even need a 
  variable to store a stream of values. In imperative programming, a variable is a place where statements share their values 
@@ -11323,7 +10543,6 @@ refers to an existing method. sales.stream()
 The expression Double::sum refers to the sum method belonging to Java’s Double 
 class. When you use this Double::sum method reference, you do the same thing 
 that the last lambda expression does in Listing 12-5. Everybody is happy.
-
 --- Chunk #782 ---
 For information about static methods, see Chapter 10. You can always try the programming challenges that you dream up on your own. If you don’t have any ideas to give you practice with functional programming, 
 I have a couple of suggestions for you:
@@ -11331,7 +10550,6 @@ I have a couple of suggestions for you:
 total amount of money that you’ll pay in bonuses if you give a $100 bonus to 
 each employee whose score is 3 or higher. » Each recipe has a name, a list of ingredients (some of which involve meat 
 products), and an estimated preparation time.
-
 --- Chunk #783 ---
 Find the average time estimate 
 for cooking one of the vegetarian recipes. CHAPTER 13  Looking Good When Things Take Unexpected Turns      351
@@ -11500,11 +10718,9 @@ out.println("Message: ***" to System.err.println("Message: ***". Exception types
 What else can go wrong today? Are there other kinds of exceptions — things that 
 don’t come from the NumberFormatException class? Sure, plenty of different 
 exception types are out there. You can even create one of your own.
-
 --- Chunk #784 ---
 You wanna 
 try?
-
 --- Chunk #785 ---
 If so, look at Listings 13-3 and 13-4. LISTING 13-3: Making Your Own Kind of Exception
 @SuppressWarnings("serial")
@@ -11543,7 +10759,6 @@ methods. (continued)
    }
 }
 Listings 13-3 and 13-4 remedy a problem that cropped up earlier, in Figure 13-3.
-
 --- Chunk #786 ---
 Look at the last of the three runs in Figure 13-3. The user reports that the shelves 
 have –25 boxes, and the computer takes this value without blinking an eye. The 
@@ -11852,12 +11067,10 @@ both of those values. Remember that some values for these quantities don’t
 make sense. For example, a negative number of boxes is never too many 
 boxes. Use try-catch statements to handle inappropriate user input. Handle an Exception or Pass the Buck
 So you’re getting to know Java, hey? What?
-
 --- Chunk #787 ---
 You say you’re all the way up to 
  Chapter 13? I’m impressed. You must be a hard worker. But remember, all work 
 and no play . .
-
 --- Chunk #788 ---
 . So, how about taking a break? A little nap could do you a world of good. Is ten 
 seconds okay? Or is that too long? Better make it five seconds. 370      PART 4  Smart Java Techniques
@@ -12065,7 +11278,6 @@ When you’ve gotten the code to compile, create a file named input and run
 the code to see whether it creates the file named output. Finishing the Job with a finally Clause
 Once upon a time, I was a young fellow, living with my parents in Philadelphia, 
 just starting to drive a car.
-
 --- Chunk #789 ---
 I was heading toward a friend’s house and thinking 
 about who-knows-what when another car came from nowhere and bashed my 
@@ -12075,7 +11287,6 @@ curb. I fumbled for my driver’s license (which had a very young picture of me 
 it) and opened the door to get out of my car. And that’s when the second accident happened. As I was getting out of my car, a 
 city bus was coming by. The bus hit me and rolled me against my car a few times. This kind of thing is called a DealWithLawyersException. CHAPTER 13  Looking Good When Things Take Unexpected Turns      377
 The truth is that everything came out just fine. I was bruised but not battered.
-
 --- Chunk #790 ---
 My 
 parents paid for the damage to the car, so I never suffered any financial conse -
@@ -12122,7 +11333,6 @@ and then the computer marches on to whatever statements come after the try
 statement. Well, if something goes wrong during execution of a catch clause, this 
 picture can start looking different. Listing  13-11 gets a workout in Figure  13-14. First, the main method calls do 
 Something.
-
 --- Chunk #791 ---
 Then the stupid doSomething method goes out of its way to cause 
 trouble. The doSomething method divides 0 by 0, which is illegal and undoable in 
@@ -12219,7 +11429,6 @@ closes all the resources automatically after execution of the try clause’s
 can  access all kinds of resources (files, databases, connections to servers, and 
 others) and have peace of mind knowing that Java will sever the connections 
 automatically. Life is good.
-
 --- Chunk #792 ---
 At the end of the earlier section “Handle an Exception or Pass the Buck,” you add 
 exception-handling code to a program that makes a copy of a file. Along with your 
@@ -12240,7 +11449,6 @@ S
  
 peaking of private fields and methods (and I do speak about these things in 
 this chapter) . .
-
 --- Chunk #793 ---
 . I’m eating lunch with some friends at work. “They can read your email,” says one 
 fellow. Another chimes in, “They know every single website that you visit. They 
@@ -12263,7 +11471,6 @@ thought so much of me that they tracked my every move. I have enough trouble
 getting people’s attention when I really want it. And most agencies that keep logs 
 of all my purchasing and viewing habits can’t even spell my name right when they 
 send me junk mail. ‘Hello, this is a courtesy call for Larry Burg.
-
 --- Chunk #794 ---
 Is Mr. Burg at 
 home?’ Spying on people is really boring. I can just see the headline on the front 
@@ -12278,7 +11485,6 @@ mer’s code. It’s not a matter of security and secrecy. It’s a matter of mo
 twisted and broken by another piece of code. Your code comes in nice, discrete, 
 manageable lumps. You keep complexity to a minimum. You make fewer mis -
 takes. You save money.
-
 --- Chunk #795 ---
 You help promote world peace. Other chapters have plenty of examples of the use of private fields. When a field is 
 declared private, it’s hidden from all outside meddling. This hiding enhances 
@@ -12372,13 +11578,10 @@ your code is to make access to each field as restrictive as possible. If a field
 absolutely need to be public, try making it private. If other classes have to get or 
 set the field’s values, provide public getter and setter methods. And that leads 
 nicely into the next paragraph .
-
 --- Chunk #796 ---
 .
-
 --- Chunk #797 ---
 .
-
 --- Chunk #798 ---
 . FIGURE 14-2: 
 The range of code 
@@ -12502,7 +11705,6 @@ ArtFrame. Then you have this Drawing business. Listing 14-1 defines a class nam
 ShowFrame, not ArtFrame or Drawing. So where does the compiler go for information 
 about the ArtFrame and Drawing classes? If you stop to think about it, the problem can be daunting. Should the compiler go 
 searching all over your hard drive for files named ArtFrame.java or Drawing.class? How large is your new hard drive?
-
 --- Chunk #799 ---
 500GB? 750GB? 6,000,000GB? And what about refer-
 ences to files on network drives? The search space is potentially unlimited. What if the 
@@ -12581,7 +11783,6 @@ go home, beaming with the confidence of having written useful, working code. Def
 If you’re reading these paragraphs in order, you know that the last example ends 
 happily. The code in Listing 14-4 runs like a charm. Everyone, including my won-
 derful editor, Paul Levesque, is happy.
-
 --- Chunk #800 ---
 But, wait! Do you ever wonder what life would be like if you hadn’t chosen that 
 particular career, dated that certain someone, or read that certain For Dummies 
@@ -12640,7 +11841,6 @@ Crawling back into the package
 I love getting things in the mail. At worst, it’s junk mail that I can throw right into 
 the trash. At best, it’s something I can use, a new toy, or something somebody 
 sent especially for me.
-
 --- Chunk #801 ---
 Well, today is my lucky day. Somebody from Burd Brain Consulting sent a subclass 
 of the Drawing class. It’s essentially the same as the code in Listing 14-6. The only 
@@ -12687,7 +11887,6 @@ field’s package have some access to the field. You can now reference the field
 a subclass (of the class in which the field is declared). You can also reference the 
 field from a sub-subclass, a sub-sub-subclass, and so on. Any descendent class 
 will do.
-
 --- Chunk #802 ---
 For an example, see Listings 14-8 and 14-9. LISTING 14-8: Protected Fields
 package com.burdbrain.drawings;
@@ -12773,7 +11972,6 @@ g.fillOval(x, y, width, height);
 404      PART 4  Smart Java Techniques
 Values such as Color.GREEN belong to Color class in the java.awt package. Create a frame that displays a traffic signal with its green, yellow, and red 
 lights. » A Book has a title (a String) and an author (an instance of the Author class).
-
 --- Chunk #803 ---
 An Author has a name (a String) and an ArrayList of Book instances. A 
 separate class contains a main method that creates several books and several 
@@ -12831,7 +12029,6 @@ Access Modifiers for Java Classes
 Maybe the things that you read about access modifiers for members make you a 
 tad dizzy. After all, member access in Java is a complicated subject with lots of plot 
 twists and cliffhangers.
-
 --- Chunk #804 ---
 Well, the dizziness is over. Compared with the saga for 
 fields and methods, the access story for classes is rather simple. A class can be either public or nonpublic. If you see something like
@@ -12895,7 +12092,6 @@ part-time employees have in common. In particular, both the FullTimeEmployee
 and PartTimeEmployee classes can extend the Employee class. That’s nice to 
 know if you’re running a small business, but what if you’re not running a busi -
 ness?
-
 --- Chunk #805 ---
 What if you’re taking care of house pets? This chapter explores the care of house pets and other burning issues. Java’s Types
 Chapter 4 explains that Java has these two kinds of types:
@@ -12915,7 +12111,6 @@ TimeEmployee class). The relationship between a class and its subclass is one of
 inheritance. In many real-life families, a child inherits assets from a parent. And 
 in Chapter 8, the FullTimeEmployee class inherits name and jobTitle fields from 
 the Employee class. That’s the way it works.
-
 --- Chunk #806 ---
 But consider the relationship between an editor and an author. The editor says, "By 
 signing this contract, you agree to submit a completed manuscript by the ninth of 
@@ -13008,7 +12203,6 @@ methods. Java’s compiler is serious about the use of the implements keyword. I
 either of the two method declarations from Listing  15-3 without removing the 
 implements clause, you see some frightening error messages in your IDE’s editor. Java expects you to honor the contract that the implements keyboard implies. If 
 you don’t honor the contract, Java refuses to compile your code. So there!
-
 --- Chunk #807 ---
 You can use Java’s error messages to your advantage. Start by typing some code 
 containing the clause implements Displayable, Summarizable. Because of the 
@@ -13047,7 +12241,6 @@ public class Table implements Displayable, Summarizable {
     }
 }
 In Listings  15-3 and  15-4, notice several uses of the @Override annotation. Chapter  8 introduces the use of the @Override annotation.
-
 --- Chunk #808 ---
 Normally, you use  
 @Override to signal the replacement of a method that’s already been declared in 
@@ -13103,7 +12296,6 @@ in Listing 15-5. CHAPTER 15  Fancy Reference Types      417
 Abstract Classes
 Is there anything you can say that applies to animals of every kind? If you’re a 
 biologist, maybe there is.
-
 --- Chunk #809 ---
 But if you’re a programmer, you can say very little. If 
 you don’t believe me, consider the wondrous variety of life on the planet Earth:*
@@ -13187,7 +12379,6 @@ HousePet myPet = new HousePet("Boop", 12.0, "Meow");
 An abstract class has no life of its own. In order to use an abstract class, you have 
 to create an ordinary (non-abstract) class that extends the abstract class. In the 
 ordinary class, all methods have bodies.
-
 --- Chunk #810 ---
 So everything works out. Before you walk away from Listing 15-7, notice the super(weight, sound) call in 
 that listing. As in Chapter 9, the keyword super triggers a call to the superclass’s 
@@ -13257,10 +12448,8 @@ holes, you have to create some exotic programming examples. So, in this chapter
 I simplify the story and write that (a) a class that extends an abstract class must 
 provide bodies for the abstract class’s abstract methods, and (b) a class that 
 implements an interface must provide bodies for the interface’s abstract methods. It’s not exactly true, but it’s good enough for now.
-
 --- Chunk #811 ---
 If you live in a very small apartment, you may not have room for a dog or a cat.
-
 --- Chunk #812 ---
 In 
 that case, Listing 15-10 is for you. 422      PART 4  Smart Java Techniques
@@ -13280,7 +12469,6 @@ from them. In Java, subclasses multiply like rabbits. Using all your classes
 Your work isn’t finished until you’ve tested your code. Most programs require 
 hours, days, and even months of testing. But for this chapter’s HousePet example, 
 I’ll do only one test.
-
 --- Chunk #813 ---
 The test is in Listing 15-11. LISTING 15-11: The Class Menagerie
 public class Main {
@@ -13331,7 +12519,6 @@ the isFilled field has type boolean. Extend the abstract Shape class with
 two other classes: a Square class and a Circle class. In the bodies of the 
 Square and Circle classes’ paint methods, place the code that draws the 
 shape in question on a Java JFrame. Relax!
-
 --- Chunk #814 ---
 You’re Not Seeing Double! If you’ve read this chapter’s earlier sections on interfaces and abstract methods, 
 your head might be spinning. Both interfaces and abstract classes have abstract 
@@ -13390,7 +12577,6 @@ final fields. For example, if the HousePet class in Listing 15-7 were an interf
 couldn’t have a name field. That simply wouldn’t be allowed. So there. Interfaces and abstract classes are different from one another. But if 
 you’re new at the game, you shouldn’t worry about the difference. Just read as 
 much code as you can, and don’t get scared when you see an abstract method.
-
 --- Chunk #815 ---
 That’s all there is to it. CHAPTER 16  Responding to Keystrokes and Mouse Clicks      427
 IN THIS CHAPTER
@@ -13412,13 +12598,11 @@ superstore. One cost $10 and came with a $10 rebate. As I write this chapter, I�
 official For Dummies mouse. This yellow-and-white beauty has a little compart-
 ment filled with water. Instead of a snowy Atlantic City scene, the water sur -
 rounds a tiny Dummies Man charm. It’s so cute.
-
 --- Chunk #816 ---
 It was a present from the folks at 
 Wiley Publishing. Chapter 16
 428      PART 4  Smart Java Techniques
 Go On . .
-
 --- Chunk #817 ---
 . Click That Button
 In previous chapters, I create windows that don’t do much. A typical window dis-
@@ -13558,19 +12742,15 @@ the code inside a method. What does the this keyword really mean? Well, com-
 pare it with the English phrase state your name:
 I, (state your name), do solemnly swear, to uphold the constitution of the Philadelphia 
 Central High School Photography Society . .
-
 --- Chunk #818 ---
 .
-
 --- Chunk #819 ---
 . CHAPTER 16  Responding to Keystrokes and Mouse Clicks      433
 The phrase state your name is a placeholder. It’s a space in which each person puts 
 his or her own name:
 I, Bob, do solemnly swear . . . I, Fred, do solemnly swear . .
-
 --- Chunk #820 ---
 . Think of the pledge (“I . .
-
 --- Chunk #821 ---
 . do solemnly swear . . .”) as a piece of code in a Java 
 class. In that piece of code is the placeholder phrase state your name. Whenever an 
@@ -13848,7 +13028,6 @@ label whenever the user clicks a button. Modify the program so that the user
 doesn’t have to click a button. The program automatically updates the label’s text 
 whenever the user modifies the text field’s content. Creating Inner Classes
 Here’s big news!
-
 --- Chunk #822 ---
 You can define a class inside of another class! For the user, 
  Listing  16-5 behaves the same way as Listing  16-1. But in Listing  16-5, the 
@@ -13959,7 +13138,6 @@ nary Java classes, experiment by changing some of your ordinary classes into
 inner classes. In a previous section, you create a program that copies text from a text field to a 
 label whenever the user clicks a button. Modify the code so that it has an inner 
 class.
-
 --- Chunk #823 ---
 Then if you’re really ambitious, modify the code so that it has an anony-
 mous inner class. LISTING 16-6: (continued)
@@ -14043,7 +13221,6 @@ separate the parts with plus signs (Java’s string concatenation operator). 448
 If you’re familiar with Structured Query Language, or SQL, the command strings 
 in the calls to executeUpdate make sense to you. If not, pick up a copy of SQL For 
 Dummies, 8th Edition, by Allen G.
-
 --- Chunk #824 ---
 Taylor (Wiley). One way or another, don’t go 
 fishing around this chapter for an explanation of the create table command. You won’t find an explanation, because the big create table string in Listing 17-1 
@@ -14165,7 +13342,6 @@ public class GetData {
 }
 To use a database other than Apache Derby, change the value of CONNECTION in 
 each of this chapter’s examples. A run of the code from Listing 17-3 is shown in Figure 17-1.
-
 --- Chunk #825 ---
 The code queries the 
 database and then steps through the rows of the database, printing the data from 
@@ -14200,7 +13376,6 @@ screen. Each Java ResultSet instance has several nice getSomeTypeOrOther methods
 Array, getBigDecimal, getBlob, getInt, getObject, getTimestamp, and several 
 others. Destroying Data
 It’s true.
-
 --- Chunk #826 ---
 All good things must come to an end. By writing this, I’m referring both 
 to this book’s content and to the information in this chapter’s AccountDatabase. To get rid of the database table that you create in Listing 17-1, run the code in 
@@ -14232,7 +13407,6 @@ executeQuery call:
 "select * from ACCOUNTS where BALANCE > 30"
  » Run the AddData program (from Listing 17-2) two times in a row without 
 modifying any of the program’s code. What error messages do you see?
-
 --- Chunk #827 ---
 Why? » Create a table containing three columns: an item name, a price, and a tax rate. Store data in several rows of the table. Retrieve the data from the table and display a row of output for each row in 
 the table. Each row of output contains the item name followed by the price 
@@ -14242,7 +13416,6 @@ added prices. LISTING 17-4: (continued)
 5
 The Part of Tens
 IN THIS PART . .
-
 --- Chunk #828 ---
 . Catch common mistakes before you make them. Explore the best resources for Java on the web. CHAPTER 18  Ten Ways to Avoid Mistakes      457
 IN THIS CHAPTER
@@ -14260,7 +13433,6 @@ T
 he only people who never make mistakes are the people who never do 
  anything at all.” One of my college professors said that. I don’t remember 
 the professor’s name, so I can’t give him proper credit.
-
 --- Chunk #829 ---
 I guess that’s 
 my mistake. Putting Capital Letters Where They Belong
@@ -14298,7 +13470,6 @@ CHAPTER 18  Ten Ways to Avoid Mistakes      459
 is correct, but the line
 if (inputNumber = randomNumber)
 is not correct.
-
 --- Chunk #830 ---
 For a full report, see Chapter 5. Adding Components to a GUI
 Here’s a constructor for a Java frame:
@@ -14333,7 +13504,6 @@ class WillNotWork {
 }
 You get an error message because main is static, but greeting isn’t static. For the 
 complete guide to finding and fixing this problem, see Chapter 10.
-
 --- Chunk #831 ---
 Staying within Bounds in an Array
 When you declare an array with ten components, the components have indices 
@@ -14375,7 +13545,6 @@ must align all the planets correctly:
 in your code. » If you use named packages, your project directory has to have appropriately 
 named subdirectories. » If you’re running code from your computer’s command line, your CLASSPATH 
 environment variable must be set properly. For specific guidelines, see Chapter 14 and this book’s website ( www.allmycode.
-
 --- Chunk #832 ---
 com/JavaForDummies). CHAPTER 19  Ten Websites for Java      463
 IN THIS CHAPTER
@@ -14453,7 +13622,6 @@ overview, 384–395
 package declaration, 390
 public class, 391, 406
 accessor methods.
-
 --- Chunk #833 ---
 See also methods
 calling, 186
@@ -15164,7 +14332,6 @@ Displayer class, 26
 displayMe method, 416
 display method, 172–173, 305, 341, 411–413
 do statements.
-
 --- Chunk #834 ---
 See also statements
 blocks, 154–155
@@ -16553,7 +15720,6 @@ Barry Burd received a Master of Science degree in computer science at Rutgers
 University and a PhD in mathematics at the University of Illinois. As a teach-
 ing  assistant in Champaign-Urbana, Illinois, he was elected five times to the 
  university-wide List of Teachers Ranked as Excellent by Their Students.
-
 --- Chunk #835 ---
 Since 1980, Dr. Burd has been a professor in the Department of Mathematics and 
 Computer Science at Drew University in Madison, New Jersey. He has lectured at 
@@ -16563,7 +15729,6 @@ articles and books, including Beginning Programming with Java For Dummies,
 Java  Programming for Android Developers For Dummies,  and Android Application 
  Development All-in-One For Dummies, all from Wiley. Dr. Burd lives in Madison, New Jersey, with his wife of n years, where n > 35. In 
 his spare time, he enjoys being a workaholic.
-
 --- Chunk #836 ---
 Dedication
 Author’s Acknowledgments
@@ -16580,5 +15745,4 @@ Editorial Assistant: Serena Novosel
 Sr. Editorial Assistant: Cherie Case
 Production Editor: Siddique Shaik
 Cover Image: © Melpomene/Shutterstock
-
 

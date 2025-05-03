@@ -1,8 +1,9 @@
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from pypdf import PdfReader
 import os
 from dotenv import load_dotenv, dotenv_values
+from utils import data_chunk
 # import argparse
 
 # load env
@@ -16,6 +17,7 @@ if os.path.exists(dotenv_path):
 else:
     print(f"warning: file .env at {dotenv_path} not found")
     
+print(os.getenv('model_name'))
 # ---------- STEP 1: Trích xuất text thường ----------
 def data_chunking():
     text_from_pdf = ""
@@ -41,7 +43,7 @@ def data_chunking():
         embeddings = HuggingFaceEmbeddings(model_name=os.getenv('model_name'))
         chunker = SemanticChunker(embeddings)
         documents = chunker.create_documents([text_from_pdf])
-        print(documents)
+        # print(documents)
         
     # Lưu tất cả các chunk vào một tệp
         namechunk = os.path.basename(path)
@@ -49,7 +51,9 @@ def data_chunking():
         with open(f"{os.getenv('output_chunk')}/{namechunk}_chunk.txt", "w") as f:
             for i, doc in enumerate(documents):
                 f.write(f"--- Chunk #{i + 1} ---\n")
-                f.write(doc.page_content + "\n\n")
+                f.write(doc.page_content + "\n")
+                data_chunk.append(doc.page_content)
+                # print(i)
 
 
 # ---------- STEP 4: In ra vài chunks kiểm tra ----------
