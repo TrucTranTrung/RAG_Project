@@ -1,3 +1,4 @@
 # Ignore all files in the StyleTTS2/Models/LJSpeech directory
 StyleTTS2/Models/LJSpeech/epoch_2nd_00100.pth
 __pycache__
+config/.env
