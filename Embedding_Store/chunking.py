@@ -3,23 +3,28 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import os
 from typing import List, Dict, Any
-# from utils import data_chunk
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from tqdm.auto import tqdm
-import torch # Cần để giải phóng bộ nhớ cache CUDA
+import torch 
 from dotenv import load_dotenv
 
-# load env
-basedir = os.path.abspath(os.path.dirname(__file__))
-dotenv_path = os.path.join(basedir, 'config', '.env')
+# __file__ là biến trỏ đến file Python hiện tại
+script_directory = os.path.abspath(os.path.dirname(__file__))
+print(f"Thư mục của script hiện tại: {script_directory}")
+# os.path.dirname(script_directory) sẽ trả về đường dẫn của thư mục cha
+project_root_directory = os.path.dirname(script_directory)
+print(f"Thư mục gốc của dự án (dự kiến): {project_root_directory}")
+# Tạo đường dẫn đầy đủ đến file .env trong thư mục 'config' của thư mục gốc dự án
+dotenv_path = os.path.join(project_root_directory, 'config', '.env')
 
+# Kiểm tra xem file .env có tồn tại không trước khi tải
 if os.path.exists(dotenv_path):
-    print(f"Loading env file from: {dotenv_path}")
-    # Tải các biến môi trường từ file .env được chỉ định
-    load_dotenv(dotenv_path=dotenv_path) 
+    print(f"Đang tải biến môi trường từ: {dotenv_path}")
+    load_dotenv(dotenv_path=dotenv_path)
+    print("Tải biến môi trường thành công.")
 else:
-    print(f"warning: file .env at {dotenv_path} not found")
+    print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 
 similarity_threshold = float(os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE"))
 print(os.getenv('MODEL_NAME_EMBED'))
@@ -150,9 +155,3 @@ def merge_chunks_by_semantic_similarity(
     
     print(f"Semantic merging resulted in {len(merged_documents)} final chunks.")
     return merged_documents
-
-
-# ---------- STEP 4: In ra vài chunks kiểm tra ----------
-# for i, doc in enumerate(documents[:5]):  
-#     print(f"\n--- Chunk #{i + 1} ---")
-#     print(doc.page_content)

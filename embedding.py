@@ -1,6 +1,6 @@
-from Model import *
-from utils import *
-from chunking import *
+from Embedding_Store.Model import *
+from Embedding_Store.chunking import *
+from Embedding_Store.utils import *
 ### LLM
 from langchain_ollama import ChatOllama
 import torch
@@ -46,7 +46,7 @@ if not raw_documents:
 # 2. Initialize Embedding Model
 try:
     embeddings_model = initialize_embedding_model(os.getenv("MODEL_NAME_EMBED"))
-except Exception: # Bắt lỗi nếu không khởi tạo được model
+except Exception: 
     print("Pipeline stopped: Could not initialize embedding model.")
     exit()
 
@@ -65,7 +65,7 @@ print(f"Initial chunks: {len(initial_chunks)}")
 # 4. Custom Semantic Merging
 final_merged_documents = merge_chunks_by_semantic_similarity(
     initial_chunks,
-    embeddings_model, # Thay đổi ở đây
+    embeddings_model, 
     os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE")
 )
 if not final_merged_documents:
@@ -73,9 +73,6 @@ if not final_merged_documents:
     exit()
     
     
-# Cho nay anh lay my_dict ra de lam viec
-# anh sua file chunking.py de tra ve data_chunk
-# print(len(my_dict))
 
 
 # similarities = model_embbed.similarity(embeddings, embeddings)
