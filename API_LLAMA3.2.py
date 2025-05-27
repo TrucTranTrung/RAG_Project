@@ -14,7 +14,7 @@ app = FastAPI()
 model_whisper = model_whisper
 
 def transcribe_audio(file: UploadFile) -> str:
-    segments, info = model_whisper.transcribe("/home/daniel/Documents/RAG_Java/harvard.wav", beam_size=5)
+    segments, info = model_whisper.transcribe(file.file, beam_size=5)
     output_text = ""
     for segment in segments:
         # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
@@ -26,7 +26,7 @@ def transcribe_audio(file: UploadFile) -> str:
 @app.post("/answer")
 async def rag_api(question: str = Form(None), audio: UploadFile = File(None)):
     if not question and not audio:
-        raise HTTPException(status_code=400, detail="Bạn phải cung cấp ít nhất 'question' hoặc 'audio'")
+        raise HTTPException(status_code=400, detail="You must provide either a question or an audio file.")
     
     if question:
         # xử lý câu hỏi văn bản

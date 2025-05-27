@@ -68,6 +68,7 @@ llvmlite==0.44.0
 MarkupSafe==3.0.2
 marshmallow==3.26.1
 matplotlib==3.10.3
+monotonic_align @ git+https://github.com/resemble-ai/monotonic_align.git@78b985be210a03d08bc3acc01c4df0442105366f
 mpmath==1.3.0
 msgpack==1.1.0
 multidict==6.4.3
