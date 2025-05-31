@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 
 # __file__ là biến trỏ đến file Python hiện tại
 script_directory = os.path.abspath(os.path.dirname(__file__))
-print(f"Thư mục của script hiện tại: {script_directory}")
+# print(f"Thư mục của script hiện tại: {script_directory}")
 # os.path.dirname(script_directory) sẽ trả về đường dẫn của thư mục cha
 project_root_directory = os.path.dirname(script_directory)
-print(f"Thư mục gốc của dự án (dự kiến): {project_root_directory}")
+# print(f"Thư mục gốc của dự án (dự kiến): {project_root_directory}")
 # Tạo đường dẫn đầy đủ đến file .env trong thư mục 'config' của thư mục gốc dự án
 dotenv_path = os.path.join(project_root_directory, 'config', '.env')
 
@@ -27,11 +27,11 @@ else:
     print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 
 similarity_threshold = float(os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE"))
-print(os.getenv('MODEL_NAME_EMBED'))
-print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
+# print(os.getenv('MODEL_NAME_EMBED'))
+# print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
 # ---------- STEP 1: Trích xuất text thường ----------
 def split_documents_for_java(documents: List[Document], chunk_size: int, chunk_overlap: int) -> List[Document]:
-    print(f"Splitting documents for Java with chunk_size={chunk_size}, chunk_overlap={chunk_overlap}...")
+    # print(f"Splitting documents for Java with chunk_size={chunk_size}, chunk_overlap={chunk_overlap}...")
     java_splitter = RecursiveCharacterTextSplitter.from_language(
         language="java",
         chunk_size=chunk_size,
@@ -39,7 +39,7 @@ def split_documents_for_java(documents: List[Document], chunk_size: int, chunk_o
         keep_separator=True
     )
     initial_chunks = java_splitter.split_documents(documents)
-    print(f"Initial splitting resulted in {len(initial_chunks)} chunks.")
+    # print(f"Initial splitting resulted in {len(initial_chunks)} chunks.")
     for i, chunk in enumerate(initial_chunks):
         if chunk.metadata is None:
             chunk.metadata = {}
@@ -53,7 +53,7 @@ def merge_chunks_by_semantic_similarity(
     similarity_threshold: float, # Type hint là float
     embedding_batch_size: int = 32  # Kích thước batch để tính embedding
 ) -> List[Document]:
-    print(f"Starting semantic merging of {len(initial_chunks)} initial chunks with threshold {similarity_threshold}...")
+    # print(f"Starting semantic merging of {len(initial_chunks)} initial chunks with threshold {similarity_threshold}...")
     
     # Đảm bảo similarity_threshold là kiểu float
     try:
@@ -62,7 +62,7 @@ def merge_chunks_by_semantic_similarity(
         print(f"Error: similarity_threshold '{similarity_threshold}' không thể chuyển đổi thành float. Sử dụng giá trị mặc định 0.8.")
         current_similarity_threshold = 0.8
     
-    print(f"Using similarity threshold (float): {current_similarity_threshold}")
+    # print(f"Using similarity threshold (float): {current_similarity_threshold}")
 
     if not initial_chunks:
         print("No initial chunks to process.")
@@ -72,7 +72,7 @@ def merge_chunks_by_semantic_similarity(
     num_chunks = len(chunk_contents)
     all_embeddings_list = []
 
-    print(f"Calculating embeddings for {num_chunks} initial chunks in batches of {embedding_batch_size}...")
+    # print(f"Calculating embeddings for {num_chunks} initial chunks in batches of {embedding_batch_size}...")
     try:
         for i in tqdm(range(0, num_chunks, embedding_batch_size), desc="Calculating Initial Embeddings"):
             batch_contents = chunk_contents[i:i + embedding_batch_size]
@@ -92,7 +92,7 @@ def merge_chunks_by_semantic_similarity(
             return []
             
         initial_embeddings = np.array(all_embeddings_list) # Chuyển sang numpy array để xử lý
-        print(f"Calculated {len(initial_embeddings)} initial embeddings.")
+        # print(f"Calculated {len(initial_embeddings)} initial embeddings.")
 
     except Exception as e:
         print(f"Error embedding initial chunks with LangChain model: {e}")

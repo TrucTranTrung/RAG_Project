@@ -1,7 +1,7 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 
 def initialize_embedding_model(model_name: str) -> HuggingFaceEmbeddings:
-    print(f"Initializing embedding model: {model_name}...")
+    # print(f"Initializing embedding model: {model_name}...")
     try:
         embeddings_model = HuggingFaceEmbeddings(
             model_name=model_name,

@@ -11,6 +11,7 @@ from langchain_mongodb import MongoDBAtlasVectorSearch
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from dotenv import load_dotenv
+import time
 
 # load env
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -37,6 +38,7 @@ chunk_overlap = int(os.getenv("JAVA_SPLITTER_CHUNK_OVERLAP", "200"))  # Default 
 # print(response)
 # chunking data
 # should use button
+start_time = time.time()
 # 1. Load PDF Documents
 raw_documents = load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))
 if not raw_documents:
@@ -60,7 +62,7 @@ initial_chunks = split_documents_for_java(
 if not initial_chunks:
     print("Pipeline stopped: No initial chunks created.")
     exit()
-print(f"Initial chunks: {len(initial_chunks)}")
+# print(f"Initial chunks: {len(initial_chunks)}")
 
 # 4. Custom Semantic Merging
 final_merged_documents = merge_chunks_by_semantic_similarity(
@@ -71,9 +73,8 @@ final_merged_documents = merge_chunks_by_semantic_similarity(
 if not final_merged_documents:
     print("Pipeline stopped: No documents after semantic merging.")
     exit()
-    
-    
-
+end_time = time.time()
+print(f"Pipeline completed in {end_time - start_time} seconds.")
 
 # similarities = model_embbed.similarity(embeddings, embeddings)
 # print(embeddings.shape)

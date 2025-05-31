@@ -12,7 +12,6 @@ model_size = "medium"
 # Run on GPU with FP16
 model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
 
-
 @app.post("/STT/")
 async def transcribe_audio(file: UploadFile = File(...)):
     try:

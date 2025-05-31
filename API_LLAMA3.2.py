@@ -10,34 +10,14 @@ import os
 
 app = FastAPI()
 
-# Load mô hình SPEECH TO TEXT
-model_whisper = model_whisper
-
-def transcribe_audio(file: UploadFile) -> str:
-    segments, info = model_whisper.transcribe(file.file, beam_size=5)
-    output_text = ""
-    for segment in segments:
-        # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-        output_text += segment.text + ""
-
-    return output_text
-
-
 @app.post("/answer")
-async def rag_api(question: str = Form(None), audio: UploadFile = File(None)):
-    if not question and not audio:
-        raise HTTPException(status_code=400, detail="You must provide either a question or an audio file.")
-    
+async def rag_api(question: str = Form(None)):
+    if not question:
+        raise HTTPException(status_code=400, detail="You must provide a question.")
+
     if question:
         # xử lý câu hỏi văn bản
         return {"type": "text", "content": question}
-
-    if audio:
-        # xử lý âm thanh, ví dụ chuyển speech to text
-        content = transcribe_audio(audio)
-        if not content:
-            raise HTTPException(status_code=400, detail="Can't transcribe audio")
-        return {"type": "audio", "filename": audio.filename, "size": len(content)}
 
     answer = generate_answer(question)
     return {

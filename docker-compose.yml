@@ -1,11 +1,9 @@
-version: '3.8' 
-
 services:
   whisper-api:
     build:
       context: ../RAG_Project/Container_Folder/Faster_Whisper
       dockerfile: dockerfile
-    image: whisper-api
+    image: whisper-api:latest
     ports:
       - "8000:8000"
     deploy:
@@ -13,5 +11,5 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              capabilities: [gpu]
+              capabilities: [gpu] 
               count: all # This corresponds to --gpus all

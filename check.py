@@ -1,33 +1,3 @@
-# # --- Speech to text ---
-from faster_whisper import WhisperModel
-import time
-
-model_size = "medium"
-
-# Run on GPU with FP16
-model = WhisperModel(model_size, device="cpu", compute_type="int8")
-start_time = time.time()
-
-# or run on GPU with INT8
-# model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
-# or run on CPU with INT8
-# model = WhisperModel(model_size, device="cpu", compute_type="int8")
-
-segments, info = model.transcribe("/home/daniel/Documents/RAG_Java/harvard.wav", beam_size=5)
-
-print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
-
-output_text = ""
-for segment in segments:
-    # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-    output_text += segment.text + ""
-    
-print(output_text)
-
-end_time = time.time()
-execution_time = end_time - start_time
-print(f"\nTổng thời gian thực thi: {execution_time:.4f} giây")
-
 # # --- Text to speech ---
 # import torch
 # torch.manual_seed(0)
