@@ -18,10 +18,31 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY Whisper_API.py .
 
+ENV HF_HUB_CACHE=~/.cache/huggingface/hub
+
+# ADD and RUN file download
+RUN mkdir -p ~/.cache/huggingface
+RUN mkdir -p ~/.cache/huggingface/hub
+# RUN mkdir -p ~/.cache/huggingface/hub/models--Systran--faster-whisper-medium
+RUN mkdir -p ./models--Systran--faster-whisper-medium
+COPY models--Systran--faster-whisper-medium ./models--Systran--faster-whisper-medium
+
+RUN cp -r ./models--Systran--faster-whisper-medium ~/.cache/huggingface/hub/
+RUN rm -rf ./models--Systran--faster-whisper-medium
+
+# COPY models--Systran--faster-whisper-medium ~/.cache/huggingface/hub/models--Systran--faster-whisper-medium
+# COPY ./test ~/.cache/huggingface/hub/models--Systran--faster-whisper-medium-copy
+
+# COPY models--Systran--faster-whisper-medium .
+# COPY ./test .
+
+
 # Expose FastAPI default port
 EXPOSE 8000
 
 # Run the app using uvicorn
 CMD ["uvicorn", "Whisper_API:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
 
 
