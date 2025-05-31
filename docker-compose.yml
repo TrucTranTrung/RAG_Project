@@ -3,7 +3,7 @@ services:
     build:
       context: ../RAG_Project/Container_Folder/Faster_Whisper
       dockerfile: dockerfile
-    image: whisper-api:latest
+    image: tructran172003/whisper-api:v1.0
     ports:
       - "8000:8000"
     deploy:
