@@ -1,11 +1,12 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 
+
 def initialize_embedding_model(model_name: str) -> HuggingFaceEmbeddings:
     # print(f"Initializing embedding model: {model_name}...")
     try:
         embeddings_model = HuggingFaceEmbeddings(
             model_name=model_name,
-            model_kwargs={'device': 'cuda'},
+            model_kwargs={'device': 'mps'},
             encode_kwargs={'normalize_embeddings': True,
                            'batch_size': 128}
         )
