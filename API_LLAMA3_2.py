@@ -23,8 +23,13 @@ else:
 app = FastAPI()
 collection_name = os.getenv("COLLECTION_NAME", "my_default_collection")
 vector_store = get_pgvector_store(collection_name=collection_name)
+collection_name = os.getenv("COLLECTION_NAME", "my_default_collection")
+vector_store = get_pgvector_store(collection_name=collection_name)
 
 @app.post("/answer")
+async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = File(None)):
+    if isinstance(audio, str) and audio == "":
+        audio = None
 async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = File(None)):
     if isinstance(audio, str) and audio == "":
         audio = None

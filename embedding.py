@@ -13,7 +13,6 @@ dotenv_path = os.path.join(basedir, 'config', '.env')
 load_dotenv()
 if os.path.exists(dotenv_path):
     print(f"Loading env file from: {dotenv_path}")
-    # Tải các biến môi trường từ file .env được chỉ định
     load_dotenv(dotenv_path=dotenv_path)
 else:
     print(f"warning: file .env at {dotenv_path} not found")
@@ -22,16 +21,6 @@ chunk_size = int(os.getenv("JAVA_SPLITTER_CHUNK_SIZE", "2000"))
 chunk_overlap = int(os.getenv("JAVA_SPLITTER_CHUNK_OVERLAP", "200"))
 
 
-# import argparse
-# local_llm = "llama3.2:3b"
-# llm = ChatOllama(model=local_llm, temperature=0)
-# llm_json_mode = ChatOllama(model=local_llm, temperature=0, format="json")
-
-# Dòng này sẽ gây lỗi nếu Ollama không chạy:
-# response = llm.invoke("Xin chào!")
-# print(response)
-# chunking data
-# should use button
 # 1. Load PDF Documents
 raw_documents = load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))
 if not raw_documents:
@@ -67,39 +56,47 @@ final_merged_documents = merge_chunks_by_semantic_similarity(
 if not final_merged_documents:
     print("Pipeline stopped: No documents after semantic merging.")
     exit()
+    
 
 try:
-    mongodb_collection = connect_to_mongodb(os.getenv(
-        "DATABASE_NAME"), os.getenv("COLLECTION_NAME"), os.getenv("CLUSTER_URL"))
+    collection_name = os.getenv("COLLECTION_NAME", "my_default_collection")
 
-    # (Optional) Clear the collection
-    # print(f"Clearing existing documents from collection '{COLLECTION_NAME}'...")
-    # delete_result = mongodb_collection.delete_many({})
-    # print(f"Deleted {delete_result.deleted_count} documents.")
+    # 1. Kết nối và lấy đối tượng vector store
+    vector_store = get_pgvector_store(collection_name=collection_name)
 
-    # 6. Store Final Merged Documents in MongoDB Atlas
-    store_documents_in_mongodb_atlas(
+    # 2. Lưu trữ các document đã xử lý vào PGVector
+    store_documents_in_pgvector(
         final_merged_documents,
-        mongodb_collection,
-        embeddings_model,
-        os.getenv("VECTOR_INDEX_NAME")
+        vector_store
     )
+    print("\nRAG data processing pipeline completed.")
+
 except Exception as e:
-    print(f"Pipeline failed during MongoDB operations: {e}")
-    exit()
-
-print("\nRAG data processing pipeline completed.")
+    print(f"Pipeline failed during PGvector operations: {e}")
+    exit() 
 
 
-print(final_merged_documents[0:2])
-# for i, doc in enumerate(final_merged_documents):
-#     if doc.metadata is None:
-#         doc.metadata = {}
-#     doc.metadata['final_chunk_index'] = i
+# 3. Truy vấn dữ liệu
+user_query = "What is Java and why should I use it?"
+similar_docs = query_similar_vectors_from_pgvector(user_query, vector_store, top_k=2)
 
-# similarities = model_embbed.similarity(embeddings, embeddings)
-# print(embeddings.shape)
-# dictionary
-# key     values
-# text : embedding
+# 4. In kết quả
+print("\n--- KẾT QUẢ TRUY VẤN ---")
+output_path = "query_results.txt"
+with open(output_path, "w", encoding="utf-8") as f:
+    if similar_docs:
+        for doc, score in similar_docs:
+            print(f"Nội dung: {doc.page_content}")
+            print(f"Điểm tương đồng (score): {score:.4f}")
+            print("-" * 20)
+            # Write to file
+            f.write(f"Nội dung: {doc.page_content}\n")
+            f.write(f"Điểm tương đồng (score): {score:.4f}\n")
+            f.write("-" * 20 + "\n")
+    else:
+        print("Không tìm thấy document nào phù hợp.")
+        f.write("Không tìm thấy document nào phù hợp.\n")
+print(f"\nKết quả đã được lưu vào {output_path}")
+
+
 

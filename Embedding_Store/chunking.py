@@ -31,7 +31,6 @@ similarity_threshold = float(os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE"))
 # print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
 # ---------- STEP 1: Trích xuất text thường ----------
 def split_documents_for_java(documents: List[Document], chunk_size: int, chunk_overlap: int) -> List[Document]:
-    # print(f"Splitting documents for Java with chunk_size={chunk_size}, chunk_overlap={chunk_overlap}...")
     java_splitter = RecursiveCharacterTextSplitter.from_language(
         language="java",
         chunk_size=chunk_size,

@@ -1,5 +1,6 @@
-from model import kw_model
 import requests,os
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="./config/.env")
 from prompt import prompt_entities,prompt_keyword
  
 # --- Extract keywords with POS filtering ---
@@ -31,8 +32,6 @@ def extract_entities(question):
         return []
 
 
-
-
 # --- Rerank contexts ---
 def rerank_contexts_with_keywords(output_database, similarities, keywords, entities, question, weight=0.8, k=3):
     question_lower = question.lower()
@@ -58,3 +57,17 @@ def rerank_contexts_with_keywords(output_database, similarities, keywords, entit
 
     scores.sort(reverse=True)
     return [i for _, i in scores[:k]]
+
+
+def get_top_k_contexts(context_chunks, question, similarities, k=3):
+
+    keywords = extract_keywords_from_question(question)
+    entities = extract_entities(question)
+
+    top_indices = rerank_contexts_with_keywords(context_chunks, similarities, keywords, entities, question)[:k]
+
+    # for i in top_indices:
+    #     print(f"- ({similarities[i]:.3f}) {context_chunks[i]}")
+    return [context_chunks[i] for i in top_indices]
+
+

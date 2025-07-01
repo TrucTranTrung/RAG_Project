@@ -33,10 +33,6 @@ services:
               capabilities: [gpu] 
               count: all # This corresponds to --gpus all
 
-networks:
-  my-network:
-    driver: bridge
-
   # chatbot_api:
   #   build:
   #     context: ../RAG_Project/Container_Folder/Chatbot_API
@@ -54,18 +50,24 @@ networks:
   #             capabilities: [gpu] 
   #             count: all # This corresponds to --gpus all
 
-#   vector_database:
-#     image: pgvector/pgvector:pg16
-#     container_name: my_pgvector_db_compose
-#     environment:
-#       POSTGRES_DB: mydb
-#       POSTGRES_USER: myuser
-#       POSTGRES_PASSWORD: your_secret_password 
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - pgvector_data:/var/lib/postgresql/data
-#     restart: always
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: pgvector-rag
+    restart: always
+    env_file:
+      - ./config/.env
+    ports:
+      - "5432:5432"
+    # Defines a volume to persist the database data.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - my-network
 
-# volumes:
-#   pgvector_data:
+volumes:
+  pgdata:
+
+networks:
+  my-network:
+    driver: bridge
+
