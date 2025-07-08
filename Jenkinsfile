@@ -51,6 +51,7 @@ pipeline {
                         sh 'cat config/.env'
                         echo "Kiểm tra sự tồn tại của biến SIMILARITY_THRESHOLD_FOR_MERGE:"
                         // Lệnh grep sẽ trả về exit code 0 nếu tìm thấy, và 1 nếu không.
+                        // || true để đảm bảo pipeline không bị lỗi nếu không tìm thấy.
                         sh 'grep SIMILARITY_THRESHOLD_FOR_MERGE config/.env || echo "CẢNH BÁO: Biến SIMILARITY_THRESHOLD_FOR_MERGE không tìm thấy trong file .env!"'
                         echo "--- Kết thúc kiểm tra file .env ---"
 
@@ -61,7 +62,8 @@ pipeline {
                         sh 'docker compose -f docker-compose.jenkins.yml up -d'
                         
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
-                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside {
+                        // SỬA LỖI: Truyền file .env vào container tạm thời
+                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("-v ${pwd()}/config/.env:/app/config/.env") {
                             // Cài đặt các công cụ build cần thiết
                             sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
                             
