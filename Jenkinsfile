@@ -45,16 +45,6 @@ pipeline {
                         // Ghi toàn bộ nội dung đã lưu vào file config/.env
                         sh 'echo "${ENV_FILE_CONTENT}" > config/.env'
 
-                        // --- BƯỚC DEBUGGING MỚI ---
-                        echo "--- Bắt đầu kiểm tra file .env ---"
-                        echo "Nội dung của file config/.env được tạo ra:"
-                        sh 'cat config/.env'
-                        echo "Kiểm tra sự tồn tại của biến SIMILARITY_THRESHOLD_FOR_MERGE:"
-                        // Lệnh grep sẽ trả về exit code 0 nếu tìm thấy, và 1 nếu không.
-                        // || true để đảm bảo pipeline không bị lỗi nếu không tìm thấy.
-                        sh 'grep SIMILARITY_THRESHOLD_FOR_MERGE config/.env || echo "CẢNH BÁO: Biến SIMILARITY_THRESHOLD_FOR_MERGE không tìm thấy trong file .env!"'
-                        echo "--- Kết thúc kiểm tra file .env ---"
-
                         echo "Bắt đầu xây dựng các ảnh Docker..."
                         sh 'docker compose -f docker-compose.jenkins.yml build'
 
@@ -62,13 +52,15 @@ pipeline {
                         sh 'docker compose -f docker-compose.jenkins.yml up -d'
                         
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
-                        // SỬA LỖI: Truyền file .env vào container tạm thời
-                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("-v ${pwd()}/config/.env:/app/config/.env") {
+                        // SỬA LỖI: Sử dụng --env-file để nạp trực tiếp các biến môi trường
+                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("--env-file ${pwd()}/config/.env") {
                             // Cài đặt các công cụ build cần thiết
                             sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
                             
                             // Sử dụng python3 -m pip để đảm bảo tính nhất quán
                             sh 'python3 -m pip install -r requirements.txt'
+                            
+                            // Bây giờ, script này sẽ đọc được biến môi trường trực tiếp
                             sh 'python3 embedding.py'
                         }
 
@@ -78,28 +70,26 @@ pipeline {
             }
         }
 
+
         // Giai đoạn 3: Chạy các bài test bên trong một Docker container
         stage('Run Tests') {
             steps {
                 script {
                     echo "Chuẩn bị môi trường test sử dụng Docker..."
-                    docker.image('python:3.10-slim').inside {
+                    docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside('--network RAG_Project_my-network') {
                         echo "Bắt đầu chạy các bài kiểm thử (pytest) bên trong container..."
-                        // sh 'chmod +x ./run_test.sh'
-                        // Chạy các file test
+                        
+                        // Cài đặt các phụ thuộc cần thiết cho test nếu có
+                        sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
+                        sh 'python3 -m pip install -r requirements.txt'
+
+                        // Chạy các lệnh test trực tiếp
                         sh '''
                             set -e
-                            echo "Changing directory to Container_Folder"
-                            cd Container_Folder
-
-                            echo "Running TTS API test..."
-                            python3 -m pytest ../test_CICD/test_tts_api.py
-
-                            echo "Running Whisper API test..."
-                            python3 -m pytest ../test_CICD/test_whisper-api.py
-
-                            echo "Running Chatbot API test..."
-                            python3 -m pytest ../test_CICD/test_chatbot_api.py
+                            echo "Running tests..."
+                            python3 -m pytest test_CICD/test_tts_api.py
+                            python3 -m pytest test_CICD/test_whisper-api.py
+                            python3 -m pytest test_CICD/test_chatbot_api.py
                         '''
                         
                         echo "Tất cả các bài kiểm thử đã pass."
@@ -111,9 +101,7 @@ pipeline {
         // Giai đoạn 4: Đẩy ảnh Docker lên Registry
         stage('Push Docker Images') {
             when {
-                branch 'main'
-                // Bạn cũng có thể thêm điều kiện changeset ở đây
-                // changeset "Container_Folder/**"
+                changeset 'Container_Folder/**'
             }
             steps {
                 script {
