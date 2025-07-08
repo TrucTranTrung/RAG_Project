@@ -95,7 +95,6 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
 
 
 
-
 # convert speech to text
 # response_stt = requests.post("http://0.0.0.0:8000/STT/", files={"file": audio.file})
 # data = response_stt.json()
