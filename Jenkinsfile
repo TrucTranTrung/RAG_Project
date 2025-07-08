@@ -73,7 +73,20 @@ pipeline {
                         echo "Bắt đầu chạy các bài kiểm thử (pytest) bên trong container..."
                         sh 'chmod +x ./run_test.sh'
                         // Chạy các file test
-                        sh './run_test.sh'
+                        sh '''
+                            set -e
+                            echo "Changing directory to Container_Folder"
+                            cd Container_Folder
+
+                            echo "Running TTS API test..."
+                            python3 -m pytest ../test_CICD/test_tts_api.py
+
+                            echo "Running Whisper API test..."
+                            python3 -m pytest ../test_CICD/test_whisper-api.py
+
+                            echo "Running Chatbot API test..."
+                            python3 -m pytest ../test_CICD/test_chatbot_api.py
+                        '''
                         
                         echo "Tất cả các bài kiểm thử đã pass."
                     }
