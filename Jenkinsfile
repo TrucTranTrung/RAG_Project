@@ -76,10 +76,9 @@ pipeline {
                             
                             // Bây giờ, script này sẽ đọc được biến môi trường trực tiếp
                             sh '''
-                                echo "Sourcing environment variables from config/.env..."
-                                set -a
-                                source config/.env
-                                set +a
+                                echo "Exporting environment variables from config/.env..."
+                                export $(grep -v '^#' config/.env | xargs)
+                                
                                 echo "Running embedding script..."
                                 python3 embedding.py
                             '''
