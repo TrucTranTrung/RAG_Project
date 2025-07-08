@@ -45,6 +45,16 @@ pipeline {
                         // Ghi toàn bộ nội dung đã lưu vào file config/.env
                         sh 'echo "${ENV_FILE_CONTENT}" > config/.env'
 
+                        // --- BƯỚC DEBUGGING MỚI ---
+                        echo "--- Bắt đầu kiểm tra file .env ---"
+                        echo "Nội dung của file config/.env được tạo ra:"
+                        sh 'cat config/.env'
+                        echo "Kiểm tra sự tồn tại của biến SIMILARITY_THRESHOLD_FOR_MERGE:"
+                        // Lệnh grep sẽ trả về exit code 0 nếu tìm thấy, và 1 nếu không.
+                        // || true để đảm bảo pipeline không bị lỗi nếu không tìm thấy.
+                        sh 'grep SIMILARITY_THRESHOLD_FOR_MERGE config/.env || echo "CẢNH BÁO: Biến SIMILARITY_THRESHOLD_FOR_MERGE không tìm thấy trong file .env!"'
+                        echo "--- Kết thúc kiểm tra file .env ---"
+
                         echo "Bắt đầu xây dựng các ảnh Docker..."
                         sh 'docker compose -f docker-compose.jenkins.yml build'
 
