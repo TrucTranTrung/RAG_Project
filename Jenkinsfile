@@ -75,7 +75,14 @@ pipeline {
                             sh 'python3 -m pip install -r requirements.txt'
                             
                             // Bây giờ, script này sẽ đọc được biến môi trường trực tiếp
-                            sh 'python3 embedding.py'
+                            sh '''
+                                echo "Sourcing environment variables from config/.env..."
+                                set -a
+                                source config/.env
+                                set +a
+                                echo "Running embedding script..."
+                                python3 embedding.py
+                            '''
                         }
 
                         echo "Hoàn tất giai đoạn Build, Run và Ingest."
