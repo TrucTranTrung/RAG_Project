@@ -91,8 +91,7 @@ nvidia-cusparse-cu12==12.1.0.106
 nvidia-cusparselt-cu12==0.6.3
 nvidia-nccl-cu12==2.21.5
 nvidia-nvjitlink-cu12==12.6.85
-nvidia-nvtx-cu12==12.1.105
-ollama==0.4.8
+nvidia-nvtx-cu12==12.4.127
 onnxruntime==1.22.0
 orjson==3.10.18
 packaging==24.2
