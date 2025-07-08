@@ -30,7 +30,6 @@ pipeline {
 
         // Giai đoạn 2: Xây dựng các ảnh Docker
         stage('Build Docker Images') {
-            // VÍ DỤ: Thêm 'when' vào đây nếu bạn muốn stage này chỉ chạy khi có thay đổi
             when {
                 changeset "Container_Folder/**"
             }
@@ -40,25 +39,38 @@ pipeline {
                     withCredentials([string(credentialsId: ENV_CREDENTIALS_ID, variable: 'ENV_FILE_CONTENT')]) {
                         echo "Tạo file .env từ Jenkins Credentials..."
                         
-                        // SỬA LỖI: Tạo thư mục 'config' nếu nó chưa tồn tại
+                        // Tạo thư mục 'config' nếu nó chưa tồn tại
                         sh 'mkdir -p config'
                         
                         // Ghi toàn bộ nội dung đã lưu vào file config/.env
-                        // Dấu ngoặc kép quanh ${ENV_FILE_CONTENT} rất quan trọng để giữ nguyên định dạng nhiều dòng
                         sh 'echo "${ENV_FILE_CONTENT}" > config/.env'
 
-                        echo "Bắt đầu xây dựng các ảnh Docker và khởi động dịch vụ..."
+                        // --- BƯỚC DEBUGGING MỚI ---
+                        echo "--- Bắt đầu kiểm tra file .env ---"
+                        echo "Nội dung của file config/.env được tạo ra:"
+                        sh 'cat config/.env'
+                        echo "Kiểm tra sự tồn tại của biến SIMILARITY_THRESHOLD_FOR_MERGE:"
+                        // Lệnh grep sẽ trả về exit code 0 nếu tìm thấy, và 1 nếu không.
+                        sh 'grep SIMILARITY_THRESHOLD_FOR_MERGE config/.env || echo "CẢNH BÁO: Biến SIMILARITY_THRESHOLD_FOR_MERGE không tìm thấy trong file .env!"'
+                        echo "--- Kết thúc kiểm tra file .env ---"
+
+                        echo "Bắt đầu xây dựng các ảnh Docker..."
                         sh 'docker compose -f docker-compose.jenkins.yml build'
+
+                        echo "Khởi động các dịch vụ ở chế độ nền..."
                         sh 'docker compose -f docker-compose.jenkins.yml up -d'
                         
-                        echo "Cài đặt các thư viện cần thiết và chạy embedding..."
+                        echo "Cài đặt các thư viện và chạy embedding bên trong container..."
                         docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside {
+                            // Cài đặt các công cụ build cần thiết
                             sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
-                            sh 'pip install -r requirements.txt'
+                            
+                            // Sử dụng python3 -m pip để đảm bảo tính nhất quán
+                            sh 'python3 -m pip install -r requirements.txt'
                             sh 'python3 embedding.py'
                         }
 
-                        echo "Hoàn tất giai đoạn Build và Run."
+                        echo "Hoàn tất giai đoạn Build, Run và Ingest."
                     }
                 }
             }
@@ -71,7 +83,7 @@ pipeline {
                     echo "Chuẩn bị môi trường test sử dụng Docker..."
                     docker.image('python:3.10-slim').inside {
                         echo "Bắt đầu chạy các bài kiểm thử (pytest) bên trong container..."
-                        sh 'chmod +x ./run_test.sh'
+                        // sh 'chmod +x ./run_test.sh'
                         // Chạy các file test
                         sh '''
                             set -e
