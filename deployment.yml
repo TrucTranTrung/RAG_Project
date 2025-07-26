@@ -1,0 +1,279 @@
+# all-in-one-deployment.yaml
+# Tệp này gộp tất cả các tài nguyên Kubernetes cho ứng dụng RAG.
+#
+# HƯỚNG DẪN TRIỂN KHAI:
+# 1. (QUAN TRỌNG) Tạo Secret trước tiên bằng lệnh:
+#    kubectl create secret generic rag-app-secrets --from-env-file=./config/.env -n rag-app
+#
+# 2. Áp dụng tệp này để triển khai tất cả các tài nguyên:
+#    kubectl apply -f all-in-one-deployment.yaml
+#
+# ---
+
+# 1. Namespace: Để cô lập các tài nguyên của ứng dụng
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rag-app
+
+---
+# 2. Database (PostgreSQL)
+# Service để cung cấp một địa chỉ IP/DNS ổn định cho database
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-service
+  namespace: rag-app
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP # Chỉ có thể truy cập bên trong cluster
+
+---
+# StatefulSet cho PostgreSQL
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: rag-app
+spec:
+  serviceName: "db-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: pgvector
+          image: pgvector/pgvector:pg16
+          ports:
+            - containerPort: 5432
+          # Lấy biến môi trường từ Secret đã tạo
+          envFrom:
+            - secretRef:
+                name: rag-app-secrets
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+  # Định nghĩa template cho PersistentVolumeClaim
+  volumeClaimTemplates:
+    - metadata:
+        name: pgdata
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+
+---
+# 3. Whisper API
+apiVersion: v1
+kind: Service
+metadata:
+  name: whisper-api-service
+  namespace: rag-app
+spec:
+  selector:
+    app: whisper-api
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort # Hoặc LoadBalancer nếu bạn dùng cloud provider
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whisper-api
+  namespace: rag-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whisper-api
+  template:
+    metadata:
+      labels:
+        app: whisper-api
+    spec:
+      containers:
+        - name: whisper-api
+          image: tructran172003/whisper-api:v1.0
+          ports:
+            - containerPort: 8000
+          # Thêm lại yêu cầu GPU
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+
+---
+# 4. TTS API
+apiVersion: v1
+kind: Service
+metadata:
+  name: tts-api-service
+  namespace: rag-app
+spec:
+  selector:
+    app: tts-api
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+  type: NodePort # Hoặc LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tts-api
+  namespace: rag-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tts-api
+  template:
+    metadata:
+      labels:
+        app: tts-api
+    spec:
+      containers:
+        - name: tts-api
+          image: tructran172003/tts-api:v1.0
+          ports:
+            - containerPort: 8001
+          # Thêm lại yêu cầu GPU
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+
+---
+# 5. Chatbot API
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-api-service
+  namespace: rag-app
+spec:
+  selector:
+    app: chatbot-api
+  ports:
+    - protocol: TCP
+      port: 4096
+      targetPort: 4096
+  type: NodePort # Hoặc LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-api
+  namespace: rag-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatbot-api
+  template:
+    metadata:
+      labels:
+        app: chatbot-api
+    spec:
+      containers:
+        - name: chatbot-api
+          image: tructran172003/chatbot-api:v1.0
+          ports:
+            - containerPort: 4096
+          # Lấy biến môi trường từ Secret
+          envFrom:
+            - secretRef:
+                name: rag-app-secrets
+          # Thêm lại yêu cầu GPU
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+
+---
+# 6. Jenkins
+# PersistentVolumeClaim để lưu trữ dữ liệu của Jenkins
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: rag-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+  namespace: rag-app
+spec:
+  type: NodePort # Hoặc LoadBalancer
+  selector:
+    app: jenkins
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: rag-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: tructran172003/jenkin:v1.0
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          # CẢNH BÁO: Cung cấp quyền truy cập cao, có thể gây rủi ro bảo mật.
+          securityContext:
+            privileged: true
+            runAsUser: 0 # Chạy với quyền root
+          volumeMounts:
+            # Mount volume để lưu dữ liệu Jenkins
+            - name: jenkins-data
+              mountPath: /var/jenkins_home
+            # Mount Docker socket từ node host
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: jenkins-data
+          persistentVolumeClaim:
+            claimName: jenkins-pvc
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
