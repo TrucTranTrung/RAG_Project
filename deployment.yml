@@ -1,15 +1,3 @@
-# all-in-one-deployment.yaml
-# Tệp này gộp tất cả các tài nguyên Kubernetes cho ứng dụng RAG.
-#
-# HƯỚNG DẪN TRIỂN KHAI:
-# 1. (QUAN TRỌNG) Tạo Secret trước tiên bằng lệnh:
-#    kubectl create secret generic rag-app-secrets --from-env-file=./config/.env -n rag-app
-#
-# 2. Áp dụng tệp này để triển khai tất cả các tài nguyên:
-#    kubectl apply -f all-in-one-deployment.yaml
-#
-# ---
-
 # 1. Namespace: Để cô lập các tài nguyên của ứng dụng
 apiVersion: v1
 kind: Namespace
