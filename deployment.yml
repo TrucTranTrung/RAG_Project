@@ -62,134 +62,76 @@ spec:
             storage: 10Gi
 
 ---
-# 3. Whisper API
+# 3. AI Server (Pod chứa cả 3 model)
+# Deployment này sẽ tạo ra một Pod duy nhất chứa 3 container AI.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-server-deployment
+  namespace: rag-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-server
+  template:
+    metadata:
+      labels:
+        app: ai-server
+    spec:
+      # Đây là danh sách các container sẽ chạy bên trong cùng một Pod
+      containers:
+      # 3.1. Container cho Whisper API
+      - name: whisper-api-container
+        image: tructran172003/whisper-api:v1.0
+        ports:
+        - containerPort: 8000
+        # Chỉ cần một container yêu cầu GPU là đủ cho cả Pod
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+
+      # 3.2. Container cho TTS API
+      - name: tts-api-container
+        image: tructran172003/tts-api:v1.0
+        ports:
+        - containerPort: 8001
+
+      # 3.3. Container cho Chatbot API
+      - name: chatbot-api-container
+        image: tructran172003/chatbot-api:v1.0
+        ports:
+        - containerPort: 4096
+        # "Tiêm" secret vào container này
+        envFrom:
+        - secretRef:
+            name: rag-app-secrets
+
+---
+# Service cho AI Server
+# Service này sẽ trỏ đến Pod và mở cả 3 cổng
 apiVersion: v1
 kind: Service
 metadata:
-  name: whisper-api-service
+  name: ai-server-service
   namespace: rag-app
 spec:
   selector:
-    app: whisper-api
+    app: ai-server
+  type: NodePort # Dùng NodePort để bạn có thể test từ bên ngoài
   ports:
-    - protocol: TCP
+    - name: whisper
+      protocol: TCP
       port: 8000
       targetPort: 8000
-  type: NodePort # Hoặc LoadBalancer nếu bạn dùng cloud provider
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: whisper-api
-  namespace: rag-app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: whisper-api
-  template:
-    metadata:
-      labels:
-        app: whisper-api
-    spec:
-      containers:
-        - name: whisper-api
-          image: tructran172003/whisper-api:v1.0
-          ports:
-            - containerPort: 8000
-          # Thêm lại yêu cầu GPU
-          resources:
-            limits:
-              nvidia.com/gpu: 1
-
----
-# 4. TTS API
-apiVersion: v1
-kind: Service
-metadata:
-  name: tts-api-service
-  namespace: rag-app
-spec:
-  selector:
-    app: tts-api
-  ports:
-    - protocol: TCP
+    - name: tts
+      protocol: TCP
       port: 8001
       targetPort: 8001
-  type: NodePort # Hoặc LoadBalancer
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tts-api
-  namespace: rag-app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: tts-api
-  template:
-    metadata:
-      labels:
-        app: tts-api
-    spec:
-      containers:
-        - name: tts-api
-          image: tructran172003/tts-api:v1.0
-          ports:
-            - containerPort: 8001
-          # Thêm lại yêu cầu GPU
-          resources:
-            limits:
-              nvidia.com/gpu: 1
-
----
-# 5. Chatbot API
-apiVersion: v1
-kind: Service
-metadata:
-  name: chatbot-api-service
-  namespace: rag-app
-spec:
-  selector:
-    app: chatbot-api
-  ports:
-    - protocol: TCP
+    - name: chatbot
+      protocol: TCP
       port: 4096
       targetPort: 4096
-  type: NodePort # Hoặc LoadBalancer
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: chatbot-api
-  namespace: rag-app
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: chatbot-api
-  template:
-    metadata:
-      labels:
-        app: chatbot-api
-    spec:
-      containers:
-        - name: chatbot-api
-          image: tructran172003/chatbot-api:v1.0
-          ports:
-            - containerPort: 4096
-          # Lấy biến môi trường từ Secret
-          envFrom:
-            - secretRef:
-                name: rag-app-secrets
-          # Thêm lại yêu cầu GPU
-          resources:
-            limits:
-              nvidia.com/gpu: 1
 
 ---
 # 6. Jenkins

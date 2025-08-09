@@ -1,12 +1,8 @@
 # RAG_Project
-
 weight : https://drive.google.com/drive/folders/1njve-dILpn-wqR32L7Yqk1wwMN2ADfl8?usp=sharing
 
 # Chạy minikube
-minikube start --gpus=all
-
-kubectl apply -f time-slicing-config.yml
-kubectl apply -f nvidia-plugin-with-config.yml
+minikube start --driver=docker --gpus=all
 
 # Tạo namespace mới
 kubectl create namespace rag-app
@@ -19,3 +15,5 @@ kubectl get secrets -n rag-app
 
 # Khởi tạo
 kubectl apply -f deployment.yml
+kubectl get pods -n rag-app
+kubectl describe pod ai-server-deployment-784fcfccd4-msfj2 -n rag-app
