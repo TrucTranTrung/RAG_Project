@@ -189,9 +189,9 @@ spec:
             - containerPort: 8080
             - containerPort: 50000
           # CẢNH BÁO: Cung cấp quyền truy cập cao, có thể gây rủi ro bảo mật.
-          securityContext:
-            privileged: true
-            runAsUser: 0 # Chạy với quyền root
+          # securityContext:
+          #   privileged: true
+          #   runAsUser: 0 # Chạy với quyền root
           volumeMounts:
             # Mount volume để lưu dữ liệu Jenkins
             - name: jenkins-data

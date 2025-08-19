@@ -16,4 +16,7 @@ kubectl get secrets -n rag-app
 # Khởi tạo
 kubectl apply -f deployment.yml
 kubectl get pods -n rag-app
-kubectl describe pod ai-server-deployment-784fcfccd4-msfj2 -n rag-app
+kubectl describe pod ai-server-deployment-784fcfccd4-fc5q6 -n rag-app
+
+# Chạy Streamlit
+streamlit run Front_end/chatbot_app.py

@@ -3,11 +3,10 @@ import uuid
 from datetime import datetime
 import textwrap
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, AudioProcessorBase
-import av
 import io
-import wave
 import requests
 import numpy as np
+from st_audiorec import st_audiorec
 
 # --- URL BACKEND ---
 CHATBOT_URL = "http://localhost:4096/answer"
@@ -31,16 +30,22 @@ def send_to_chatbot(prompt):
             return f"Lỗi chatbot: {res.status_code} | {res.text}"
     except Exception as e:
         return f"Lỗi gọi chatbot: {e}"
+    
+def speech_to_text(audio_bytes: bytes):
+    if not audio_bytes:
+        return ""
 
-def speech_to_text(audio_bytes):
-    try:
-        files = {"file": ("audio.wav", audio_bytes, "audio/wav")}
-        res = requests.post(WHISPER_URL, files=files)
-        if res.status_code == 200:
-            return res.json().get("output_text", "")
+    files = {"file": ("audio.wav", io.BytesIO(audio_bytes), "audio/wav")}
+    response = requests.post(WHISPER_URL, files=files)
+
+    if response.status_code == 200:
+        print("STT status:", response.status_code)
+        print("STT raw:", response.text)
+        return response.json().get("output_text", "")
+    else:
+        print("STT error:", response.status_code, response.text)
         return ""
-    except Exception:
-        return ""
+
 
 # --- Setup Page ---
 st.set_page_config(page_title="Chatbot", layout="wide")
@@ -139,83 +144,27 @@ else:
 
         st.rerun()
 
-   # --- Ghi âm ---
+
+# --- Audio Recorder ---
 if st.session_state.get("show_recorder", False):
-    st.markdown("🎙️ **Đang ghi âm...**")
+    audio_data = st_audiorec()
+    if audio_data:
+        # Dòng st.audio đã được vô hiệu hóa để không hiển thị trình phát âm thanh nữa
+        # st.audio(audio_data, format="audio/wav")
+        
+        # Gán dữ liệu audio vào session state (nếu bạn cần dùng ở nơi khác)
+        st.session_state.transcribed_audio = audio_data
+        
+        text_transcribed = speech_to_text(audio_data)
 
-    class AudioProcessor(AudioProcessorBase):
-        def __init__(self):
-            self.frames = []
-            self.volume_level = 0.0
-
-        def recv(self, frame: av.AudioFrame):
-            audio = frame.to_ndarray()
-            self.frames.append(audio)
-            self.volume_level = np.sqrt(np.mean(audio.astype(np.float32) ** 2))
-            return frame
-
-    ctx = webrtc_streamer(
-        key="audio_recorder",
-        mode=WebRtcMode.SENDONLY,
-        rtc_configuration=RTC_CONFIGURATION,
-        media_stream_constraints={"audio": True, "video": False},
-        audio_receiver_size=1024,
-        audio_processor_factory=AudioProcessor,
-    )
-
-    if ctx and ctx.audio_processor:
-        st.write(f"Mức âm lượng: {ctx.audio_processor.volume_level:.4f}")
-
-        if st.button("🛑 Dừng & Nhận diện 🎤", key="stop_send_mic_button"):
-            frames = ctx.audio_processor.frames
-            if not frames:
-                st.warning("Không có dữ liệu âm thanh để gửi.")
-            else:
-                try:
-                    # Gộp khung âm thanh
-                    pcm_data = np.concatenate(frames, axis=0)
-
-                    # Tạo file WAV
-                    wav_buffer = io.BytesIO()
-                    with wave.open(wav_buffer, "wb") as wf:
-                        wf.setnchannels(1)
-                        wf.setsampwidth(2)  # 16-bit = 2 bytes
-                        wf.setframerate(48000)
-                        wf.writeframes(pcm_data.astype(np.int16).tobytes())
-                    audio_data = wav_buffer.getvalue()
-
-                    # Gửi tới API STT
-                    with st.spinner("🎧 Đang chuyển giọng nói thành văn bản..."):
-                        text_transcribed = speech_to_text(audio_data)
-
-                    if text_transcribed:
-                        st.session_state.transcribed_audio = audio_data
-                        st.session_state.transcribed_text = text_transcribed
-                        st.session_state.waiting_to_send = True
-                    else:
-                        st.warning("❗ Không thể chuyển đổi giọng nói thành văn bản.")
-                except Exception as e:
-                    st.error(f"⚠️ Lỗi khi xử lý âm thanh: {e}")
-
-                st.session_state.show_recorder = False
-                st.rerun()
-
-# --- Gửi hoặc Ghi lại ---
-if st.session_state.get("waiting_to_send", False):
-    st.markdown("📝 **Bạn đã nói:**")
-    st.text_area("Nội dung", st.session_state.transcribed_text, height=100)
-
-    # 🔊 Phát lại âm thanh đã ghi
-    if st.session_state.get("transcribed_audio"):
-        st.audio(st.session_state.transcribed_audio, format="audio/wav")
-
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("✅ Gửi vào chatbot"):
+        if text_transcribed:
+            st.session_state.transcribed_text = text_transcribed
+            st.session_state.waiting_to_send = True
             prompt = st.session_state.transcribed_text
+            
             with st.spinner("🤖 Đang gửi đến chatbot..."):
                 response = send_to_chatbot(prompt)
-
+            
             chat["messages"].append({"role": "user", "content": prompt})
             chat["messages"].append({"role": "assistant", "content": response})
 
@@ -224,16 +173,15 @@ if st.session_state.get("waiting_to_send", False):
                 short_title = textwrap.shorten(first_line, width=40, placeholder="...")
                 chat["title"] = short_title or "Cuộc trò chuyện"
 
-            # Reset trạng thái
+            # Reset các trạng thái sau khi gửi
             st.session_state.waiting_to_send = False
             st.session_state.transcribed_audio = None
             st.session_state.transcribed_text = ""
-            st.rerun()
+            st.session_state.show_recorder = False
+            st.session_state.already_sent = True   
 
-    with col2:
-        if st.button("🔁 Ghi lại"):
-            st.session_state.waiting_to_send = False
-            st.session_state.transcribed_audio = None
-            st.session_state.transcribed_text = ""
-            st.session_state.show_recorder = True
             st.rerun()
+        else:
+            st.warning("❗ Không thể chuyển đổi giọng nói thành văn bản.")
+
+
