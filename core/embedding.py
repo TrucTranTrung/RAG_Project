@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
-from Embedding_Store.Model import *
-from Embedding_Store.chunking import *
-from Embedding_Store.utils import *
-from Embedding_Store.db import *
+from core.Model import *
+from core.chunking import *
+from core.utils import *
+from core.db import *
 import torch
 print(torch.cuda.is_available())
 # --- MongoDB import ---
