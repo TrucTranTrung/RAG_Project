@@ -30,7 +30,7 @@ def client():
 
     test_file_path = Path(__file__).resolve()
     project_root = test_file_path.parent.parent
-    api_folder_path = project_root / "services" / "chatbot_api"
+    api_folder_path = project_root / "src" / "services" / "chatbot_api"
 
     
     if not api_folder_path.is_dir():
