@@ -2,10 +2,10 @@ from dotenv import load_dotenv
 from pymongo.collection import Collection
 from pymongo import MongoClient
 from langchain_mongodb import MongoDBAtlasVectorSearch
-from Embedding_Store.Model import *
-from Embedding_Store.chunking import *
-from Embedding_Store.utils import *
-from Embedding_Store.db import *
+from core.Model import *
+from core.chunking import *
+from core.utils import *
+from core.db import *
 import os
 load_dotenv()
 # 1. Connect to MongoDB Atlas

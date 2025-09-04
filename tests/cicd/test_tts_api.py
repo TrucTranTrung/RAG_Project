@@ -30,7 +30,7 @@ def app_client():
     # Path(__file__) -> thư mục chứa file test này
     # .parent.parent -> đi lùi ra 2 cấp để đến thư mục gốc của dự án
     # Nối với đường dẫn còn lại để vào thư mục Text_to_Speech
-    api_folder_path = Path(__file__).parent.parent / "Container_Folder" / "Text_to_Speech"
+    api_folder_path = Path(__file__).parent.parent / "src" / "services" / "Text_to_Speech"
     
     if not api_folder_path.exists():
         raise FileNotFoundError(

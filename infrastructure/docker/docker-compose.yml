@@ -1,0 +1,86 @@
+services:
+  # whisper-api:
+  #   build:
+  #     context: ../RAG_Project/Container_Folder/Faster_Whisper
+  #     dockerfile: dockerfile
+  #   image: tructran172003/whisper-api:v1.0
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - my-network
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             capabilities: [gpu] 
+  #             count: all # This corresponds to --gpus all
+
+  # tts-api:
+  #   build:
+  #     context: ../RAG_Project/Container_Folder/Text_to_Speech
+  #     dockerfile: dockerfile
+  #   image: tructran172003/tts-api:v1.0
+  #   ports:
+  #     - "8001:8001"
+  #   networks:
+  #     - my-network
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             capabilities: [gpu] 
+  #             count: all # This corresponds to --gpus all
+
+  # chatbot_api:
+  #   build:
+  #     context: ../RAG_Project/Container_Folder/Chatbot_API
+  #     dockerfile: dockerfile
+  #   image: tructran172003/chatbot-api:v1.0
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     - whisper-api
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             capabilities: [gpu] 
+  #             count: all # This corresponds to --gpus all
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: pgvector-rag
+    restart: always
+    env_file:
+      - ./config/.env
+    ports:
+      - "5432:5432"
+    # Defines a volume to persist the database data.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - my-network
+
+  frontend:
+    build:
+      context: ../RAG_Project/Container_Folder/Front_end   # chỗ có Dockerfile frontend
+      dockerfile: dockerfile
+   # image: tructran172003/frontend:v1.0
+    ports:
+      - "8501:8501"
+    depends_on:
+      - chatbot_api
+      - whisper-api
+      - tts-api
+    networks:
+      - my-network
+volumes:
+  pgdata:
+
+networks:
+  my-network:
+    driver: bridge
+

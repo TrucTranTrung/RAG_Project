@@ -30,7 +30,8 @@ def client():
 
     test_file_path = Path(__file__).resolve()
     project_root = test_file_path.parent.parent
-    api_folder_path = project_root / "Container_Folder" / "chatbot_api"
+    api_folder_path = project_root / "src" / "services" / "chatbot_api"
+
     
     if not api_folder_path.is_dir():
          raise FileNotFoundError(f"Không tìm thấy thư mục API tại: {api_folder_path}")
@@ -42,6 +43,7 @@ def client():
     with patch('db.get_pgvector_store', return_value=MagicMock()) as mock_store:
         # Import app SAU KHI đã thiết lập môi trường và mock cần thiết
         from API_LLAMA3_2 import app
+
         
         # `yield` trả về TestClient cho các hàm test sử dụng
         yield TestClient(app)
