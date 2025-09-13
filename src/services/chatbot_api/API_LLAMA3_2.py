@@ -51,7 +51,7 @@ class RAGAPI:
             prompt_template, information=reranked_indices, question=question
         )
 
-        return output_text  # ✅ trả về chuỗi trực tiếp, đúng logic gốc
+        return output_text 
 
     def handle_audio(self, audio: UploadFile):
         try:
@@ -67,7 +67,6 @@ class RAGAPI:
             output_stt = data["output_text"]
             logger.info("STT service returned text")
 
-            # ✅ tái sử dụng handle_question, không lặp code
             output_text = self.handle_question(output_stt)
 
             # --- Gọi TTS service ---
@@ -113,7 +112,7 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
 
     if question:
         output_text = rag_api_service.handle_question(question)
-        return {"type": "text", "content": output_text}  # ✅ giống code gốc
+        return {"type": "text", "content": output_text}  
     else:
         return rag_api_service.handle_audio(audio)
 
