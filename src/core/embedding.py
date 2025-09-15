@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
-from core.Model import *
-from core.chunking import *
-from core.utils import *
-from core.db import *
-import torch
-print(torch.cuda.is_available())
+from Model import *
+from chunking import *
+from utils import *
+from db import *
+# import torch
+# print(torch.cuda.is_available())
 # --- MongoDB import ---
 
 # load env

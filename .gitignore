@@ -1,8 +1,8 @@
 # Ignore all files in the StyleTTS2/Models/LJSpeech directory
-Container_Folder/Text_to_Speech/StyleTTS2/Models/LJSpeech/epoch_2nd_00100.pth
-Container_Folder/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth
+src/services/Text_to_Speech/StyleTTS2/Models/LJSpeech/epoch_2nd_00100.pth
+src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth
 __pycache__/
 *.pyc
-Container_Folder/Faster_Whisper/models--Systran--faster-whisper-medium
+src/services/Faster_Whisper/models--Systran--faster-whisper-medium
 jenkins_data
 config/.env

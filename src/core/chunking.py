@@ -11,11 +11,8 @@ from dotenv import load_dotenv
 
 # __file__ là biến trỏ đến file Python hiện tại
 script_directory = os.path.abspath(os.path.dirname(__file__))
-# print(f"Thư mục của script hiện tại: {script_directory}")
-# os.path.dirname(script_directory) sẽ trả về đường dẫn của thư mục cha
 project_root_directory = os.path.dirname(script_directory)
-# print(f"Thư mục gốc của dự án (dự kiến): {project_root_directory}")
-# Tạo đường dẫn đầy đủ đến file .env trong thư mục 'config' của thư mục gốc dự án
+project_root_directory = os.path.dirname(project_root_directory)
 dotenv_path = os.path.join(project_root_directory, 'config', '.env')
 
 # Kiểm tra xem file .env có tồn tại không trước khi tải
@@ -28,11 +25,11 @@ else:
 
 similarity_threshold = float(os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE"))
 # print(os.getenv('MODEL_NAME_EMBED'))
-# print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
+print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
 # ---------- STEP 1: Trích xuất text thường ----------
 def split_documents_for_java(documents: List[Document], chunk_size: int, chunk_overlap: int) -> List[Document]:
-    java_splitter = RecursiveCharacterTextSplitter.from_language(
-        language="java",
+    java_splitter = RecursiveCharacterTextSplitter.split_documents(
+        language=documents,
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
         keep_separator=True

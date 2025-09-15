@@ -149,9 +149,6 @@ else:
 if st.session_state.get("show_recorder", False):
     audio_data = st_audiorec()
     if audio_data:
-        # Dòng st.audio đã được vô hiệu hóa để không hiển thị trình phát âm thanh nữa
-        # st.audio(audio_data, format="audio/wav")
-        
         # Gán dữ liệu audio vào session state (nếu bạn cần dùng ở nơi khác)
         st.session_state.transcribed_audio = audio_data
         
