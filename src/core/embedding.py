@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from Model import *
-from chunking import *
+from chunking import DocumentProcessor
 from utils import *
 from db import *
 # import torch
@@ -22,14 +22,14 @@ chunk_overlap = int(os.getenv("JAVA_SPLITTER_CHUNK_OVERLAP", "200"))
 
 
 # 1. Load PDF Documents
-raw_documents = load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))
+raw_documents = DocumentProcessor.load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))
 if not raw_documents:
     print("Pipeline stopped: No documents loaded.")
     exit()
 
 # 2. Initialize Embedding Model
 try:
-    embeddings_model = initialize_embedding_model(
+    embeddings_model = DocumentProcessor.initialize_embedding_model(
         os.getenv("MODEL_NAME_EMBED"))
 except Exception:
     print("Pipeline stopped: Could not initialize embedding model.")
@@ -37,7 +37,7 @@ except Exception:
 
 
 # 3. Initial Splitting (Java Recursive)
-initial_chunks = split_documents_for_java(
+initial_chunks = DocumentProcessor.split_documents(
     raw_documents,
     chunk_size,
     chunk_overlap
@@ -48,7 +48,7 @@ if not initial_chunks:
 print(f"Initial chunks: {len(initial_chunks)}")
 
 # 4. Custom Semantic Merging
-final_merged_documents = merge_chunks_by_semantic_similarity(
+final_merged_documents = DocumentProcessor.merge_chunks_by_semantic_similarity(
     initial_chunks,
     embeddings_model,
     os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE")
