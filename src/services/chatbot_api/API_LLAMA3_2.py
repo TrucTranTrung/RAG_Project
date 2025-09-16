@@ -26,24 +26,40 @@ class RAGAPI:
         self.collection_name = os.getenv("COLLECTION_NAME", "my_default_collection")
         self.llm = GoogleGenerativeAI(model="models/gemini-1.5-pro-latest")
         self.vector_store = get_pgvector_store(collection_name=self.collection_name)
+        
+        # Khởi tạo retriever từ vector store.
+        self.retriever = self.vector_store.as_retriever(search_kwargs={"k": 5})
 
-    def handle_question(self, question: str):
-        # --- Query PGVector ---
-        output_database = query_similar_vectors_from_pgvector(question, self.vector_store, top_k=5)
-
-        # rerank contexts
-        similarities = []
-        documents = []
-        for document, score in output_database:
-            documents.append(document.page_content)
-            similarities.append(score)
-
-        reranked_indices = get_top_k_contexts(documents, question, similarities, k=3)
-        output_text = get_entities_as_string_GEMINI(
-            prompt_template, information=reranked_indices, question=question
+        # Xây dựng chuỗi LCEL.
+        self.chain = (
+            RunnableParallel(
+                {
+                    "context": self._get_reranked_contexts,
+                    "question": RunnablePassthrough()
+                }
+            )
+            | ChatPromptTemplate.from_template(prompt_template)
+            | self.llm
+            | StrOutputParser()
         )
 
-        return output_text  # ✅ trả về chuỗi trực tiếp, đúng logic gốc
+    def _get_reranked_contexts(self, question: str):
+        # Lấy tài liệu từ retriever.
+        docs_with_scores = self.retriever.invoke(question)
+        
+        # Tách nội dung và điểm số.
+        documents = [doc.page_content for doc in docs_with_scores]
+        similarities = [doc.metadata.get("score", 0.0) for doc in docs_with_scores]
+        
+        # Áp dụng rerank.
+        reranked_docs = get_top_k_contexts(documents, question, similarities, k=3)
+        
+        # Trả về chuỗi tài liệu đã được định dạng.
+        return "\n\n".join(reranked_docs)
+
+    def handle_question(self, question: str):
+        output_text = self.chain.invoke(question)
+        return output_text
 
     def handle_audio(self, audio: UploadFile):
         try:
@@ -97,7 +113,7 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
 
     if question:
         output_text = rag_api_service.handle_question(question)
-        return {"type": "text", "content": output_text}  # ✅ giống code gốc
+        return {"type": "text", "content": output_text}
     else:
         return rag_api_service.handle_audio(audio)
 
