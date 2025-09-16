@@ -27,7 +27,7 @@ class RAGAPI:
         self.llm = GoogleGenerativeAI(model="models/gemini-1.5-pro-latest")
         self.vector_store = get_pgvector_store(collection_name=self.collection_name)
         
-        # Khởi tạo retriever từ vector store.
+        
         self.retriever = self.vector_store.as_retriever(search_kwargs={"k": 5})
 
         # Xây dựng chuỗi LCEL.
@@ -58,7 +58,6 @@ class RAGAPI:
         return "\n\n".join(reranked_docs)
 
     def handle_question(self, question: str):
-        # Gọi chuỗi LCEL để xử lý câu hỏi.
         output_text = self.chain.invoke(question)
         return output_text
 
