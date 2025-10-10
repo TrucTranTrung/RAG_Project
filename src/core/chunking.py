@@ -8,6 +8,7 @@ import numpy as np
 from tqdm.auto import tqdm
 import torch 
 from dotenv import load_dotenv
+from langchain_community.document_loaders import PyPDFDirectoryLoader
 
 # __file__ là biến trỏ đến file Python hiện tại
 script_directory = os.path.abspath(os.path.dirname(__file__))
@@ -46,7 +47,39 @@ class DocumentProcessor:
         else:
             self.similarity_threshold = float(similarity_threshold)
 
+    def initialize_embedding_model(model_name: str) -> HuggingFaceEmbeddings:
+        # print(f"Initializing embedding model: {model_name}...")
+        try:
+            embeddings_model = HuggingFaceEmbeddings(
+                model_name=model_name,
+                model_kwargs={'device': 'cuda'},
+                encode_kwargs={'normalize_embeddings': True,
+                            'batch_size': 64}
+            )
+            print("Embedding model initialized.")
+            return embeddings_model
+        except Exception as e:
+            print(f"Error initializing embedding model: {e}")
+            raise
+
     # ---------- STEP 1: Trích xuất text thường ----------
+    def load_pdf_documents(directory_path: str) -> List[Document]:
+        print(f"Loading PDF documents from: {directory_path}...")
+        if not os.path.exists(directory_path) or not os.listdir(directory_path): 
+            print(f"Error: PDF directory '{directory_path}' does not exist or is empty.")
+            return []
+        loader = PyPDFDirectoryLoader(directory_path, recursive=True)
+        try:
+            documents = loader.load()
+            if not documents:
+                print("No documents were loaded. Check PDF files and loader permissions/path.")
+                return []
+            print(f"Successfully loaded {len(documents)} document pages.")
+            return documents
+        except Exception as e:
+            print(f"Error loading PDF documents: {e}")
+            return []
+
     def split_documents(documents: List[Document], chunk_size: int, chunk_overlap: int) -> List[Document]:
         pdf_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,

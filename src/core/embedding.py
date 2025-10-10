@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from Model import *
 from chunking import DocumentProcessor
 from utils import *
 from db import *
@@ -37,6 +36,7 @@ except Exception:
 
 
 # 3. Initial Splitting (Java Recursive)
+print(chunk_size, chunk_overlap)
 initial_chunks = DocumentProcessor.split_documents(
     raw_documents,
     chunk_size,
