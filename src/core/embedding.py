@@ -3,13 +3,23 @@ from chunking import DocumentProcessor
 from utils import *
 from db import *
 # import torch
-# print(torch.cuda.is_available())
+import torch
+torch.cuda.empty_cache()
 # --- MongoDB import ---
 
-# load env
-basedir = os.path.abspath(os.path.dirname(__file__))
-dotenv_path = os.path.join(basedir, 'config', '.env')
-load_dotenv()
+# __file__ là biến trỏ đến file Python hiện tại
+script_directory = os.path.abspath(os.path.dirname(__file__))
+project_root_directory = os.path.dirname(script_directory)
+project_root_directory = os.path.dirname(project_root_directory)
+dotenv_path = os.path.join(project_root_directory, 'config', '.env')
+
+# Kiểm tra xem file .env có tồn tại không trước khi tải
+if os.path.exists(dotenv_path):
+    print(f"Đang tải biến môi trường từ: {dotenv_path}")
+    load_dotenv(dotenv_path=dotenv_path)
+    print("Tải biến môi trường thành công.")
+else:
+    print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 if os.path.exists(dotenv_path):
     print(f"Loading env file from: {dotenv_path}")
     load_dotenv(dotenv_path=dotenv_path)
@@ -18,7 +28,6 @@ else:
 
 chunk_size = int(os.getenv("JAVA_SPLITTER_CHUNK_SIZE", "2000"))  
 chunk_overlap = int(os.getenv("JAVA_SPLITTER_CHUNK_OVERLAP", "200"))
-
 
 # 1. Load PDF Documents
 raw_documents = DocumentProcessor.load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))

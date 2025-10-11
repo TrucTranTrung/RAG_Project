@@ -1,50 +1,54 @@
 # pip install langchain-postgres langchain-huggingface python-dotenv psycopg-binary sentence-transformers
 import os
 from typing import List
-
 from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_postgres import PGVector
-from dotenv import load_dotenv
 from urllib.parse import quote_plus
-load_dotenv(dotenv_path="./config/.env")
+from dotenv import load_dotenv
 
+# __file__ là biến trỏ đến file Python hiện tại
+script_directory = os.path.abspath(os.path.dirname(__file__))
+project_root_directory = os.path.dirname(script_directory)
+project_root_directory = os.path.dirname(project_root_directory)
+dotenv_path = os.path.join(project_root_directory, 'config', '.env')
+
+# Kiểm tra xem file .env có tồn tại không trước khi tải
+if os.path.exists(dotenv_path):
+    print(f"Đang tải biến môi trường từ: {dotenv_path}")
+    load_dotenv(dotenv_path=dotenv_path)
+    print("Tải biến môi trường thành công.")
+else:
+    print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
+
+embedding_model = HuggingFaceEmbeddings(model_name=os.getenv("MODEL_NAME_EMBED"))
+# print("Embedding model initialized.")
 
 def get_pgvector_store(collection_name: str) -> PGVector:
-    """
-    Kết nối đến PGvector và trả về một đối tượng vector store.
-    """
-    print("Connecting to PGvector...")
+    from urllib.parse import quote_plus
+    import os
 
-    # Lấy thông tin từ các biến môi trường
     db_user = os.getenv("POSTGRES_USER")
-    db_password = quote_plus(os.getenv("POSTGRES_PASSWORD"))
+    db_pass = quote_plus(os.getenv("POSTGRES_PASSWORD", ""))
     db_name = os.getenv("POSTGRES_DB")
-    db_host = os.getenv("POSTGRES_HOST")
-    db_port = os.getenv("POSTGRES_PORT")
-    print(db_host)
-    if not all([db_user, db_password, db_name]):
-        raise ValueError("Pls provide POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB in .env")
+    db_host = os.getenv("POSTGRES_HOST", "localhost")
+    db_port = os.getenv("POSTGRES_PORT", "5432")
 
-    # Tạo connection string cho PostgreSQL
-    connection_string = f"postgresql+psycopg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-    print(f"Connecting to PGvector with database '{db_name}'...")
+    if not all([db_user, db_pass, db_name]):
+        raise ValueError("Missing POSTGRES_USER, POSTGRES_PASSWORD or POSTGRES_DB")
+
+    conn_str = f"postgresql+psycopg://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
 
     try:
-        embedding_model = HuggingFaceEmbeddings(model_name=os.getenv("MODEL_NAME_EMBED"))
-
-        # Khởi tạo đối tượng PGVector
-        vector_store = PGVector(
+        return PGVector(
             embeddings=embedding_model,
             collection_name=collection_name,
-            connection=connection_string,
+            connection=conn_str,
         )
-        print("✅ Connection and PGVector store initialization successful!")
-        return vector_store
-
     except Exception as e:
-        print(f"❌ Error connecting to PGvector: {e}")
+        print("❌ PGVector connection error:", e)
         raise
+
 
 def store_documents_in_pgvector(
     documents_to_store: List[Document],
