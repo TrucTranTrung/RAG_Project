@@ -17,7 +17,6 @@ dotenv_path = os.path.join(project_root_directory, 'config', '.env')
 if os.path.exists(dotenv_path):
     print(f"Đang tải biến môi trường từ: {dotenv_path}")
     load_dotenv(dotenv_path=dotenv_path)
-    print("Tải biến môi trường thành công.")
 else:
     print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 if os.path.exists(dotenv_path):
