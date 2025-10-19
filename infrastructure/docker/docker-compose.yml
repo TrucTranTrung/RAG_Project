@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - my-network
+      - elk-net
     deploy:
       resources:
         reservations:
@@ -24,7 +24,7 @@ services:
     ports:
       - "8001:8001"
     networks:
-      - my-network
+      - elk-net
     deploy:
       resources:
         reservations:
@@ -46,7 +46,7 @@ services:
       - whisper-api
       - db
     networks:
-      - my-network
+      - elk-net
     deploy:
       resources:
         reservations:
@@ -67,7 +67,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - my-network
+      - elk-net
+
 
   # frontend:
   #   build:
@@ -86,6 +87,6 @@ volumes:
   pgdata:
 
 networks:
-  my-network:
-    driver: bridge
+  elk-net:
+    external: true
 
