@@ -6,6 +6,8 @@ services:
     image: tructran172003/whisper-api:v1.0
     ports:
       - "8000:8000"
+    labels:
+      co.elastic.logs/enabled: "true"
     networks:
       - elk-net
     deploy:
@@ -23,8 +25,22 @@ services:
     image: tructran172003/tts-api:v1.0
     ports:
       - "8001:8001"
+    labels:
+      co.elastic.logs/enabled: "true"
+    environment:
+      # Tracing (OpenTelemetry / Jaeger)
+      - OTEL_SERVICE_NAME=tts-api
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+      - OTEL_PROPAGATORS=b3
+
+      # optional: bật/tắt tracing runtime
+      - ENABLE_TRACING=true
+      - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk-net
+    depends_on:
+      - jaeger
     deploy:
       resources:
         reservations:
@@ -40,6 +56,8 @@ services:
     image: tructran172003/chatbot-api:v1.0
     env_file:
       - ../../config/.env
+    labels:
+      co.elastic.logs/enabled: "true"
     ports:
       - "4096:4096"
     depends_on:
@@ -61,6 +79,8 @@ services:
     restart: always
     env_file:
       - ../../config/.env
+    labels:
+      co.elastic.logs/enabled: "true"
     ports:
       - "5432:5432"
     # Defines a volume to persist the database data.

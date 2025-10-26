@@ -1,30 +1,52 @@
-## Filebeat configuration
-## https://github.com/elastic/beats/blob/master/deploy/docker/filebeat.docker.yml
-#
-
+# ./extensions/filebeat/config/filebeat.yml
 filebeat.config:
   modules:
     path: ${path.config}/modules.d/*.yml
     reload.enabled: false
 
+# Autodiscover provider (detect containers via docker socket)
 filebeat.autodiscover:
   providers:
-    # The Docker autodiscover provider automatically retrieves logs from Docker
-    # containers as they start and stop.
     - type: docker
       hints.enabled: true
+      templates:
+        - condition:
+            contains:
+              docker.container.labels.co.elastic.logs/enabled: "true"
+          config:
+            - type: container
+              paths:
+                - /var/lib/docker/containers/${data.container.id}/*.log
+              multiline.pattern: '^[[:space:]]'
+              multiline.negate: false
+              multiline.match: after
+
+# Fallback container input (debug) - read all docker json logs on host
+filebeat.inputs:
+  - type: container
+    enabled: true
+    paths:
+      - /var/lib/docker/containers/*/*.log
+    multiline.pattern: '^[[:space:]]'
+    multiline.negate: false
+    multiline.match: after
 
 processors:
+  - add_docker_metadata: ~
+  - add_host_metadata: ~
   - add_cloud_metadata: ~
+
+# avoid template error when custom index used
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-*"
 
 output.elasticsearch:
   hosts: ['http://elasticsearch:9200']
   username: elastic
   password: ${ELASTICSEARCH_PASSWORD}
-
-## HTTP endpoint for health checking
-## https://www.elastic.co/guide/en/beats/filebeat/current/http-endpoint.html
-#
+  index: "filebeat-%{+yyyy.MM.dd}"
 
 http.enabled: true
 http.host: 0.0.0.0
+
+

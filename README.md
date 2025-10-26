@@ -26,4 +26,4 @@ kubectl get pods -n rag-app
 kubectl describe pod ai-server-deployment-784fcfccd4-fc5q6 -n rag-app
 
 # Chạy Streamlit
-streamlit run Front_end/chatbot_app.py
+streamlit run src/services/Front_end/chatbot_app.py

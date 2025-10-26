@@ -1,0 +1,22 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: pgvector-rag
+    restart: always
+    env_file:
+      - ../../config/.env
+    ports:
+      - "5432:5432"
+    # Defines a volume to persist the database data.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - elk-net
+
+volumes:
+  pgdata:
+
+networks:
+  elk-net:
+    external: true
+

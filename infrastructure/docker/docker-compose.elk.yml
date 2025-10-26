@@ -29,9 +29,9 @@ services:
     env_file:
       - ../../config/.env
     volumes:
-      - ./extensions/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
-    # environment:
-    #   KIBANA_SYSTEM_PASSWORD: "${ELASTICSEARCH_PASSWORD}"
+      - ./extensions/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z 
+    environment:
+    - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}
     ports:
       - "5601:5601"
     networks:
@@ -50,7 +50,10 @@ services:
     env_file:
       - ../../config/.env
     volumes:
-      - ./extensions/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./extensions/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro,z
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log:/var/log:ro
       - type: bind
         source: /var/lib/docker/containers
         target: /var/lib/docker/containers
