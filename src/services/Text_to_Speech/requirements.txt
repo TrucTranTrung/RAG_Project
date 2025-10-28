@@ -28,3 +28,4 @@ opentelemetry-instrumentation-fastapi
 opentelemetry-instrumentation-requests
 python-json-logger
 pynvml
+deprecated

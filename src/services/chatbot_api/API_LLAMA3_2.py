@@ -90,33 +90,3 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
                 status_code=500,
                 content={"error": "An internal server error occurred."}
             )
-
-# uvicorn API_LLAMA3_2:app --host 0.0.0.0 --port 4096 --reload
-
-
-
-# convert speech to text
-# response_stt = requests.post("http://0.0.0.0:8000/STT/", files={"file": audio.file})
-# data = response_stt.json()
-# output_stt = data["output_text"]
-# # --- Query PGVector ---
-# output_database = query_similar_vectors_from_pgvector(output_stt, vector_store, top_k=5)
-
-# # rerank contexts
-# similarities = []
-# documents = []
-# for document, score in output_database:
-#     documents.append(document.page_content)
-#     similarities.append(score)
-# reranked_indices = get_top_k_contexts(documents, output_stt, similarities, k=3)
-
-# output_text = get_entities_as_string_GEMINI(prompt_template, information=reranked_indices, question=output_stt)
-# # convert text to speech
-# answer_audio_base64 = requests.post("http://0.0.0.0:8001/transcribe/", data={"text_input": output_text})
-# answer_audio_base64.raise_for_status() # HTTP error
-
-# # Extract JSON from response
-# tts_data = answer_audio_base64.json()
-# final_audio_base64 = tts_data.get("output_sound")
-
-# return {"type": "audio","audio_base64": final_audio_base64}

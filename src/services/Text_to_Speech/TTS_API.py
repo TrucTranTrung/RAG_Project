@@ -153,14 +153,14 @@ async def transcribe_audio(text_input: str = Form(...)):
     request_id = str(uuid.uuid4())
     REQUEST_START = time.time()
     try:
+        sentences = text_input.split('.') 
+        wavs = []
+        s_prev = None
         logger.info("transcribe_received", extra={
             "request_id": request_id,
             "input_length": len(text_input),
             "segments": len([s for s in sentences if s.strip() != ""])
         })
-        sentences = text_input.split('.') # simple split by comma
-        wavs = []
-        s_prev = None
         with tracer.start_as_current_span("transcribe_request") as req_span:
             req_span.set_attribute("input_length", len(text_input))
             for idx, text in enumerate(sentences):

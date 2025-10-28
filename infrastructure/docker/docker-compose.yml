@@ -39,8 +39,8 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk-net
-    depends_on:
-      - jaeger
+    # depends_on:
+    #   - jaeger
     deploy:
       resources:
         reservations:
