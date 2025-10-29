@@ -3,6 +3,7 @@ weight : https://drive.google.com/drive/folders/1njve-dILpn-wqR32L7Yqk1wwMN2ADfl
 
 # Run Docker Compose
 docker network create elk-net
+docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 docker compose -f infrastructure/docker/docker-compose.yml up 
 
 # Run Docker ELK Compose

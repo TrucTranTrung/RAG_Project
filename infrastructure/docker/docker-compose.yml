@@ -32,15 +32,13 @@ services:
       - OTEL_SERVICE_NAME=tts-api
       - JAEGER_AGENT_HOST=jaeger
       - JAEGER_AGENT_PORT=6831
-      - OTEL_PROPAGATORS=b3
+      - ENABLE_TRACING=true
 
-      # optional: bật/tắt tracing runtime
+      # bật/tắt tracing runtime
       - ENABLE_TRACING=true
       - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk-net
-    # depends_on:
-    #   - jaeger
     deploy:
       resources:
         reservations:

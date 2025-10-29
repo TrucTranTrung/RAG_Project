@@ -11,13 +11,17 @@ import time
 import os
 import logging
 import socket
-# ---------------- Tracing (OpenTelemetry -> Jaeger) ----------------
+# --- imports relevant to tracing/logging ---
 from opentelemetry import trace
-from opentelemetry.trace import get_current_span
+from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.trace import get_tracer_provider, set_tracer_provider
+
+# ----- Metrics (Prometheus) -----
+from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import CollectorRegistry
 
 # ---------------- Logging setup (JSON) ----------------
 try:
@@ -25,6 +29,9 @@ try:
 except Exception:
     jsonlogger = None  # fallback to plain logging if not installed
 
+# read config from env (falls back to defaults)
+JAEGER_HOST = os.getenv("JAEGER_AGENT_HOST", "jaeger")
+JAEGER_PORT = int(os.getenv("JAEGER_AGENT_PORT", "6831"))
 SERVICE_NAME_STR = os.getenv("OTEL_SERVICE_NAME", "tts-api")
 SERVICE_VERSION = os.getenv("SERVICE_VERSION", "v1.0")
 ENV = os.getenv("ENV", "dev")
@@ -43,10 +50,11 @@ if not logger.handlers:
         handler.setFormatter(formatter)
     logger.addHandler(handler)
 
+# --- Logging enrichment: use trace.get_current_span() (not undefined name) ---
 def enrich_log(record):
-    # add common fields to record
     try:
-        span = get_current_span()
+        # use trace.get_current_span() (we imported opentelemetry.trace as trace)
+        span = trace.get_current_span()
         ctx = span.get_span_context() if span is not None else None
         trace_id = format(ctx.trace_id, '032x') if ctx and ctx.trace_id else None
     except Exception:
@@ -66,10 +74,6 @@ class EnrichFilter(logging.Filter):
 logger.addFilter(EnrichFilter())
 
 
-# ----- Metrics (Prometheus) -----
-from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
-from prometheus_client import CollectorRegistry
-
 # ----- Optional GPU metrics -----
 try:
     import pynvml
@@ -77,17 +81,19 @@ try:
 except Exception:
     PYNVML_AVAILABLE = False
 
-# ---------- Init tracing ----------
-service_name = "Text-To-Speech-Service"
-trace.set_tracer_provider(
-    TracerProvider(resource=Resource.create({SERVICE_NAME: service_name}))
+# --- Init tracing using env values ---
+set_tracer_provider(
+    TracerProvider(resource=Resource.create({SERVICE_NAME: SERVICE_NAME_STR}))
 )
-jaeger_agent_host =  "jaeger" 
-jaeger_agent_port = 6831
-jaeger_exporter = JaegerExporter(agent_host_name=jaeger_agent_host, agent_port=jaeger_agent_port)
+tracer = get_tracer_provider().get_tracer("TTS", "0.1.1")
+
+jaeger_exporter = JaegerExporter(
+    agent_host_name=JAEGER_HOST,
+    agent_port=JAEGER_PORT,
+)
+
 span_processor = BatchSpanProcessor(jaeger_exporter)
-trace.get_tracer_provider().add_span_processor(span_processor)
-tracer = trace.get_tracer(__name__)
+get_tracer_provider().add_span_processor(span_processor)
 
 # ---------- Init prometheus metrics ----------
 REGISTRY = CollectorRegistry() 
@@ -149,7 +155,6 @@ def metrics():
 
 @app.post("/transcribe")
 async def transcribe_audio(text_input: str = Form(...)):
-    status = "ok"
     request_id = str(uuid.uuid4())
     REQUEST_START = time.time()
     try:
@@ -177,7 +182,6 @@ async def transcribe_audio(text_input: str = Form(...)):
                     wavs.append(wav)
                 t1 = time.time()
                 INFER_GCUM_DURATION.observe(t1 - t0)
-                wavs.append(wav)
             audio = np.concatenate(wavs)
             
             # Lưu vào buffer
