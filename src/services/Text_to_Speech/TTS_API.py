@@ -31,13 +31,9 @@ from prometheus_client import (
     generate_latest,
     CONTENT_TYPE_LATEST,
     CollectorRegistry,
+    ProcessCollector,
+    PLATFORM_COLLECTOR
 )
-# optional collectors
-try:
-    from prometheus_client import ProcessCollector, PLATFORM_COLLECTOR
-except Exception:
-    ProcessCollector = None
-    PLATFORM_COLLECTOR = None
 
 # ---------------- Logging setup (JSON) ----------------
 try:
@@ -124,16 +120,18 @@ if PLATFORM_COLLECTOR is not None:
     except Exception:
         pass
 
+
 REQUEST_COUNTER = Counter(
     "tts_requests_total", 
     "Total number of TTS requests", 
-    ["status"], 
+    ["service", "status"], 
     registry=REGISTRY
 )
 
 REQUEST_LATENCY = Histogram(
     "tts_request_duration_seconds", 
     "Request duration seconds", 
+    ["service"], 
     registry=REGISTRY, 
     buckets=(0.05, 0.1, 0.5, 1, 2, 5, 10)
 )
@@ -141,21 +139,21 @@ REQUEST_LATENCY = Histogram(
 GPU_UTIL_GAUGE = Gauge(
     "tts_gpu_util_percent", 
     "GPU utilization percent", 
-    ["gpu_index"], 
+    ["service", "gpu_index"], 
     registry=REGISTRY
 )
 
 GPU_MEM_USED_GAUGE = Gauge(
     "tts_gpu_memory_used_bytes", 
     "GPU memory used bytes", 
-    ["gpu_index"], 
+    ["service", "gpu_index"], 
     registry=REGISTRY
 )
 
 GPU_MEM_TOTAL_GAUGE = Gauge(
     "tts_gpu_memory_total_bytes",
     "GPU memory total bytes",
-    ["gpu_index"],
+    ["service", "gpu_index"],
     registry=REGISTRY
 )
 
