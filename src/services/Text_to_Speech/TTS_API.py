@@ -5,12 +5,14 @@ import numpy as np
 import base64
 import io
 from models import LFinference
-from fastapi import FastAPI, Form, Response
+from fastapi import FastAPI, Form, Response, Request
 from fastapi.responses import JSONResponse
 import time
 import os
 import logging
 import socket
+import asyncio
+
 # --- imports relevant to tracing/logging ---
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
@@ -18,10 +20,24 @@ from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.trace import get_tracer_provider, set_tracer_provider
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 # ----- Metrics (Prometheus) -----
-from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
-from prometheus_client import CollectorRegistry
+from prometheus_client import (
+    Counter,
+    Histogram,
+    Gauge,
+    generate_latest,
+    CONTENT_TYPE_LATEST,
+    CollectorRegistry,
+)
+# optional collectors
+try:
+    from prometheus_client import ProcessCollector, PLATFORM_COLLECTOR
+except Exception:
+    ProcessCollector = None
+    PLATFORM_COLLECTOR = None
 
 # ---------------- Logging setup (JSON) ----------------
 try:
@@ -50,10 +66,9 @@ if not logger.handlers:
         handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-# --- Logging enrichment: use trace.get_current_span() (not undefined name) ---
+# --- Logging enrichment: include trace_id in logs
 def enrich_log(record):
     try:
-        # use trace.get_current_span() (we imported opentelemetry.trace as trace)
         span = trace.get_current_span()
         ctx = span.get_span_context() if span is not None else None
         trace_id = format(ctx.trace_id, '032x') if ctx and ctx.trace_id else None
@@ -73,7 +88,6 @@ class EnrichFilter(logging.Filter):
 
 logger.addFilter(EnrichFilter())
 
-
 # ----- Optional GPU metrics -----
 try:
     import pynvml
@@ -85,7 +99,7 @@ except Exception:
 set_tracer_provider(
     TracerProvider(resource=Resource.create({SERVICE_NAME: SERVICE_NAME_STR}))
 )
-tracer = get_tracer_provider().get_tracer("TTS", "0.1.1")
+tracer = get_tracer_provider().get_tracer("TextToSpeech", "0.1.1")
 
 jaeger_exporter = JaegerExporter(
     agent_host_name=JAEGER_HOST,
@@ -95,18 +109,74 @@ jaeger_exporter = JaegerExporter(
 span_processor = BatchSpanProcessor(jaeger_exporter)
 get_tracer_provider().add_span_processor(span_processor)
 
-# ---------- Init prometheus metrics ----------
-REGISTRY = CollectorRegistry() 
-REQUEST_COUNTER = Counter("Text-To-Speech_total", "Total /transcribe requests", ["status"], registry=REGISTRY)
-REQUEST_LATENCY = Histogram("Text-To-Speech_duration_seconds", "Request latency seconds", registry=REGISTRY)
-INFER_GCUM_DURATION = Histogram("Text-To-Speech_inference_duration_seconds", "Inference duration per segment", registry=REGISTRY)
-GPU_UTIL_GAUGE = Gauge("Text-To-Speech_gpu_utilization_percent", "GPU utilization percent", ["gpu_index"], registry=REGISTRY)
-GPU_MEM_USED_GAUGE = Gauge("Text-To-Speech_gpu_memory_used_bytes", "GPU memory used bytes", ["gpu_index"], registry=REGISTRY)
+# ---------- Init prometheus metrics (improved names + labels) ----------
+REGISTRY = CollectorRegistry()
 
+# register process/platform collectors when available
+if ProcessCollector is not None:
+    try:
+        ProcessCollector(registry=REGISTRY)
+    except Exception:
+        pass
+if PLATFORM_COLLECTOR is not None:
+    try:
+        PLATFORM_COLLECTOR(registry=REGISTRY)
+    except Exception:
+        pass
+
+REQUEST_COUNTER = Counter(
+    "tts_requests_total", 
+    "Total number of TTS requests", 
+    ["status"], 
+    registry=REGISTRY
+)
+
+REQUEST_LATENCY = Histogram(
+    "tts_request_duration_seconds", 
+    "Request duration seconds", 
+    registry=REGISTRY, 
+    buckets=(0.05, 0.1, 0.5, 1, 2, 5, 10)
+)
+
+GPU_UTIL_GAUGE = Gauge(
+    "tts_gpu_util_percent", 
+    "GPU utilization percent", 
+    ["gpu_index"], 
+    registry=REGISTRY
+)
+
+GPU_MEM_USED_GAUGE = Gauge(
+    "tts_gpu_memory_used_bytes", 
+    "GPU memory used bytes", 
+    ["gpu_index"], 
+    registry=REGISTRY
+)
+
+GPU_MEM_TOTAL_GAUGE = Gauge(
+    "tts_gpu_memory_total_bytes",
+    "GPU memory total bytes",
+    ["gpu_index"],
+    registry=REGISTRY
+)
+
+GPU_MEM_UTIL_PERCENT = Gauge(
+    "tts_gpu_memory_util_percent",
+    "GPU memory utilization percent",
+    ["service", "gpu_index"],
+    registry=REGISTRY
+)
 
 # ---------- App & Device ----------
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 app = FastAPI()
+
+# instrument app for http spans and requests propagation
+try:
+    FastAPIInstrumentor.instrument_app(app)
+    RequestsInstrumentor().instrument()
+except Exception:
+    # if instrumentation fails, continue — manual spans still work
+    logger.warning("OTel instrumentation failed to initialize (continuing without auto-instrument)")
 
 # Initialize pynvml if available
 if PYNVML_AVAILABLE:
@@ -119,25 +189,57 @@ if PYNVML_AVAILABLE:
 else:
     GPU_COUNT = 0
 
-
 # Background task to update GPU gauges periodically
-import asyncio
 async def _gpu_updater_task(interval_s: float = 5.0):
     if not PYNVML_AVAILABLE:
         return
     while True:
         try:
             for i in range(GPU_COUNT):
-                handle = pynvml.nvmlDeviceGetHandleByIndex(i)
-                util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu  # percent
-                mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
-                GPU_UTIL_GAUGE.labels(gpu_index=str(i)).set(float(util))
-                GPU_MEM_USED_GAUGE.labels(gpu_index=str(i)).set(int(mem_info.used))
+                try:
+                    handle = pynvml.nvmlDeviceGetHandleByIndex(i)
+                    # utilization percent
+                    util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu  # int percent
+
+                    # memory info (bytes)
+                    mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+                    mem_used = int(mem_info.used)
+                    mem_total = int(mem_info.total)
+
+                    # set prometheus gauges (use string label for gpu_index)
+                    GPU_UTIL_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(float(util))
+                    GPU_MEM_USED_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_used)
+                    GPU_MEM_TOTAL_GAUGE.labels(gpu_index=str(i)).set(mem_total)
+                    mem_percent = (mem_used / mem_total) * 100 if mem_total > 0 else 0
+                    GPU_MEM_UTIL_PERCENT.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_percent)
+
+                except Exception:
+                    # don't crash updater for a single GPU error
+                    logger.debug(f"gpu metric update failed for index {i}", exc_info=True)
         except Exception:
             # ignore update errors
             pass
         await asyncio.sleep(interval_s)
 
+@app.middleware("http")
+async def tracing_middleware(request: Request, call_next):
+    # Tạo một request_id riêng cho mỗi request
+    request_id = str(uuid.uuid4())
+    start = time.time()
+
+    span = trace.get_current_span()
+    if span and span.is_recording():
+        span.set_attribute("request_id", request_id)
+        span.set_attribute("http.method", request.method)
+        span.set_attribute("http.path", request.url.path)
+
+    response = await call_next(request)
+
+    if span and span.is_recording():
+        span.set_attribute("http.status_code", response.status_code)
+        span.set_attribute("process_time_ms", (time.time() - start) * 1000)
+
+    return response
 
 @app.on_event("startup")
 async def startup_event():
@@ -157,54 +259,93 @@ def metrics():
 async def transcribe_audio(text_input: str = Form(...)):
     request_id = str(uuid.uuid4())
     REQUEST_START = time.time()
+    route = "/transcribe"
     try:
-        sentences = text_input.split('.') 
+        sentences = text_input.split('.')
         wavs = []
         s_prev = None
+
         logger.info("transcribe_received", extra={
             "request_id": request_id,
             "input_length": len(text_input),
             "segments": len([s for s in sentences if s.strip() != ""])
         })
+
         with tracer.start_as_current_span("transcribe_request") as req_span:
+            # thêm một số tag hữu dụng lên span request
+            req_span.set_attribute("request_id", request_id)
+            req_span.set_attribute("http.route", route)
             req_span.set_attribute("input_length", len(text_input))
-            for idx, text in enumerate(sentences):
-                if text.strip() == "": continue
-                text += '.' # add it back
+            req_span.set_attribute("device", device)
+            req_span.set_attribute("service.version", SERVICE_VERSION)
+
+            valid_sentences = [s for s in sentences if s.strip() != ""]
+            req_span.set_attribute("segments_count", len(valid_sentences))
+
+            for idx, text in enumerate(valid_sentences):
+                text = text + '.'
                 t0 = time.time()
+
                 # add span for this particular inference segment
-                with tracer.start_as_current_span("inference_segment") as seg_span:
+                with tracer.start_as_current_span(f"inference_segment.{idx}") as seg_span:
                     seg_span.set_attribute("segment_index", idx)
                     seg_span.set_attribute("segment_length", len(text))
-                    logger.info("segment_inference_start", extra={"request_id": request_id, "segment_index": idx, "segment_length": len(text)})
+                    seg_span.set_attribute("model", "LFinference")
+                    # thêm event để hiện trong phần Logs/Events của span
+                    seg_span.add_event("segment.inference.start", {"index": idx})
+
+                    # GPU snapshot before inference (optional)
+                    if PYNVML_AVAILABLE:
+                        try:
+                            handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+                            util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
+                            mem_used = pynvml.nvmlDeviceGetMemoryInfo(handle).used
+                            seg_span.set_attribute("gpu.index", 0)
+                            seg_span.set_attribute("gpu.util_percent_start", int(util))
+                            seg_span.set_attribute("gpu.mem_used_start", int(mem_used))
+                        except Exception:
+                            pass
+
+                    # inference
                     noise = torch.randn(1,1,256).to(device)
                     wav, s_prev = LFinference(text, s_prev, noise, alpha=0.7, diffusion_steps=10, embedding_scale=1.5)
                     wavs.append(wav)
-                t1 = time.time()
-                INFER_GCUM_DURATION.observe(t1 - t0)
-            audio = np.concatenate(wavs)
+
+                    seg_span.add_event("segment.inference.end", {"index": idx, "duration_s": time.time() - t0})
+                    total = time.time() - REQUEST_START
+                    REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route="/transcribe").observe(total)
             
+            
+            REQUEST_COUNTER.labels(service=SERVICE_NAME_STR, route="/transcribe", status="200").inc()
+            audio = np.concatenate(wavs) if wavs else np.array([], dtype=np.float32)
+
             # Lưu vào buffer
             buffer = io.BytesIO()
             sf.write(buffer, audio, samplerate=24000, format='WAV')
             buffer.seek(0)
             audio_base64 = base64.b64encode(buffer.read()).decode("utf-8")
 
-            REQUEST_LATENCY.observe(time.time() - REQUEST_START)
-            REQUEST_COUNTER.labels(status="200").inc()
-            logger.info("transcribe_completed", extra={"request_id": request_id, "duration_s": time.time() - REQUEST_START})
+
+            logger.info("transcribe_completed", extra={"request_id": request_id, "duration_s": total})
             return JSONResponse(content={
                 "output_sound": audio_base64
             })
 
     except Exception as e:
-        REQUEST_LATENCY.observe(time.time() - REQUEST_START)
-        REQUEST_COUNTER.labels(status="500").inc()
-        # record exception in current span
+        total = time.time() - REQUEST_START
+        REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route=route).observe(total)
+        REQUEST_COUNTER.labels(service=SERVICE_NAME_STR, route=route, status="500").inc()
+
+        # record exception in current span and set status
         span = trace.get_current_span()
         if span is not None:
             span.record_exception(e)
-            span.set_attribute("error", True)
+            try:
+                from opentelemetry.trace import Status, StatusCode
+                span.set_status(Status(StatusCode.ERROR, str(e)))
+            except Exception:
+                span.set_attribute("error", True)
+
         logger.exception("transcribe_failed", extra={"request_id": request_id, "error": str(e)})
         return JSONResponse(status_code=500, content={"error": str(e)})
 

@@ -45,7 +45,7 @@ services:
           devices:
             - driver: nvidia
               capabilities: [gpu] 
-              count: all # This corresponds to --gpus all
+              count: all 
 
   chatbot_api:
     build:
@@ -69,7 +69,7 @@ services:
           devices:
             - driver: nvidia
               capabilities: [gpu] 
-              count: all # This corresponds to --gpus all
+              count: all 
 
   db:
     image: pgvector/pgvector:pg16

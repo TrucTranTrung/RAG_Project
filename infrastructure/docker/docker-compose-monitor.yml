@@ -1,5 +1,82 @@
 
 services:
+  node-exporter:
+    image: prom/node-exporter:v1.3.1
+    container_name: node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--collector.hwmon=false'
+    ports:
+      - 9100:9100
+    networks:
+      - elk-net
+
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    container_name: prometheus
+    volumes:
+      - ./extensions/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./extensions/prometheus/config/rules.yml:/etc/prometheus/rules.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - elk-net
+    restart: unless-stopped
+  
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    ports:
+      - 8090:8090
+    networks:
+      - elk-net
+  
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    container_name: alertmanager
+    restart: unless-stopped
+    volumes:
+      - alertmanager_data:/alertmanager/data
+      - ./extensions/alertmanager:/alertmanager
+    command:
+      - '--config.file=/alertmanager/config.yml'
+      - '--storage.path=/alertmanager/data'
+      - '--log.level=debug'
+    ports:
+      - 9093:9093
+    networks:
+      - elk-net
+
+  grafana:
+    image: grafana/grafana:10.4.1
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin   
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./extensions/granfa/Config/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      - ./extensions/granfa/Config/datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+      - ./grafana/dashboards:/opt/grafana/dashboards
+    ports:
+      - "3000:3000"
+    networks:
+      - elk-net
+    restart: unless-stopped
+
   jaeger:
     image: jaegertracing/all-in-one:1.47
     container_name: jaeger
@@ -9,6 +86,12 @@ services:
       - "16686:16686"     
     networks:
       - elk-net 
+
+
+volumes:
+  grafana-data:
+  alertmanager_data:
+  prometheus_data:
 
 networks:
   elk-net:

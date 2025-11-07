@@ -1,0 +1,26 @@
+groups:
+# ==== Text-to-Speech Minimal Alerts ====
+- name: tts_minimal_alerts
+  rules:
+
+  # --- Alert 1: GPU utilization sustained high ---
+  - alert: HighGPUUsage
+    expr: avg_over_time(tts_gpu_util_percent[2m]) > 90
+    for: 1m
+    labels:
+      severity: warning
+      team: infra
+    annotations:
+      summary: "High GPU utilization"
+      description: "Average GPU utilization > 90% for the last 3 minutes. Value: {{ $value }}. Check tts service GPU load."
+
+  # --- Alert 2: Many 5xx responses in last 5m ---
+  - alert: High5xxCount
+    expr: increase(tts_requests_total{status=~"5.."}[5m]) > 5
+    for: 1m
+    labels:
+      severity: critical
+      team: backend
+    annotations:
+      summary: "High number of 5xx responses"
+      description: "More than 5 server errors (5xx) in the last 5 minutes. Investigate logs and traces (use trace_id)."
