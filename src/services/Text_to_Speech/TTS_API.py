@@ -85,11 +85,11 @@ class EnrichFilter(logging.Filter):
 logger.addFilter(EnrichFilter())
 
 # ----- Optional GPU metrics -----
-try:
-    import pynvml
-    PYNVML_AVAILABLE = True
-except Exception:
-    PYNVML_AVAILABLE = False
+# try:
+#     import pynvml
+#     PYNVML_AVAILABLE = True
+# except Exception:
+#     PYNVML_AVAILABLE = False
 
 # --- Init tracing using env values ---
 set_tracer_provider(
@@ -124,45 +124,45 @@ if PLATFORM_COLLECTOR is not None:
 REQUEST_COUNTER = Counter(
     "tts_requests_total", 
     "Total number of TTS requests", 
-    ["service", "status"], 
+    ["service", "route", "status"], 
     registry=REGISTRY
 )
 
 REQUEST_LATENCY = Histogram(
     "tts_request_duration_seconds", 
     "Request duration seconds", 
-    ["service"], 
+    ["service", "route"], 
     registry=REGISTRY, 
     buckets=(0.05, 0.1, 0.5, 1, 2, 5, 10)
 )
 
-GPU_UTIL_GAUGE = Gauge(
-    "tts_gpu_util_percent", 
-    "GPU utilization percent", 
-    ["service", "gpu_index"], 
-    registry=REGISTRY
-)
+# GPU_UTIL_GAUGE = Gauge(
+#     "tts_gpu_util_percent", 
+#     "GPU utilization percent", 
+#     ["service", "gpu_index"], 
+#     registry=REGISTRY
+# )
 
-GPU_MEM_USED_GAUGE = Gauge(
-    "tts_gpu_memory_used_bytes", 
-    "GPU memory used bytes", 
-    ["service", "gpu_index"], 
-    registry=REGISTRY
-)
+# GPU_MEM_USED_GAUGE = Gauge(
+#     "tts_gpu_memory_used_bytes", 
+#     "GPU memory used bytes", 
+#     ["service", "gpu_index"], 
+#     registry=REGISTRY
+# )
 
-GPU_MEM_TOTAL_GAUGE = Gauge(
-    "tts_gpu_memory_total_bytes",
-    "GPU memory total bytes",
-    ["service", "gpu_index"],
-    registry=REGISTRY
-)
+# GPU_MEM_TOTAL_GAUGE = Gauge(
+#     "tts_gpu_memory_total_bytes",
+#     "GPU memory total bytes",
+#     ["service", "gpu_index"],
+#     registry=REGISTRY
+# )
 
-GPU_MEM_UTIL_PERCENT = Gauge(
-    "tts_gpu_memory_util_percent",
-    "GPU memory utilization percent",
-    ["service", "gpu_index"],
-    registry=REGISTRY
-)
+# GPU_MEM_UTIL_PERCENT = Gauge(
+#     "tts_gpu_memory_util_percent",
+#     "GPU memory utilization percent",
+#     ["service", "gpu_index"],
+#     registry=REGISTRY
+# )
 
 # ---------- App & Device ----------
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -177,47 +177,47 @@ except Exception:
     logger.warning("OTel instrumentation failed to initialize (continuing without auto-instrument)")
 
 # Initialize pynvml if available
-if PYNVML_AVAILABLE:
-    try:
-        pynvml.nvmlInit()
-        GPU_COUNT = pynvml.nvmlDeviceGetCount()
-    except Exception:
-        PYNVML_AVAILABLE = False
-        GPU_COUNT = 0
-else:
-    GPU_COUNT = 0
+# if PYNVML_AVAILABLE:
+#     try:
+#         pynvml.nvmlInit()
+#         GPU_COUNT = pynvml.nvmlDeviceGetCount()
+#     except Exception:
+#         PYNVML_AVAILABLE = False
+#         GPU_COUNT = 0
+# else:
+#     GPU_COUNT = 0
 
 # Background task to update GPU gauges periodically
-async def _gpu_updater_task(interval_s: float = 5.0):
-    if not PYNVML_AVAILABLE:
-        return
-    while True:
-        try:
-            for i in range(GPU_COUNT):
-                try:
-                    handle = pynvml.nvmlDeviceGetHandleByIndex(i)
-                    # utilization percent
-                    util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu  # int percent
+# async def _gpu_updater_task(interval_s: float = 5.0):
+#     if not PYNVML_AVAILABLE:
+#         return
+#     while True:
+#         try:
+#             for i in range(GPU_COUNT):
+#                 try:
+#                     handle = pynvml.nvmlDeviceGetHandleByIndex(i)
+#                     # utilization percent
+#                     util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu  # int percent
 
-                    # memory info (bytes)
-                    mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
-                    mem_used = int(mem_info.used)
-                    mem_total = int(mem_info.total)
+#                     # memory info (bytes)
+#                     mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+#                     mem_used = int(mem_info.used)
+#                     mem_total = int(mem_info.total)
 
-                    # set prometheus gauges (use string label for gpu_index)
-                    GPU_UTIL_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(float(util))
-                    GPU_MEM_USED_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_used)
-                    GPU_MEM_TOTAL_GAUGE.labels(gpu_index=str(i)).set(mem_total)
-                    mem_percent = (mem_used / mem_total) * 100 if mem_total > 0 else 0
-                    GPU_MEM_UTIL_PERCENT.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_percent)
+#                     # set prometheus gauges (use string label for gpu_index)
+#                     GPU_UTIL_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(float(util))
+#                     GPU_MEM_USED_GAUGE.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_used)
+#                     GPU_MEM_TOTAL_GAUGE.labels(gpu_index=str(i)).set(mem_total)
+#                     mem_percent = (mem_used / mem_total) * 100 if mem_total > 0 else 0
+#                     GPU_MEM_UTIL_PERCENT.labels(service=SERVICE_NAME_STR, gpu_index=str(i)).set(mem_percent)
 
-                except Exception:
-                    # don't crash updater for a single GPU error
-                    logger.debug(f"gpu metric update failed for index {i}", exc_info=True)
-        except Exception:
-            # ignore update errors
-            pass
-        await asyncio.sleep(interval_s)
+#                 except Exception:
+#                     # don't crash updater for a single GPU error
+#                     logger.debug(f"gpu metric update failed for index {i}", exc_info=True)
+#         except Exception:
+#             # ignore update errors
+#             pass
+#         await asyncio.sleep(interval_s)
 
 @app.middleware("http")
 async def tracing_middleware(request: Request, call_next):
@@ -239,12 +239,12 @@ async def tracing_middleware(request: Request, call_next):
 
     return response
 
-@app.on_event("startup")
-async def startup_event():
-    # start background gpu update (non-blocking)
-    if PYNVML_AVAILABLE and GPU_COUNT > 0:
-        asyncio.create_task(_gpu_updater_task(5.0))
-    logger.info("service_startup", extra={"service": SERVICE_NAME_STR, "version": SERVICE_VERSION, "device": device})
+# @app.on_event("startup")
+# async def startup_event():
+#     # start background gpu update (non-blocking)
+#     if PYNVML_AVAILABLE and GPU_COUNT > 0:
+#         asyncio.create_task(_gpu_updater_task(5.0))
+#     logger.info("service_startup", extra={"service": SERVICE_NAME_STR, "version": SERVICE_VERSION, "device": device})
 
 # Expose /metrics for Prometheus
 @app.get("/metrics")
@@ -293,16 +293,16 @@ async def transcribe_audio(text_input: str = Form(...)):
                     seg_span.add_event("segment.inference.start", {"index": idx})
 
                     # GPU snapshot before inference (optional)
-                    if PYNVML_AVAILABLE:
-                        try:
-                            handle = pynvml.nvmlDeviceGetHandleByIndex(0)
-                            util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
-                            mem_used = pynvml.nvmlDeviceGetMemoryInfo(handle).used
-                            seg_span.set_attribute("gpu.index", 0)
-                            seg_span.set_attribute("gpu.util_percent_start", int(util))
-                            seg_span.set_attribute("gpu.mem_used_start", int(mem_used))
-                        except Exception:
-                            pass
+                    # if PYNVML_AVAILABLE:
+                    #     try:
+                    #         handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+                    #         util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
+                    #         mem_used = pynvml.nvmlDeviceGetMemoryInfo(handle).used
+                    #         seg_span.set_attribute("gpu.index", 0)
+                    #         seg_span.set_attribute("gpu.util_percent_start", int(util))
+                    #         seg_span.set_attribute("gpu.mem_used_start", int(mem_used))
+                    #     except Exception:
+                    #         pass
 
                     # inference
                     noise = torch.randn(1,1,256).to(device)
@@ -312,8 +312,7 @@ async def transcribe_audio(text_input: str = Form(...)):
                     seg_span.add_event("segment.inference.end", {"index": idx, "duration_s": time.time() - t0})
                     total = time.time() - REQUEST_START
                     REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route="/transcribe").observe(total)
-            
-            
+
             REQUEST_COUNTER.labels(service=SERVICE_NAME_STR, route="/transcribe", status="200").inc()
             audio = np.concatenate(wavs) if wavs else np.array([], dtype=np.float32)
 
@@ -331,8 +330,8 @@ async def transcribe_audio(text_input: str = Form(...)):
 
     except Exception as e:
         total = time.time() - REQUEST_START
-        REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route=route).observe(total)
-        REQUEST_COUNTER.labels(service=SERVICE_NAME_STR, route=route, status="500").inc()
+        REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route="/transcribe").observe(total)
+        REQUEST_COUNTER.labels(service=SERVICE_NAME_STR, route="/transcribe", status="500").inc()
 
         # record exception in current span and set status
         span = trace.get_current_span()
