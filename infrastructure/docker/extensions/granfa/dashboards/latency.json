@@ -1,0 +1,165 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1628472829010,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "legend": { "displayMode": "table", "placement": "bottom" } },
+      "targets": [
+        {
+          "expr": "sum(rate(tts_requests_total{service=~\"$service\",route=~\"$route\"}[1m])) by (service, route)",
+          "format": "time_series",
+          "legendFormat": "{{service}} / {{route}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Requests per second (RPS)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": { "defaults": { "unit": "none" }, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } },
+      "targets": [
+        {
+          "expr": "increase(tts_requests_total{service=~\"$service\",route=~\"$route\"}[1h])",
+          "format": "time_series",
+          "legendFormat": "requests (1h)",
+          "refId": "A"
+        }
+      ],
+      "title": "Total requests (last 1h)",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 6 },
+      "id": 3,
+      "options": { "legend": { "displayMode": "table", "placement": "bottom" } },
+      "targets": [
+        {
+          "expr": "sum(rate(tts_requests_total{service=~\"$service\",route=~\"$route\"}[5m])) by (status)",
+          "format": "time_series",
+          "legendFormat": "status {{status}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(tts_requests_total{service=~\"$service\",route=~\"$route\",status!~\"2..\"}[5m])) / sum(rate(tts_requests_total{service=~\"$service\",route=~\"$route\"}[5m])) * 100",
+          "format": "time_series",
+          "legendFormat": "error % (non-2xx)",
+          "refId": "B"
+        }
+      ],
+      "title": "Requests by status & Error rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 6 },
+      "id": 4,
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" } },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum(rate(tts_request_duration_seconds_bucket{service=~\"$service\",route=~\"$route\"}[5m])) by (le))",
+          "format": "time_series",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.9, sum(rate(tts_request_duration_seconds_bucket{service=~\"$service\",route=~\"$route\"}[5m])) by (le))",
+          "format": "time_series",
+          "legendFormat": "p90",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(tts_request_duration_seconds_bucket{service=~\"$service\",route=~\"$route\"}[5m])) by (le))",
+          "format": "time_series",
+          "legendFormat": "p99",
+          "refId": "C"
+        }
+      ],
+      "title": "Latency quantiles (p50, p90, p99)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 12 },
+      "id": 5,
+      "options": {
+        "bucketBound": { "auto": true },
+        "displayMode": "heatmap",
+        "showLegend": true
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(tts_request_duration_seconds_bucket{service=~\"$service\",route=~\"$route\"}[5m])) by (le)",
+          "format": "heatmap",
+          "legendFormat": "buckets",
+          "refId": "A"
+        }
+      ],
+      "title": "Latency buckets (heatmap)",
+      "type": "heatmap"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": ["tts", "service", "latency", "requests"],
+  "templating": {
+    "list": [
+      {
+        "name": "service",
+        "type": "query",
+        "label": "Service",
+        "query": "label_values(tts_requests_total, service)",
+        "datasource": null,
+        "allValue": ".*",
+        "includeAll": true,
+        "multi": true,
+        "refresh": 1
+      },
+      {
+        "name": "route",
+        "type": "query",
+        "label": "Route",
+        "query": "label_values(tts_requests_total, route)",
+        "datasource": null,
+        "allValue": ".*",
+        "includeAll": true,
+        "multi": true,
+        "refresh": 1
+      },
+      {
+        "name": "status",
+        "type": "query",
+        "label": "Status",
+        "query": "label_values(tts_requests_total, status)",
+        "datasource": null,
+        "allValue": ".*",
+        "includeAll": true,
+        "multi": true,
+        "refresh": 1
+      }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m"], "time_options": ["5m", "15m", "1h", "6h", "12h", "24h"] },
+  "title": "TTS Service - Requests & Latency",
+  "version": 1
+}

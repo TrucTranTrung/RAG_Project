@@ -8,6 +8,13 @@ services:
       - "8000:8000"
     labels:
       co.elastic.logs/enabled: "true"
+    environment:
+      - OTEL_SERVICE_NAME=whisper-api
+      - JAEGER_COLLECTOR_URL=http://jaeger:14268/api/traces
+
+      # bật/tắt tracing runtime
+      - ENABLE_TRACING=true
+      - NVIDIA_VISIBLE_DEVICES=all
     networks:
       - elk-net
     deploy:

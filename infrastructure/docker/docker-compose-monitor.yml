@@ -36,30 +36,6 @@ services:
             - driver: nvidia
               capabilities: [gpu] 
               count: all 
-
-  gpu-mapper:
-    build: ../../src/services/gpu_mapper
-    container_name: gpu-mapper
-    restart: unless-stopped
-    volumes:
-      - /proc:/host/proc:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /dev:/dev
-    ports:
-      - 9000:9000
-    networks:
-      - elk-net
-    environment:
-      - PROM_PORT=9000
-      - POLL_SECONDS=5
-      - STALE_TTL=3
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu] 
-              count: all 
   
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -126,11 +102,14 @@ services:
     image: jaegertracing/all-in-one:1.47
     container_name: jaeger
     restart: unless-stopped
+    environment:
+      - LOG_LEVEL=debug
     ports:
-      - "6831:6831/udp"  
-      - "16686:16686"     
+      - "16686:16686"  # UI
+      - "14268:14268"  # HTTP Collector
+      - "6831:6831/udp" # UDP Thrift
     networks:
-      - elk-net 
+      - elk-net
 
 
 volumes:

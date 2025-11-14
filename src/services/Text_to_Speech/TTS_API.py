@@ -289,7 +289,7 @@ async def transcribe_audio(text_input: str = Form(...)):
                     seg_span.set_attribute("segment_index", idx)
                     seg_span.set_attribute("segment_length", len(text))
                     seg_span.set_attribute("model", "LFinference")
-                    # thêm event để hiện trong phần Logs/Events của span
+                    # thêm event để hiện trong phần Logs/Events
                     seg_span.add_event("segment.inference.start", {"index": idx})
 
                     # GPU snapshot before inference (optional)

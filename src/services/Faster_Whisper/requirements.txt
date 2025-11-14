@@ -10,3 +10,12 @@ tqdm
 nvidia-cublas-cu12
 nvidia-cudnn-cu12==9.*
 python-multipart
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-jaeger
+opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-requests
+python-json-logger
+pynvml
+deprecated

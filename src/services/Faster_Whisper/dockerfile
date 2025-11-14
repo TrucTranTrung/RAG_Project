@@ -1,85 +1,41 @@
-# Base image with CUDA, cuDNN, Python 3.10
+# Base image với CUDA + cuDNN + Python 3.10
 FROM nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04
 
-# Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
-# Đặt biến môi trường cho cache của Hugging Face
 ENV HF_HUB_CACHE=/root/.cache/huggingface/hub
 
-# Cài đặt Python 3.10 và các công cụ cần thiết
-RUN apt-get update && \
-    apt-get install -y python3.10 python3-pip && \
+# Cài Python 3.10 và pip
+RUN export DEBIAN_FRONTEND=noninteractive TZ=US && \
+    apt-get update && \
+    apt-get install -y \
+        python3.10 \
+        python3-pip \
+        espeak \
+        libespeak1 && \
     rm -rf /var/lib/apt/lists/*
+
+# Tạo symlink python -> python3 để tiện sử dụng
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Set working directory
 WORKDIR /app
 
-# Sao chép file requirements trước để tận dụng cache
+# Sao chép requirements trước để tận dụng cache Docker
 COPY requirements.txt .
-# Cài đặt các thư viện, bao gồm huggingface_hub để download
-RUN pip install --no-cache-dir -r requirements.txt
 
-# --- TẢI MODEL TRONG LÚC BUILD ---
-# Sao chép script download vào image
+# Cài đặt tất cả packages
+RUN pip install -r requirements.txt
+
+# Sao chép và tải model
 COPY downloadmodel.py .
-# Chạy script để tải model. Lớp (layer) này sẽ được cache lại.
-RUN python3 downloadmodel.py
+RUN python downloadmodel.py
 
-# --- KẾT THÚC PHẦN TẢI MODEL ---
-
-# Sao chép các file code của ứng dụng
+# Sao chép source code
 COPY Whisper_API.py .
 
-# Expose FastAPI default port
+# Expose port
 EXPOSE 8000
 
-# Run the app using uvicorn
+# Run app
 CMD ["uvicorn", "Whisper_API:app", "--host", "0.0.0.0", "--port", "8000"]
-
-
-
-
-# Base image with CUDA, cuDNN, Python 3.10
-# FROM nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04
-
-# # Set environment variables
-# ENV DEBIAN_FRONTEND=noninteractive
-# ENV PYTHONUNBUFFERED=1
-
-# # Python 3.10 
-# RUN export DEBIAN_FRONTEND=noninteractive TZ=US && \
-#     apt-get update && \
-#     apt-get -y install python3.10 python3-pip
-
-# # Set working directory
-# WORKDIR /app
-
-# # Copy files
-# COPY requirements.txt .
-# RUN pip install -r requirements.txt
-# COPY Whisper_API.py .
-
-# ENV HF_HUB_CACHE=~/.cache/huggingface/hub
-
-# # ADD and RUN file download
-# RUN mkdir -p ~/.cache/huggingface
-# RUN mkdir -p ~/.cache/huggingface/hub
-# # RUN mkdir -p ~/.cache/huggingface/hub/models--Systran--faster-whisper-medium
-# RUN mkdir -p ./models--Systran--faster-whisper-medium
-# COPY models--Systran--faster-whisper-medium ./models--Systran--faster-whisper-medium
-
-# RUN cp -r ./models--Systran--faster-whisper-medium ~/.cache/huggingface/hub/
-# RUN rm -rf ./models--Systran--faster-whisper-medium
-
-
-
-# # Expose FastAPI default port
-# EXPOSE 8000
-
-# # Run the app using uvicorn
-# CMD ["uvicorn", "Whisper_API:app", "--host", "0.0.0.0", "--port", "8000"]
-
-
-
-
