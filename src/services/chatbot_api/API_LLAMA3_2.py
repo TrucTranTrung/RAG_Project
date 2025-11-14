@@ -26,7 +26,7 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
     if not question and not audio:
         return JSONResponse(status_code=400, content={"error": "No question or audio provided"})
 
-    if question:
+    if question and not audio:
         # --- Query PGVector ---
         output_database = query_similar_vectors_from_pgvector(question, vector_store, top_k=5)
         
@@ -42,7 +42,23 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
         output_text = get_entities_as_string_GEMINI(prompt_template, information=reranked_indices, question=question)
 
         return {"type": "text", "content": output_text}
-    else:
+    elif audio and not question:
+        # --- Query PGVector ---
+        output_database = query_similar_vectors_from_pgvector(question, vector_store, top_k=5)
+        
+        # rerank contexts
+        similarities = []
+        documents = []
+        for document, score in output_database:
+            documents.append(document.page_content)
+            similarities.append(score)
+            
+        reranked_indices = get_top_k_contexts(documents, question, similarities, k=3)
+        # print(f"Saved reranked indices to {reranked_indices}")
+        output_text = get_entities_as_string_GEMINI(prompt_template, information=reranked_indices, question=question)
+
+        return {"type": "text", "content": output_text}
+    else: # both question and audio are provided
         try:
             # --- Ghi log các bước xử lý ---
             logger.info("Received audio input. Calling STT service.")

@@ -21,7 +21,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # Set working directory
 WORKDIR /app
 
-# Sao chép requirements trước để tận dụng cache Docker
+# Sao chép requirements 
 COPY requirements.txt .
 
 # Cài đặt tất cả packages
