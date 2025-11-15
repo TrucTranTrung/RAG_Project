@@ -1,7 +1,8 @@
 # Overview
-- This RAG project focuses on psychology and aims to model real-world similarity in responses.
-- The system is containerized with Docker and deployed using Jenkins for CI/CD automation.
-- For monitoring and observability, the project integrates Grafana, Prometheus, and the ELK stack.
+- This RAG project focuses on psychology and aims to generate responses that closely resemble real-world human interaction.
+- The system includes both Text-to-Speech (TTS) and Speech-to-Text (STT) modules, enabling fully voice-based communication.
+- The entire application is containerized with Docker and deployed through a CI/CD pipeline using Jenkins.
+- For monitoring, logging, and observability, the infrastructure integrates Grafana, Prometheus, and the ELK stack.
 
 ## Monitoring
 <table>
