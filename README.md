@@ -2,6 +2,8 @@
 - This RAG project focuses on psychology and aims to model real-world similarity in responses.
 - The system is containerized with Docker and deployed using Jenkins for CI/CD automation.
 - For monitoring and observability, the project integrates Grafana, Prometheus, and the ELK stack.
+
+## Monitoring
 <table>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="300"></td>
