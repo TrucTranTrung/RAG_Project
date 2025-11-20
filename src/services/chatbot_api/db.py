@@ -25,6 +25,7 @@ def get_pgvector_store(collection_name: str) -> PGVector:
     db_host = os.getenv("POSTGRES_CONTAINER_HOST")
     db_port = os.getenv("POSTGRES_PORT")
 
+
     if not all([db_user, db_password, db_name]):
         raise ValueError("Pls provide POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB in .env")
 

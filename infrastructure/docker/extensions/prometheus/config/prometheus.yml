@@ -39,3 +39,11 @@ scrape_configs:
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
+
+  - job_name: "whisper-api"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["whisper-api:8000"]  
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance

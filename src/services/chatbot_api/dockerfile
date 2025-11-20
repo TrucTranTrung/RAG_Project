@@ -1,33 +1,68 @@
-# Base image with CUDA, cuDNN, Python 3.10
+# # Base image with CUDA, cuDNN, Python 3.10
+# FROM nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04
+
+# # Set environment variables
+# ENV DEBIAN_FRONTEND=noninteractive
+# ENV PYTHONUNBUFFERED=1
+
+# # Python 3.10 
+# RUN export DEBIAN_FRONTEND=noninteractive TZ=US && \
+#     apt-get update && \
+#     apt-get -y install python3.10 python3-pip
+
+# # Set working directory
+# WORKDIR /app
+
+# # Copy files
+# COPY requirements.txt .
+# RUN pip install -r requirements.txt
+# COPY API_LLAMA3_2.py .
+# COPY db.py .
+# COPY model.py .
+# COPY utils.py .
+# COPY prompt.py .
+
+
+# # Expose FastAPI default port
+# EXPOSE 4096
+
+# # Run the app using uvicorn
+# CMD ["uvicorn", "API_LLAMA3_2:app", "--host", "0.0.0.0", "--port", "4096"]
+
 FROM nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04
 
-# Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
-# Python 3.10 
-RUN export DEBIAN_FRONTEND=noninteractive TZ=US && \
-    apt-get update && \
-    apt-get -y install python3.10 python3-pip
-
-# Set working directory
 WORKDIR /app
 
-# Copy files
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY API_LLAMA3_2.py .
-COPY db.py .
-COPY model.py .
-COPY utils.py .
-COPY prompt.py .
+# System packages
+RUN apt-get update && apt-get install -y \
+        python3.10 \
+        python3-pip \
+        espeak \
+        libespeak1 \
+    && rm -rf /var/lib/apt/lists/*
 
+# # Upgrade pip, setuptools, wheel
+# RUN python3.10 -m pip install --upgrade pip setuptools wheel
 
-# Expose FastAPI default port
+# Copy requirements first to leverage Docker cache
+COPY requirements.txt /app/requirements.txt
+
+# Install dependencies using legacy resolver to avoid AssertionError
+RUN pip install --use-deprecated=legacy-resolver -r requirements.txt
+
+# Copy app files
+COPY API_LLAMA3_2.py db.py model.py utils.py prompt.py /app/
+
+# Expose port
 EXPOSE 4096
 
-# Run the app using uvicorn
-CMD ["uvicorn", "API_LLAMA3_2:app", "--host", "0.0.0.0", "--port", "4096"]
+# Run
+CMD ["python3.10", "-m", "uvicorn", "API_LLAMA3_2:app", "--host", "0.0.0.0", "--port", "4096"]
+# python3.10 -m uvicorn API_LLAMA3_2:app --host 0.0.0.0 --port 4096
+
 
 
 

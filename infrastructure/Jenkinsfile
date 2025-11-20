@@ -31,7 +31,7 @@ pipeline {
         // Giai đoạn 2: Xây dựng các ảnh Docker
         stage('Build Docker Images') {
             when {
-                changeset "services/**"
+                changeset "../../src/services/**"
             }
             steps {
                 script {
@@ -107,9 +107,9 @@ pipeline {
                         sh '''
                             set -e
                             echo "Running tests..."
-                            python3 -m pytest /tests/cicd/test_tts_api.py
-                            python3 -m pytest /tests/cicd/test_whisper-api.py
-                            python3 -m pytest /tests/cicd/test_chatbot_api.py
+                            python3 -m pytest ../../tests/cicd/test_tts_api.py
+                            python3 -m pytest ../../tests/cicd/test_whisper-api.py
+                            python3 -m pytest ../../tests/cicd/test_chatbot_api.py
                         '''
                         
                         echo "Tất cả các bài kiểm thử đã pass."

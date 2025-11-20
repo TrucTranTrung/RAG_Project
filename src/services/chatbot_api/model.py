@@ -68,7 +68,7 @@ def get_entities_as_string_GEMINI(prompt_template: str, information: str, questi
         #     f.write(f"Nội dung: {processed_information}\n")
         # Định dạng prompt và tạo payload
         prompt = prompt_template.format(
-            subject="about programming java", 
+            subject="about psychology", 
             information=information,
             question=question
         )

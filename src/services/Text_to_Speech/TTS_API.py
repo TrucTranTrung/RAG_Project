@@ -2,7 +2,6 @@ import uuid
 import torch
 import soundfile as sf
 import numpy as np
-import base64
 import io
 from models import LFinference
 from fastapi import FastAPI, Form, Response, Request
@@ -11,7 +10,7 @@ import time
 import os
 import logging
 import socket
-import asyncio
+import base64
 
 # --- imports relevant to tracing/logging ---
 from opentelemetry import trace
@@ -84,13 +83,6 @@ class EnrichFilter(logging.Filter):
 
 logger.addFilter(EnrichFilter())
 
-# ----- Optional GPU metrics -----
-# try:
-#     import pynvml
-#     PYNVML_AVAILABLE = True
-# except Exception:
-#     PYNVML_AVAILABLE = False
-
 # --- Init tracing using env values ---
 set_tracer_provider(
     TracerProvider(resource=Resource.create({SERVICE_NAME: SERVICE_NAME_STR}))
@@ -135,34 +127,6 @@ REQUEST_LATENCY = Histogram(
     registry=REGISTRY, 
     buckets=(0.05, 0.1, 0.5, 1, 2, 5, 10)
 )
-
-# GPU_UTIL_GAUGE = Gauge(
-#     "tts_gpu_util_percent", 
-#     "GPU utilization percent", 
-#     ["service", "gpu_index"], 
-#     registry=REGISTRY
-# )
-
-# GPU_MEM_USED_GAUGE = Gauge(
-#     "tts_gpu_memory_used_bytes", 
-#     "GPU memory used bytes", 
-#     ["service", "gpu_index"], 
-#     registry=REGISTRY
-# )
-
-# GPU_MEM_TOTAL_GAUGE = Gauge(
-#     "tts_gpu_memory_total_bytes",
-#     "GPU memory total bytes",
-#     ["service", "gpu_index"],
-#     registry=REGISTRY
-# )
-
-# GPU_MEM_UTIL_PERCENT = Gauge(
-#     "tts_gpu_memory_util_percent",
-#     "GPU memory utilization percent",
-#     ["service", "gpu_index"],
-#     registry=REGISTRY
-# )
 
 # ---------- App & Device ----------
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -292,18 +256,6 @@ async def transcribe_audio(text_input: str = Form(...)):
                     # thêm event để hiện trong phần Logs/Events
                     seg_span.add_event("segment.inference.start", {"index": idx})
 
-                    # GPU snapshot before inference (optional)
-                    # if PYNVML_AVAILABLE:
-                    #     try:
-                    #         handle = pynvml.nvmlDeviceGetHandleByIndex(0)
-                    #         util = pynvml.nvmlDeviceGetUtilizationRates(handle).gpu
-                    #         mem_used = pynvml.nvmlDeviceGetMemoryInfo(handle).used
-                    #         seg_span.set_attribute("gpu.index", 0)
-                    #         seg_span.set_attribute("gpu.util_percent_start", int(util))
-                    #         seg_span.set_attribute("gpu.mem_used_start", int(mem_used))
-                    #     except Exception:
-                    #         pass
-
                     # inference
                     noise = torch.randn(1,1,256).to(device)
                     wav, s_prev = LFinference(text, s_prev, noise, alpha=0.7, diffusion_steps=10, embedding_scale=1.5)
@@ -318,15 +270,28 @@ async def transcribe_audio(text_input: str = Form(...)):
 
             # Lưu vào buffer
             buffer = io.BytesIO()
-            sf.write(buffer, audio, samplerate=24000, format='WAV')
+            sf.write(buffer, audio, samplerate=24000, format='WAV', subtype='PCM_16')
             buffer.seek(0)
-            audio_base64 = base64.b64encode(buffer.read()).decode("utf-8")
+            audio_base64 = base64.b64encode(buffer.read()).decode('utf-8')
 
-
+            # print("Generated audio length (samples): ", len(audio_base64))
             logger.info("transcribe_completed", extra={"request_id": request_id, "duration_s": total})
-            return JSONResponse(content={
-                "output_sound": audio_base64
-            })
+            # logger.info("Audio debug",
+            #     extra={
+            #         "request_id": request_id,
+            #         "wavs_count": len(wavs),
+            #         "samples_len": len(audio),
+            #         "wav_bytes_len": len(wav_bytes),
+            #         "first_12_bytes": wav_bytes[:12]
+            #     }
+            # )
+
+            return JSONResponse(
+                content={
+                    "request_id": request_id,
+                    "audio_base64": audio_base64
+                }
+            )
 
     except Exception as e:
         total = time.time() - REQUEST_START

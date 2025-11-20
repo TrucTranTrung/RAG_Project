@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SinoGPT</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Theme Transition Overlay -->
+    <div class="theme-transition-overlay" id="themeTransitionOverlay"></div>
+    
+    <!-- Intro Screen -->
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-content">
+            <div class="intro-logo" id="introLogo">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" fill="none" class="logo-circle"/>
+                    <path d="M20 32L28 40L44 24" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="logo-check"/>
+                </svg>
+            </div>
+            <h1 class="intro-title" id="introTitle">SinoGPT</h1>
+            <div class="intro-subtitle" id="introSubtitle">Trải nghiệm AI thông minh</div>
+            <div class="intro-loader" id="introLoader">
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+                <div class="loader-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="loginTab" data-tab="login">Đăng nhập</button>
+                <button class="auth-tab" id="registerTab" data-tab="register">Đăng ký</button>
+            </div>
+
+            <div class="auth-form-container">
+                <form class="auth-form active" id="loginForm">
+                    <div class="auth-form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="email@example.com" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Đăng nhập</button>
+                </form>
+
+                <form class="auth-form" id="registerForm">
+                    <div class="auth-form-group">
+                        <label>Tên hiển thị</label>
+                        <input type="text" id="registerName" placeholder="Tên của bạn" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" placeholder="email@example.com" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="registerPassword" placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Đăng ký</button>
+                </form>
+            </div>
+
+            <div class="auth-divider">
+                <span>hoặc</span>
+            </div>
+
+            <button class="guest-btn" id="guestBtn">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 8C10.2091 8 12 6.20914 12 4C12 1.79086 10.2091 0 8 0C5.79086 0 4 1.79086 4 4C4 6.20914 5.79086 8 8 8Z" fill="currentColor"/>
+                    <path d="M0 14C0 11.2386 2.23858 9 5 9H11C13.7614 9 16 11.2386 16 14V16H0V14Z" fill="currentColor"/>
+                </svg>
+                Tiếp tục không đăng nhập
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-modal-overlay" id="confirmModalOverlay"></div>
+        <div class="confirm-modal-content" id="confirmModalContent">
+            <div class="confirm-modal-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2" fill="none" class="confirm-icon-circle"/>
+                    <path d="M24 16V24M24 32H24.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="confirm-icon-warning"/>
+                </svg>
+            </div>
+            <h3 class="confirm-modal-title" id="confirmModalTitle">Xóa lịch sử chat</h3>
+            <p class="confirm-modal-message" id="confirmModalMessage">Bạn có muốn xóa tất cả lịch sử chat không?</p>
+            <div class="confirm-modal-actions">
+                <button class="confirm-btn confirm-btn-cancel" id="confirmCancelBtn" type="button">Hủy</button>
+                <button class="confirm-btn confirm-btn-confirm" id="confirmConfirmBtn" type="button">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" id="appContainer" style="display: none;">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" id="newChatBtn" type="button" aria-label="Tạo cuộc trò chuyện mới">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Cuộc trò chuyện mới</span>
+                </button>
+            </div>
+            
+            <div class="chat-history" id="chatHistory" role="list" aria-label="Lịch sử cuộc trò chuyện">
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile" id="userProfile">
+                    <div class="user-info" id="userInfo">
+                        <div class="user-avatar" id="userAvatar">G</div>
+                        <div class="user-details">
+                            <div class="user-name" id="userName">Khách</div>
+                            <div class="user-status" id="userStatus">Miễn phí</div>
+                        </div>
+                    </div>
+                    <button class="user-menu-btn" id="userMenuBtn" type="button" aria-label="Menu người dùng">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6H12M4 10H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <div class="user-menu-dropdown" id="userMenuDropdown">
+                        <button class="user-menu-item" id="profileBtn" type="button">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 8C10.2091 8 12 6.20914 12 4C12 1.79086 10.2091 0 8 0C5.79086 0 4 1.79086 4 4C4 6.20914 5.79086 8 8 8Z" fill="currentColor"/>
+                                <path d="M0 14C0 11.2386 2.23858 9 5 9H11C13.7614 9 16 11.2386 16 14V16H0V14Z" fill="currentColor"/>
+                            </svg>
+                            <span>Hồ sơ</span>
+                        </button>
+                        <button class="user-menu-item" id="deleteAllHistoryBtn" type="button">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 4H14M12 4V13C12 13.5304 11.7893 14.0391 11.4142 14.4142C11.0391 14.7893 10.5304 15 10 15H6C5.46957 15 4.96086 14.7893 4.58579 14.4142C4.21071 14.0391 4 13.5304 4 13V4M6 4V3C6 2.46957 6.21071 1.96086 6.58579 1.58579C6.96086 1.21071 7.46957 1 8 1C8.53043 1 9.03914 1.21071 9.41421 1.58579C9.78929 1.96086 10 2.46957 10 3V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Xóa lịch sử chat</span>
+                        </button>
+                        <button class="user-menu-item" id="logoutBtn" type="button">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 14H3C2.46957 14 1.96086 13.7893 1.58579 13.4142C1.21071 13.0391 1 12.5304 1 12V4C1 3.46957 1.21071 2.96086 1.58579 2.58579C1.96086 2.21071 2.46957 2 3 2H6M11 11L15 8M15 8L11 5M15 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Đăng xuất</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Mở menu">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <header class="main-header" id="mainHeader">
+                <div class="header-left">
+                    <h2 class="header-title">SinoGPT</h2>
+                </div>
+                <div class="header-right">
+                    <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="Chuyển đổi theme">
+                        <svg class="theme-icon theme-icon-sun" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 2V4M10 16V18M18 10H16M4 10H2M15.66 4.34L14.24 5.76M5.76 14.24L4.34 15.66M15.66 15.66L14.24 14.24M5.76 5.76L4.34 4.34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <svg class="theme-icon theme-icon-moon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M17.29 13.29C16.38 14.21 15.23 14.86 14 15.19C12.77 15.52 11.48 15.52 10.25 15.18C9.02 14.84 7.9 14.18 7 13.28C6.1 12.38 5.44 11.26 5.1 10.03C4.76 8.8 4.76 7.51 5.09 6.28C5.42 5.05 6.07 3.9 6.99 2.99C7.9 2.07 9.05 1.42 10.28 1.09C10.1 1.38 9.96 1.69 9.86 2.02C9.77 2.35 9.73 2.7 9.73 3.04C9.73 3.38 9.78 3.72 9.88 4.05C9.98 4.38 10.12 4.69 10.3 4.98C10.49 5.27 10.71 5.52 10.97 5.74C11.22 5.96 11.51 6.14 11.81 6.28C12.12 6.41 12.44 6.5 12.76 6.54C13.09 6.58 13.42 6.56 13.74 6.5C14.07 6.44 14.38 6.33 14.67 6.17C14.96 6.02 15.23 5.82 15.46 5.58C15.69 5.35 15.89 5.07 16.04 4.78C16.2 4.48 16.31 4.17 16.37 3.84C15.06 4.59 14.01 5.68 13.35 7C12.68 8.32 12.44 9.79 12.64 11.22C12.84 12.66 13.48 14 14.47 15.07C15.46 16.15 16.77 16.9 18.2 17.24C17.87 17.3 17.56 17.41 17.26 17.57C16.97 17.72 16.7 17.92 16.46 18.15C16.22 18.38 16.02 18.65 15.87 18.94C15.71 19.23 15.6 19.54 15.54 19.87C15.48 20.19 15.47 20.52 15.5 20.85C15.54 21.17 15.63 21.49 15.76 21.8C15.9 22.1 16.08 22.39 16.3 22.64C16.52 22.9 16.78 23.12 17.06 23.31C17.35 23.49 17.66 23.63 17.99 23.73C18.32 23.83 18.66 23.88 19 23.88C19.35 23.88 19.69 23.84 20.02 23.75C20.35 23.65 20.66 23.51 20.95 23.33C20.66 23.51 20.35 23.65 20.02 23.75C19.69 23.84 19.35 23.88 19 23.88C18.66 23.88 18.32 23.83 17.99 23.73C17.66 23.63 17.35 23.49 17.06 23.31C16.78 23.12 16.52 22.9 16.3 22.64C16.08 22.39 15.9 22.1 15.76 21.8C15.63 21.49 15.54 21.17 15.5 20.85C15.47 20.52 15.48 20.19 15.54 19.87C15.6 19.54 15.71 19.23 15.87 18.94C16.02 18.65 16.22 18.38 16.46 18.15C16.7 17.92 16.97 17.72 17.26 17.57C17.56 17.41 17.87 17.3 18.2 17.24Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="header-user" id="headerUser">
+                        <div class="header-user-avatar" id="headerUserAvatar">G</div>
+                        <span class="header-user-name" id="headerUserName">Khách</span>
+                    </div>
+                </div>
+            </header>
+            <div class="chat-container" id="chatContainer" role="log" aria-live="polite" aria-label="Nội dung cuộc trò chuyện">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-content">
+                        <h1>SinoGPT</h1>
+                        <div class="suggestions">
+                            <button class="suggestion-card" type="button" data-suggestion="Đưa ra một số ý tưởng sáng tạo">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <path d="M10 2L12.09 7.26L18 8.27L14 12.14L14.18 18.02L10 15.77L5.82 18.02L6 12.14L2 8.27L7.91 7.26L10 2Z" fill="currentColor"/>
+                                </svg>
+                                <span>Đưa ra một số ý tưởng sáng tạo</span>
+                            </button>
+                            <button class="suggestion-card" type="button" data-suggestion="Giải thích một khái niệm phức tạp">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <path d="M10 2L12.09 7.26L18 8.27L14 12.14L14.18 18.02L10 15.77L5.82 18.02L6 12.14L2 8.27L7.91 7.26L10 2Z" fill="currentColor"/>
+                                </svg>
+                                <span>Giải thích một khái niệm phức tạp</span>
+                            </button>
+                            <button class="suggestion-card" type="button" data-suggestion="Viết một đoạn code cho tôi">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <path d="M10 2L12.09 7.26L18 8.27L14 12.14L14.18 18.02L10 15.77L5.82 18.02L6 12.14L2 8.27L7.91 7.26L10 2Z" fill="currentColor"/>
+                                </svg>
+                                <span>Viết một đoạn code cho tôi</span>
+                            </button>
+                            <button class="suggestion-card" type="button" data-suggestion="Phân tích một vấn đề cho tôi">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <path d="M10 2L12.09 7.26L18 8.27L14 12.14L14.18 18.02L10 15.77L5.82 18.02L6 12.14L2 8.27L7.91 7.26L10 2Z" fill="currentColor"/>
+                                </svg>
+                                <span>Phân tích một vấn đề cho tôi</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <!-- 预览区域 - 显示选中的图片和录音 -->
+                <div class="input-preview" id="inputPreview" style="display: none;">
+                    <div class="preview-items" id="previewItems"></div>
+                </div>
+                
+                <div class="input-wrapper">
+                    <!-- 隐藏的文件输入 -->
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" aria-label="Chọn hình ảnh">
+                    
+                    <!-- 工具栏按钮 -->
+                    <div class="input-toolbar">
+                        <button class="toolbar-btn" id="imageBtn" type="button" aria-label="Gửi hình ảnh" title="Gửi hình ảnh">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <path d="M2 4C2 2.89543 2.89543 2 4 2H16C17.1046 2 18 2.89543 18 4V16C18 17.1046 17.1046 18 16 18H4C2.89543 18 2 17.1046 2 16V4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M7 8C7.82843 8 8.5 7.32843 8.5 6.5C8.5 5.67157 7.82843 5 7 5C6.17157 5 5.5 5.67157 5.5 6.5C5.5 7.32843 6.17157 8 7 8Z" fill="currentColor"/>
+                                <path d="M2 13L6 9L10 13L14 9L18 13V16H2V13Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="toolbar-btn" id="recordBtn" type="button" aria-label="Ghi âm" title="Ghi âm">
+                            <svg class="record-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                <circle cx="10" cy="10" r="6" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <textarea 
+                        id="messageInput" 
+                        class="message-input" 
+                        placeholder="Nhập tin nhắn..."
+                        rows="1"
+                        aria-label="Nhập tin nhắn"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn" type="submit" disabled aria-label="Gửi tin nhắn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M1.5 1.5L14.5 8L1.5 14.5L4 8L1.5 1.5Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- 录音状态显示 -->
+                <div class="recording-status" id="recordingStatus" style="display: none;">
+                    <div class="recording-indicator">
+                        <span class="recording-dot"></span>
+                        <span id="recordingTime">00:00</span>
+                    </div>
+                    <button class="recording-stop-btn" id="stopRecordBtn" type="button" aria-label="Dừng ghi âm">Dừng</button>
+                    <button class="recording-cancel-btn" id="cancelRecordBtn" type="button" aria-label="Hủy ghi âm">Hủy</button>
+                </div>
+                
+                <div class="input-footer">
+                    <span class="disclaimer">SinoGPT có thể mắc lỗi. Hãy kiểm tra thông tin quan trọng.</span>
+                    <span class="ai-status" id="aiStatus"></span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

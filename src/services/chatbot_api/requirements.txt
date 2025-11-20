@@ -1,4 +1,4 @@
-uvicorn 
+uvicorn
 requests
 dotenv
 fastapi
@@ -6,4 +6,13 @@ langchain-community==0.3.23
 langchain-postgres==0.0.15
 sentence-transformers==4.1.0
 python-multipart==0.0.20
+huggingface-hub<1.0
 psycopg[binary]==3.1.18
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-jaeger
+opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-requests
+python-json-logger
+deprecated
