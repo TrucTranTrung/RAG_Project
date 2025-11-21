@@ -4,6 +4,9 @@
 - The entire application is containerized with Docker and deployed through a CI/CD pipeline using Jenkins.
 - For monitoring, logging, and observability, the infrastructure integrates Grafana, Prometheus, and the ELK stack.
 
+## Front-end
+<img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
+
 ## Monitoring
 <table>
   <tr>
