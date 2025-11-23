@@ -59,10 +59,10 @@ pipeline {
                         sh 'echo "Giá trị của SIMILARITY_THRESHOLD_FOR_MERGE là: $SIMILARITY_THRESHOLD_FOR_MERGE"'
 
                         echo "Bắt đầu xây dựng các ảnh Docker..."
-                        sh 'docker compose -f docker-compose.jenkins.yml build'
+                        sh 'docker compose -f docker-compose.yml build'
 
                         echo "Khởi động các dịch vụ ở chế độ nền..."
-                        sh 'docker compose -f docker-compose.jenkins.yml up -d'
+                        sh 'docker compose -f docker-compose.yml up -d'
                         
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
                         // SỬA LỖI: Sử dụng --env-file để nạp trực tiếp các biến môi trường
@@ -106,9 +106,9 @@ pipeline {
                         sh '''
                             set -e
                             echo "Running tests..."
-                            python3 -m pytest ../../tests/cicd/test_tts_api.py
-                            python3 -m pytest ../../tests/cicd/test_whisper-api.py
-                            python3 -m pytest ../../tests/cicd/test_chatbot_api.py
+                            python3 -m pytest /tests/cicd/test_tts_api.py
+                            python3 -m pytest /tests/cicd/test_whisper-api.py
+                            python3 -m pytest /tests/cicd/test_chatbot_api.py
                         '''
                         
                         echo "Tất cả các bài kiểm thử đã pass."
