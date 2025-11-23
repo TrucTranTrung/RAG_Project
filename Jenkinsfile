@@ -100,7 +100,9 @@ pipeline {
                         echo "Bắt đầu chạy các bài kiểm thử (pytest) bên trong container..."
                         
                         // Cài đặt các phụ thuộc cần thiết cho test nếu có
-                        sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
+                        sh 'apt-get update && apt-get install -y --no-install-recommends \
+                            build-essential python3-dev git python3-pip espeak \
+                            && rm -rf /var/lib/apt/lists/*'
                         sh 'python3 -m pip install -r requirements.txt'
 
                         // Chạy các lệnh test trực tiếp
