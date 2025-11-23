@@ -67,21 +67,26 @@ pipeline {
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
                         // SỬA LỖI: Sử dụng --env-file để nạp trực tiếp các biến môi trường
                         docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("--user root --env-file ${pwd()}/config/.env") {
-                            // Cài đặt các công cụ build cần thiết
-                            sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
-                            
-                            // Sử dụng python3 -m pip để đảm bảo tính nhất quán
-                            sh 'python3 -m pip install -r requirements.txt'
-                            
-                            // script này sẽ đọc được biến môi trường trực tiếp
                             sh '''
-                                echo "Exporting environment variables from config/.env..."
+                                set -e
+                                # đảm bảo thư mục tồn tại và có quyền
+                                mkdir -p /var/lib/apt/lists/partial
+                                chown -R root:root /var/lib/apt/lists || true
+
+                                apt-get update
+                                apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip
+                                rm -rf /var/lib/apt/lists/*
+
+                                # cài thư viện python
+                                python3 -m pip install --upgrade pip
+                                python3 -m pip install -r requirements.txt
+
+                                # chạy script
                                 export $(grep -v '^#' config/.env | xargs)
-                                
-                                echo "Running embedding script..."
                                 python3 src/core/embedding.py
                             '''
                         }
+                    }
 
                         echo "Hoàn tất giai đoạn Build, Run và Ingest."
                     }
