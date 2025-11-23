@@ -69,7 +69,7 @@ pipeline {
                         docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("--user root --env-file ${pwd()}/config/.env") {
                             sh '''
                                 set -e
-                                # đảm bảo thư mục tồn tại và có quyền
+                                # đảm bảo thư mục tồn tại và quyền sở hữu hợp lý
                                 mkdir -p /var/lib/apt/lists/partial
                                 chown -R root:root /var/lib/apt/lists || true
 
@@ -77,16 +77,13 @@ pipeline {
                                 apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip
                                 rm -rf /var/lib/apt/lists/*
 
-                                # cài thư viện python
                                 python3 -m pip install --upgrade pip
                                 python3 -m pip install -r requirements.txt
 
-                                # chạy script
                                 export $(grep -v '^#' config/.env | xargs)
                                 python3 src/core/embedding.py
                             '''
                         }
-
                         echo "Hoàn tất giai đoạn Build, Run và Ingest."
                     }
                 }

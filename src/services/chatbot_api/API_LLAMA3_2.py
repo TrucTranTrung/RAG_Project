@@ -26,7 +26,6 @@ from opentelemetry.trace import get_tracer_provider, set_tracer_provider
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
-
 # --- Prometheus imports ---
 from prometheus_client import (
     Counter,
