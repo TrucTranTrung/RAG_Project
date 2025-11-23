@@ -86,7 +86,6 @@ pipeline {
                                 python3 src/core/embedding.py
                             '''
                         }
-                    }
 
                         echo "Hoàn tất giai đoạn Build, Run và Ingest."
                     }
