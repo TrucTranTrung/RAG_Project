@@ -5,9 +5,9 @@ pipeline {
     environment {
         // DOCKER_REGISTRY_USER = 'tructran172003' 
         // Tên các ảnh Docker
-        // TTS_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-tts-service"
-        // STT_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-stt-service"
-        // CHATBOT_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-chatbot-service"
+        TTS_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-tts-service"
+        STT_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-stt-service"
+        CHATBOT_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-chatbot-service"
         // DB_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/db"
 
         // ID của registry credential đã được lưu trong Jenkins
@@ -15,7 +15,7 @@ pipeline {
         ENV_CREDENTIALS_ID = 'rag-project-env-file'
 
         // SỬ DỤNG BUILD_NUMBER LÀM TAG PHIÊN BẢN
-        // IMAGE_TAG = "${env.BUILD_NUMBER}"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -59,10 +59,10 @@ pipeline {
                         sh 'echo "Giá trị của SIMILARITY_THRESHOLD_FOR_MERGE là: $SIMILARITY_THRESHOLD_FOR_MERGE"'
 
                         echo "Bắt đầu xây dựng các ảnh Docker..."
-                        sh 'docker compose -f docker-compose.yml build'
+                        sh 'docker compose -f infrastructure/docker/docker-compose.yml build'
 
                         echo "Khởi động các dịch vụ ở chế độ nền..."
-                        sh 'docker compose -f docker-compose.yml up -d'
+                        sh 'docker compose -f infrastructure/docker/docker-compose.yml up -d'
                         
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
                         // SỬA LỖI: Sử dụng --env-file để nạp trực tiếp các biến môi trường
@@ -73,13 +73,13 @@ pipeline {
                             // Sử dụng python3 -m pip để đảm bảo tính nhất quán
                             sh 'python3 -m pip install -r requirements.txt'
                             
-                            // Bây giờ, script này sẽ đọc được biến môi trường trực tiếp
+                            // script này sẽ đọc được biến môi trường trực tiếp
                             sh '''
                                 echo "Exporting environment variables from config/.env..."
                                 export $(grep -v '^#' config/.env | xargs)
                                 
                                 echo "Running embedding script..."
-                                python3 embedding.py
+                                python3 src/core/embedding.py
                             '''
                         }
 
@@ -106,9 +106,9 @@ pipeline {
                         sh '''
                             set -e
                             echo "Running tests..."
-                            python3 -m pytest /tests/cicd/test_tts_api.py
-                            python3 -m pytest /tests/cicd/test_whisper-api.py
-                            python3 -m pytest /tests/cicd/test_chatbot_api.py
+                            python3 -m pytest tests/cicd/test_tts_api.py
+                            python3 -m pytest tests/cicd/test_whisper-api.py
+                            python3 -m pytest tests/cicd/test_chatbot_api.py
                         '''
                         
                         echo "Tất cả các bài kiểm thử đã pass."
@@ -130,16 +130,16 @@ pipeline {
                     docker.withRegistry("https://registry.hub.docker.com", DOCKER_CREDENTIALS_ID) {
                         
                         // Đẩy từng ảnh với tag phiên bản cụ thể
-                        // docker.image("${TTS_IMAGE_NAME}:${IMAGE_TAG}").push()
-                        // docker.image("${STT_IMAGE_NAME}:${IMAGE_TAG}").push()
-                        // docker.image("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}").push()
+                        docker.image("${TTS_IMAGE_NAME}:${IMAGE_TAG}").push()
+                        docker.image("${STT_IMAGE_NAME}:${IMAGE_TAG}").push()
+                        docker.image("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}").push()
 
                         // Đẩy thêm tag 'latest' để trỏ đến phiên bản mới nhất
-                        // docker.image("${TTS_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
-                        // docker.image("${STT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
-                        // docker.image("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
+                        docker.image("${TTS_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
+                        docker.image("${STT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
+                        docker.image("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
 
-                        sh 'docker compose -f docker-compose.jenkins.yml push'
+                        sh 'docker compose -f infrastructure/docker/docker-compose.jenkins.yml push'
                     }
                     
                     echo "Đẩy ảnh Docker hoàn tất."
