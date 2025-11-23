@@ -166,6 +166,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline đã kết thúc.'
+            echo 'Dọn dẹp workspace...'
             cleanWs()
         }
         success {
