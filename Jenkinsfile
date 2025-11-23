@@ -4,7 +4,6 @@ pipeline {
     agent any
     environment {
         // DOCKER_REGISTRY_USER = 'tructran172003' 
-        
         // Tên các ảnh Docker
         // TTS_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-tts-service"
         // STT_IMAGE_NAME = "${env.DOCKER_REGISTRY_USER}/rag-stt-service"
@@ -31,7 +30,7 @@ pipeline {
         // Giai đoạn 2: Xây dựng các ảnh Docker
         stage('Build Docker Images') {
             when {
-                changeset "../../src/services/**"
+                changeset "/src/services/**"
             }
             steps {
                 script {

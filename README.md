@@ -3,6 +3,7 @@
 - The system includes both Text-to-Speech (TTS) and Speech-to-Text (STT) modules, enabling fully voice-based communication.
 - The entire application is containerized with Docker and deployed through a CI/CD pipeline using Jenkins.
 - For monitoring, logging, and observability, the infrastructure integrates Grafana, Prometheus, and the ELK stack.
+- Alert: This project required GPU for model
 
 ## Front-end
 <img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
@@ -23,6 +24,7 @@ weight : https://drive.google.com/drive/folders/1njve-dILpn-wqR32L7Yqk1wwMN2ADfl
 docker network create elk-net
 docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 docker compose -f infrastructure/docker/docker-compose.yml up 
+docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
 
 # Run Docker ELK Compose
 docker compose -f infrastructure/docker/docker-compose.elk.yml up 

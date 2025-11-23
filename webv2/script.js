@@ -24,9 +24,9 @@
                 TYPING_DELAY_MIN: window.CHAT_CONFIG.ui?.typingDelayMin || 800,
                 TYPING_DELAY_MAX: window.CHAT_CONFIG.ui?.typingDelayMax || 2000,
                 TITLE_MAX_LENGTH: window.CHAT_CONFIG.ui?.titleMaxLength || 50,
-                OLLAMA_API_URL: window.CHAT_CONFIG.ollama?.apiUrl || 'http://localhost:11434/api/generate',
-                OLLAMA_MODEL: window.CHAT_CONFIG.ollama?.model || 'llama3.2',
-                USE_OLLAMA: window.CHAT_CONFIG.ollama?.enabled || false
+                OLLAMA_API_URL: window.CHAT_CONFIG.ollama?.apiUrl || 'http://localhost:4096/answer',
+                OLLAMA_MODEL: window.CHAT_CONFIG.ollama?.model || 'gemini',
+                USE_OLLAMA: window.CHAT_CONFIG.ollama?.enabled || true
             };
         }
         return {
@@ -34,9 +34,9 @@
             TYPING_DELAY_MIN: 800,
             TYPING_DELAY_MAX: 2000,
             TITLE_MAX_LENGTH: 50,
-            OLLAMA_API_URL: 'http://localhost:11434/api/generate',
-            OLLAMA_MODEL: 'llama3.2',
-            USE_OLLAMA: false
+            OLLAMA_API_URL: 'http://localhost:4096/answer',
+            OLLAMA_MODEL: 'gemini',
+            USE_OLLAMA: true
         };
     };
 
@@ -457,186 +457,94 @@
     // AI integration
     const ai = {
         generateResponse: async function(userMessage, conversationHistory, onStream) {
-            if (CONFIG.USE_OLLAMA) {
-                console.log('[AI Service] Đang sử dụng Ollama AI');
-                return await this.generateWithOllama(userMessage, conversationHistory, onStream);
-            } else {
-                console.log('[AI Service] Đang sử dụng Template mode');
-                return this.generateWithTemplate(userMessage);
-            }
+            console.log('[AI Service] Đang sử dụng Gemini AI');
+            return await this.generateWithOllama(userMessage, conversationHistory, onStream);
         },
 
         async generateWithOllama(userMessage, conversationHistory, onStream) {
             try {
-                console.log('[Ollama] Đang gửi request đến Ollama...');
+                console.log('[Bot] Đang gửi request đến bot...');
                 const startTime = Date.now();
-                
-                // Tối ưu: chỉ lấy 5 tin nhắn gần nhất để giảm prompt size
-                const recentHistory = conversationHistory.slice(-5);
-                const messages = recentHistory.map(msg => ({
-                    role: msg.role === MESSAGE_ROLES.USER ? 'user' : 'assistant',
-                    content: msg.content
-                }));
-                messages.push({ role: 'user', content: userMessage });
 
-                // Tối ưu prompt: format ngắn gọn hơn
-                const prompt = messages.map(m => {
-                    if (m.role === 'user') {
-                        return `Người dùng: ${m.content}`;
-                    } else {
-                        return `Trợ lý: ${m.content}`;
-                    }
-                }).join('\n') + '\nTrợ lý:';
-
-                const response = await fetch(CONFIG.OLLAMA_API_URL, {
+                // Gửi trực tiếp userMessage (không gộp history) vì bot chấp nhận string
+                const formData = new FormData();
+                formData.append('question', userMessage);
+                const response = await fetch(`${CONFIG.OLLAMA_API_URL}`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: CONFIG.OLLAMA_MODEL,
-                        prompt: prompt + '\n\nTrả lời ngắn gọn, súc tích.',
-                        stream: true,  // Bật streaming
-                        options: {
-                            temperature: 0.7,
-                            top_p: 0.9,
-                            num_predict: 100
-                        }
-                    })
+                    body: formData
                 });
 
                 if (!response.ok) {
                     const errorText = await response.text();
-                    throw new Error(`Ollama API error: ${response.status} - ${errorText}`);
+                    throw new Error(`Bot API error: ${response.status} - ${errorText}`);
                 }
 
-                // Xử lý streaming response
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
+                // Backend trả JSON (text hoặc audio_base64)
+                const data = await response.json();
+
+                // Nếu backend trả audio_base64, trả về base64 (caller xử lý)
+                if (data.audio_base64) {
+                    const elapsedTime = Date.now() - startTime;
+                    console.log(`[Bot] Received audio (base64) — elapsed ${elapsedTime}ms`);
+                    return data.audio_base64;
+                }
+
+                // Nếu backend trả text, lấy trường content (hoặc fallback)
                 let fullResponse = '';
-                let buffer = '';
+                if (data.content) {
+                    fullResponse = data.content;
+                } else if (typeof data === 'string') {
+                    fullResponse = data;
+                } else if (data.type === 'text' && data.content) {
+                    fullResponse = data.content;
+                } else {
+                    fullResponse = '';
+                }
 
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    buffer += decoder.decode(value, { stream: true });
-                    const lines = buffer.split('\n');
-                    buffer = lines.pop() || '';
-
-                    for (const line of lines) {
-                        if (line.trim() === '') continue;
-                        try {
-                            const json = JSON.parse(line);
-                            if (json.response) {
-                                fullResponse += json.response;
-                            }
-                            if (json.done) {
-                                const elapsedTime = Date.now() - startTime;
-                                console.log(`[Ollama] Hoàn thành sau ${elapsedTime}ms`);
-                                // Trả về full response để type character by character
-                                return fullResponse.trim();
-                            }
-                        } catch (e) {
-                            // Bỏ qua dòng không phải JSON
-                        }
+                // Stream character-by-character nếu có callback onStream
+                if (onStream && typeof onStream === 'function') {
+                    for (let i = 0; i < fullResponse.length; i++) {
+                        onStream(fullResponse[i]);
+                        // không bắt buộc delay — để 0 để nhanh, chỉnh nếu cần hiệu ứng typewriter
+                        await new Promise(r => setTimeout(r, 0));
                     }
                 }
 
-                return fullResponse.trim() || this.generateWithTemplate(userMessage);
+                const elapsedTime = Date.now() - startTime;
+                console.log(`[Bot] Hoàn thành sau ${elapsedTime}ms`);
+                return fullResponse.trim();
+
             } catch (error) {
-                console.error('[Ollama] Lỗi:', error);
-                console.warn('[Ollama] Chuyển sang template mode');
-                return this.generateWithTemplate(userMessage);
+                console.error('[Bot] Lỗi:', error);
+                console.warn('[Bot] Chuyển sang template mode');
+                return `${error}`;
             }
         },
 
-        generateWithTemplate: function(userMessage) {
-            return responseGenerator.generateResponse(userMessage);
-        }
+
+        // generateWithTemplate: function(userMessage) {
+        //     return responseGenerator.generateResponse(userMessage);
+        // }
     };
 
     // Response Generator
-    const responseGenerator = {
-        generateResponse: function(userMessage) {
-            const normalizedMessage = userMessage.toLowerCase();
+    // const responseGenerator = {
+    //     generateResponse: function(userMessage) {
+    //         // const normalizedMessage = userMessage.toLowerCase();
+    //         return this.getAnalysisResponse();
+    //     },
 
-            if (normalizedMessage.includes('code') || normalizedMessage.includes('lập trình') || normalizedMessage.includes('viết code')) {
-                return this.getCodeResponse();
-            }
+    //     getAnalysisResponse: function() {
+    //         return `Để phân tích vấn đề này, tôi sẽ xem xét:
 
-            if (normalizedMessage.includes('giải thích') || normalizedMessage.includes('khái niệm') || normalizedMessage.includes('concept')) {
-                return this.getExplanationResponse();
-            }
+    //                 • Nguyên nhân gốc rễ
+    //                 • Các yếu tố ảnh hưởng
+    //                 • Giải pháp khả thi
+    //                 • Đánh giá rủi ro và lợi ích
 
-            if (normalizedMessage.includes('ý tưởng') || normalizedMessage.includes('sáng tạo') || normalizedMessage.includes('idea')) {
-                return this.getIdeaResponse();
-            }
-
-            if (normalizedMessage.includes('phân tích') || normalizedMessage.includes('vấn đề') || normalizedMessage.includes('problem')) {
-                return this.getAnalysisResponse();
-            }
-
-            return this.getDefaultResponse(userMessage);
-        },
-
-        getCodeResponse: function() {
-            return `Tôi có thể giúp bạn viết code. Đây là một ví dụ:
-
-\`\`\`javascript
-function chaoHoi(ten) {
-    return \`Xin chào, \${ten}!\`;
-}
-
-console.log(chaoHoi('Thế giới'));
-\`\`\`
-
-Đoạn code này định nghĩa một hàm chào hỏi đơn giản. Bạn cần tôi viết loại code nào?`;
-        },
-
-        getExplanationResponse: function() {
-            return `Để giải thích khái niệm này, tôi sẽ trình bày theo các điểm chính:
-
-1. Định nghĩa và nguyên lý cơ bản
-2. Ứng dụng thực tế
-3. Ví dụ minh họa cụ thể
-
-Hy vọng giải thích này hữu ích. Nếu bạn có câu hỏi thêm, hãy cho tôi biết.`;
-        },
-
-        getIdeaResponse: function() {
-            return `Dưới đây là một số ý tưởng sáng tạo:
-
-💡 Ý tưởng 1: Giải pháp đổi mới
-💡 Ý tưởng 2: Tối ưu hóa quy trình hiện tại
-💡 Ý tưởng 3: Khám phá lĩnh vực mới
-
-Bạn muốn tôi phát triển chi tiết ý tưởng nào?`;
-        },
-
-        getAnalysisResponse: function() {
-            return `Để phân tích vấn đề này, tôi sẽ xem xét:
-
-• Nguyên nhân gốc rễ
-• Các yếu tố ảnh hưởng
-• Giải pháp khả thi
-• Đánh giá rủi ro và lợi ích
-
-Bạn có thể cung cấp thêm thông tin chi tiết về vấn đề không?`;
-        },
-
-        getDefaultResponse: function(userMessage) {
-            const responses = [
-                `Tôi hiểu câu hỏi của bạn về "${userMessage}". Đây là một chủ đề thú vị. Hãy để tôi giải thích chi tiết...`,
-                `Về "${userMessage}", tôi có thể trả lời từ nhiều góc độ khác nhau. Trước tiên...`,
-                `Được rồi, về "${userMessage}", tôi nghĩ rằng...`,
-                `Đây là một câu hỏi hay! Về "${userMessage}", để tôi phân tích...`,
-                `Tôi hiểu bạn muốn tìm hiểu về "${userMessage}". Điều này liên quan đến nhiều khía cạnh, hãy để tôi trình bày từng phần...`
-            ];
-
-            return responses[Math.floor(Math.random() * responses.length)];
-        }
-    };
+    //                 Bạn có thể cung cấp thêm thông tin chi tiết về vấn đề không?`;
+    //     },
+    // };
 
     // Chat management
     const chatMgr = {

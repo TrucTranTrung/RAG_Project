@@ -7,12 +7,14 @@ import socket
 import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI, UploadFile, File, Form, Response, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import Union
 from db import query_similar_vectors_from_pgvector, get_pgvector_store
 from model import get_entities_as_string_GEMINI
 from utils import get_top_k_contexts
 from prompt import prompt_template
+
 
 # --- OpenTelemetry / Jaeger imports ---
 from opentelemetry import trace
@@ -143,6 +145,14 @@ REQUEST_LATENCY = Histogram(
 load_dotenv()
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 try:
     FastAPIInstrumentor.instrument_app(app)
     RequestsInstrumentor().instrument()
