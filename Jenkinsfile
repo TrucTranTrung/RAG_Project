@@ -66,7 +66,7 @@ pipeline {
                         
                         echo "Cài đặt các thư viện và chạy embedding bên trong container..."
                         // SỬA LỖI: Sử dụng --env-file để nạp trực tiếp các biến môi trường
-                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("--env-file ${pwd()}/config/.env") {
+                        docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside("--user root --env-file ${pwd()}/config/.env") {
                             // Cài đặt các công cụ build cần thiết
                             sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip && rm -rf /var/lib/apt/lists/*'
                             
