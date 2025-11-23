@@ -6,6 +6,8 @@ services:
     image: tructran172003/jenkin:v1.0
     container_name: jenkins
     privileged: true
+    group_add:
+      - 984   
     ports:
       - "8080:8080"
       - "50000:50000"
