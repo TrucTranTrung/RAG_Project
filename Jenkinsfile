@@ -96,7 +96,7 @@ pipeline {
             steps {
                 script {
                     echo "Chuẩn bị môi trường test sử dụng Docker..."
-                    docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside('--network elk-net') {
+                    docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside('--user root --network elk-net') {
                         echo "Bắt đầu chạy các bài kiểm thử (pytest) bên trong container..."
                         
                         // Cài đặt các phụ thuộc cần thiết cho test nếu có
