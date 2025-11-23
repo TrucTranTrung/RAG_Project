@@ -29,7 +29,7 @@ def client():
     original_sys_path = list(sys.path)
 
     test_file_path = Path(__file__).resolve()
-    project_root = test_file_path.parent.parent
+    project_root = test_file_path.parent.parent.parent
     api_folder_path = project_root / "src" / "services" / "chatbot_api"
 
     
