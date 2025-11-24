@@ -23,7 +23,15 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 echo 'Đang lấy mã nguồn từ Git...'
-                git url: 'https://github.com/TrucTranTrung/RAG_Project', branch: 'main'
+                git url: 'https://github.com/TrucTranTrung/RAG_Project', branch: 'main' 
+            }
+        }
+
+        stage('Setup Models') {
+            steps {
+                sh '''
+                wget https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link -O StyleTTS2/Utils/ASR/epoch_00080.pth
+                '''
             }
         }
 
