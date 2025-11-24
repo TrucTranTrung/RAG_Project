@@ -29,6 +29,7 @@ pipeline {
         stage('Install Tools') {
             steps {
                 sh '''
+                --user root
                 apt-get update
                 apt-get install -y wget python3-pip
                 pip install gdown
@@ -93,7 +94,7 @@ pipeline {
                                 chown -R root:root /var/lib/apt/lists || true
 
                                 apt-get update
-                                apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip
+                                apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip 
                                 rm -rf /var/lib/apt/lists/*
 
                                 python3 -m pip install --upgrade pip
@@ -122,7 +123,7 @@ pipeline {
                         sh 'apt-get update && apt-get install -y --no-install-recommends \
                             build-essential python3-dev git python3-pip espeak \
                             && rm -rf /var/lib/apt/lists/*'
-                        sh 'python3 -m pip install -r requirements.txt'
+                        sh 'pip install gdown && python3 -m pip install -r requirements.txt'
 
                         // Chạy các lệnh test trực tiếp
                         sh '''

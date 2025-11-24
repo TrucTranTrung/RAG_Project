@@ -262,7 +262,7 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
             output_text = get_entities_as_string_GEMINI(prompt_template, information=reranked_indices, question=valid_text)
 
             # --- Nếu cần TTS ---
-            if audio:
+            if audio and not question:
                 logger.info("Calling TTS service", extra={"request_id": request_id})
                 # print(output_text)
                 tts_response = requests.post("http://tts-api:8001/transcribe/", data={"text_input": output_text})
