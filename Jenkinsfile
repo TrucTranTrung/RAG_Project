@@ -26,26 +26,6 @@ pipeline {
                 git url: 'https://github.com/TrucTranTrung/RAG_Project', branch: 'main' 
             }
         }
-        stage('Install Tools') {
-            steps {
-                sh '''
-                --user root
-                apt-get update
-                apt-get install -y wget python3-pip
-                pip install gdown
-                '''
-            }
-        }
-
-        stage('Download Model') {
-            steps {
-                sh '''
-                mkdir -p StyleTTS2/Utils/ASR
-                gdown --fuzzy "https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link" \
-                    -O StyleTTS2/Utils/ASR/epoch_00080.pth
-                '''
-            }
-        }
 
         // Giai đoạn 2: Xây dựng các ảnh Docker
         stage('Build Docker Images') {
@@ -124,6 +104,8 @@ pipeline {
                             build-essential python3-dev git python3-pip espeak \
                             && rm -rf /var/lib/apt/lists/*'
                         sh 'pip install gdown && python3 -m pip install -r requirements.txt'
+                        sh 'gdown --fuzzy "https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link" \
+                            -O StyleTTS2/Utils/ASR/epoch_00080.pth'
 
                         // Chạy các lệnh test trực tiếp
                         sh '''
