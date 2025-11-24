@@ -16,6 +16,10 @@ window.CHAT_CONFIG = {
         // Các model phổ biến: llama3.2, mistral, phi3, gemma2
         model: 'Gemini'
     },
+
+    upload: {
+        apiUrl: 'http://localhost:8001/upload'
+    },
     
     // Cấu hình giao diện
     ui: {

@@ -105,7 +105,7 @@ pipeline {
                             && rm -rf /var/lib/apt/lists/*'
                         sh 'pip install gdown && python3 -m pip install -r requirements.txt'
                         sh 'mkdir -p src/services/Text_to_SpeechStyleTTS2/Utils/ASR'
-                        sh 'gdown --fuzzy "https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link" \
+                        sh 'gdown 1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN \
                             -O src/services/Text_to_SpeechStyleTTS2/Utils/ASR/epoch_00080.pth'
 
                         // Chạy các lệnh test trực tiếp
