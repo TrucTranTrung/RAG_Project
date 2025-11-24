@@ -103,10 +103,11 @@ pipeline {
                         sh 'apt-get update && apt-get install -y --no-install-recommends \
                             build-essential python3-dev git python3-pip espeak \
                             && rm -rf /var/lib/apt/lists/*'
-                        sh 'pip install gdown && python3 -m pip install -r requirements.txt'
-                        sh 'mkdir -p src/services/Text_to_SpeechStyleTTS2/Utils/ASR'
+                        sh 'python3 -m pip install -r requirements.txt'
+                        sh 'mkdir -p ./StyleTTS2/Utils/ASR'
+                        sh 'pip install --upgrade gdown -i https://pypi.tuna.tsinghua.edu.cn/simple --default-timeout=120 --retries=5'
                         sh 'gdown 1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN \
-                            -O src/services/Text_to_SpeechStyleTTS2/Utils/ASR/epoch_00080.pth'
+                            -O ./StyleTTS2/Utils/ASR/epoch_00080.pth'
 
                         // Chạy các lệnh test trực tiếp
                         sh '''
