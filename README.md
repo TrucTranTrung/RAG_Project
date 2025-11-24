@@ -17,8 +17,12 @@
   </tr>
 </table>
 
-
-weight : https://drive.google.com/drive/folders/1njve-dILpn-wqR32L7Yqk1wwMN2ADfl8?usp=sharing
+# Prepare
+```bash
+git clone https://github.com/TrucTranTrung/RAG_Project
+```
+Access to this drive: https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=sharing
+download weight: epoch_00080.pth and put it in src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth folder
 
 # Run Docker Compose
 docker network create elk-net
