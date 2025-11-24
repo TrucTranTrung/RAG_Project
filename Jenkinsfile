@@ -26,11 +26,22 @@ pipeline {
                 git url: 'https://github.com/TrucTranTrung/RAG_Project', branch: 'main' 
             }
         }
-
-        stage('Setup Models') {
+        stage('Install Tools') {
             steps {
                 sh '''
-                wget https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link -O StyleTTS2/Utils/ASR/epoch_00080.pth
+                apt-get update
+                apt-get install -y wget python3-pip
+                pip install gdown
+                '''
+            }
+        }
+
+        stage('Download Model') {
+            steps {
+                sh '''
+                mkdir -p StyleTTS2/Utils/ASR
+                gdown --fuzzy "https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=drive_link" \
+                    -O StyleTTS2/Utils/ASR/epoch_00080.pth
                 '''
             }
         }
