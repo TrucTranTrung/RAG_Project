@@ -20,7 +20,9 @@
 # Prepare
 ```bash
 git clone https://github.com/TrucTranTrung/RAG_Project
+cd RAG_Project
 ```
+
 Access to this drive: https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=sharing
 download weight: epoch_00080.pth and put it in src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth folder
 
