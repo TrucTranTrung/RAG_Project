@@ -1240,7 +1240,7 @@
                 msgRenderer.renderMessageWithTyping(MESSAGE_ROLES.ASSISTANT, messageId);
                 // Lấy response từ Ollama
                 const response = await ai.generateResponse(messageText, attachments.audio, attachments.videos, conversationHistory);
-
+                // console.log('AI Response:', response);  
                 // Nếu response là audio (object có audio_base64) hoặc string base64
                 let audioBase64 = null;
                 let requestId = null;
