@@ -17,6 +17,11 @@ services:
     dns:
       - 8.8.8.8
       - 1.1.1.1
+    networks:
+      - elk-net
     environment:
       - NO_PROXY=localhost,127.0.0.1,updates.jenkins.io
 
+networks:
+  elk-net:
+    external: true

@@ -20,6 +20,18 @@ def wait_for_server(url, timeout=30):
             time.sleep(0.5)
     return False
 
+def post_with_retry(url, data=None, files=None, retries=5, delay=1):
+    """Gửi request POST với retry nếu connection error"""
+    for i in range(retries):
+        try:
+            response = requests.post(url, data=data, files=files, timeout=10)
+            return response
+        except requests.exceptions.ConnectionError:
+            if i < retries - 1:
+                time.sleep(delay)
+            else:
+                raise
+
 # Fixture đảm bảo server sẵn sàng
 @pytest.fixture(scope="module", autouse=True)
 def ensure_server_ready():
@@ -29,7 +41,7 @@ def ensure_server_ready():
 def test_transcribe_audio_success():
     """Test thành công với text hợp lệ"""
     data = {"text_input": "Hello world"}
-    response = requests.post(SERVER_URL + TRANSCRIBE_PATH, data=data)
+    response = post_with_retry(SERVER_URL + TRANSCRIBE_PATH, data=data)
     assert response.status_code == 200
     json_data = response.json()
     assert "audio_base64" in json_data
@@ -38,11 +50,12 @@ def test_transcribe_audio_success():
 
 def test_transcribe_missing_input():
     """Test lỗi khi text_input thiếu"""
-    response = requests.post(SERVER_URL + TRANSCRIBE_PATH, data={})
+    response = post_with_retry(SERVER_URL + TRANSCRIBE_PATH, data={})
     assert response.status_code == 422
 
 def test_transcribe_invalid_type():
     """Test input không hợp lệ (ví dụ gửi file text)"""
     files = {"file": ("test.txt", b"not audio")}
-    response = requests.post(SERVER_URL + TRANSCRIBE_PATH, files=files)
+    response = post_with_retry(SERVER_URL + TRANSCRIBE_PATH, files=files)
+    # Tùy cách API xử lý input invalid, 400 hoặc 422
     assert response.status_code in (400, 422)

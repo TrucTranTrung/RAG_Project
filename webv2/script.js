@@ -27,7 +27,7 @@
                 OLLAMA_API_URL: window.CHAT_CONFIG.ollama?.apiUrl || 'http://localhost:4096/answer',
                 OLLAMA_MODEL: window.CHAT_CONFIG.ollama?.model || 'gemini',
                 USE_OLLAMA: window.CHAT_CONFIG.ollama?.enabled || true,
-                UPLOAD_API_URL: window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload'
+                UPLOAD_API_URL: window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:9001/upload'
             };
         }
         return {
@@ -481,13 +481,10 @@
                     }
                 }
 
-                console.log(formData.getAll('audio'));
-
                 const response = await fetch(`${CONFIG.OLLAMA_API_URL}`, {
                     method: 'POST',
                     body: formData
                 });
-
 
 
                 if (!response.ok) {
@@ -1103,7 +1100,7 @@
             formData.append('type', 'video');
             formData.append('file', file, file.name || `video_${Date.now()}.mp4`);
 
-            const response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload', {
+            const response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:9001/upload', {
                 method: 'POST',
                 body: formData
             });
@@ -1126,7 +1123,7 @@
             formData.append('file', audioFile);
             let response;
             try {
-                response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload', {
+                response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:9001/upload', {
                     method: 'POST',
                     body: formData
                 });
@@ -1198,10 +1195,10 @@
 
             const attachments = {};
             if (uploadedAttachments.videos.length > 0) {
-                attachments.videos = uploadedAttachments.videos.map(item => "webv2"+ item.url);
+                attachments.videos = uploadedAttachments.videos.map(item => item.url);
             }
             if (uploadedAttachments.audio) {
-                attachments.audio = "webv2" + uploadedAttachments.audio.url;
+                attachments.audio = uploadedAttachments.audio.url;
                 attachments.audioDuration = uploadedAttachments.audio.duration;
             } else if (attachmentMgr.audio?.duration) {
                 attachments.audioDuration = attachmentMgr.audio.duration;
@@ -1209,6 +1206,7 @@
             if (attachmentMgr.audio?.waveform) {
                 attachments.audioWaveform = attachmentMgr.audio.waveform;
             }
+            
 
             msgRenderer.renderMessage(
                 MESSAGE_ROLES.USER,
@@ -1242,9 +1240,7 @@
                 msgRenderer.renderMessageWithTyping(MESSAGE_ROLES.ASSISTANT, messageId);
                 // Lấy response từ Ollama
                 const response = await ai.generateResponse(messageText, attachments.audio, attachments.videos, conversationHistory);
-
-                // console.log('AI Response:', response);
-
+                // console.log('AI Response:', response);  
                 // Nếu response là audio (object có audio_base64) hoặc string base64
                 let audioBase64 = null;
                 let requestId = null;

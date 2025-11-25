@@ -7,10 +7,10 @@
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "upload:app",
-                "--reload",
-                "--port",
-                "6000"
+                "upload:app", 
+                "--reload", 
+                "--port", 
+                "9001"
             ],
             "jinja": false,
             "cwd": "${workspaceFolder}",
