@@ -5,7 +5,7 @@ import pytest
 
 # ================= CONFIG =================
 SERVER_URL = os.environ.get("SERVER_URL", "http://tts-api:8001")
-TRANSCRIBE_PATH = "/transcribe"
+TRANSCRIBE_PATH = "/transcribe"  # KHÔNG có dấu / cuối
 
 # ================= HELPER =================
 def wait_for_server(url, timeout=30):
@@ -54,8 +54,7 @@ def test_transcribe_missing_input():
     assert response.status_code == 422
 
 def test_transcribe_invalid_type():
-    """Test input không hợp lệ (ví dụ gửi file text)"""
+    """Test input không hợp lệ (ví dụ gửi file mà thiếu text_input)"""
     files = {"file": ("test.txt", b"not audio")}
     response = post_with_retry(SERVER_URL + TRANSCRIBE_PATH, files=files)
-    # Tùy cách API xử lý input invalid, 400 hoặc 422
-    assert response.status_code in (400, 422)
+    assert response.status_code == 422
