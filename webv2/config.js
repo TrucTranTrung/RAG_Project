@@ -18,7 +18,7 @@ window.CHAT_CONFIG = {
     },
 
     upload: {
-        apiUrl: 'http://localhost:8001/upload'
+        apiUrl: 'http://localhost:9001/upload'
     },
     
     // Cấu hình giao diện
