@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.ignoreFiles": [
+        "**/uploads/**",
+        "**/__pycache__/**",
+        "**/Embedding_Store/**",
+        "**/data/**",
+        "**/reports/**",
+        "**/*.mp3",
+        "**/*.webm"
+    ]
+}

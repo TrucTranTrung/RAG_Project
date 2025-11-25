@@ -5,7 +5,6 @@ from typing import Dict, Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 app.add_middleware(
@@ -15,7 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 UPLOAD_ROOT = Path(__file__).parent / "uploads"
 IMAGE_DIR = UPLOAD_ROOT / "images"
@@ -151,7 +149,6 @@ async def upload(type: str = Form(...), file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail=str(e))
     
 if __name__ == "__main__":
-    print(f"Upload root directory: {UPLOAD_ROOT}")
     import uvicorn
     uvicorn.run(
         "upload:app",
