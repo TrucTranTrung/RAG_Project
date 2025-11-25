@@ -27,7 +27,7 @@
                 OLLAMA_API_URL: window.CHAT_CONFIG.ollama?.apiUrl || 'http://localhost:4096/answer',
                 OLLAMA_MODEL: window.CHAT_CONFIG.ollama?.model || 'gemini',
                 USE_OLLAMA: window.CHAT_CONFIG.ollama?.enabled || true,
-                UPLOAD_API_URL: window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload'
+                UPLOAD_API_URL: window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:6000/upload'
             };
         }
         return {
@@ -1104,7 +1104,7 @@
             formData.append('type', 'video');
             formData.append('file', file, file.name || `video_${Date.now()}.mp4`);
 
-            const response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload', {
+            const response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:6000/upload', {
                 method: 'POST',
                 body: formData
             });
@@ -1127,7 +1127,7 @@
             formData.append('file', audioFile);
             let response;
             try {
-                response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:8001/upload', {
+                response = await fetch(window.CHAT_CONFIG.upload?.apiUrl || 'http://localhost:6000/upload', {
                     method: 'POST',
                     body: formData
                 });
