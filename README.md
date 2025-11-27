@@ -24,22 +24,22 @@ cd RAG_Project
 ```
 
 Access to this drive: https://drive.google.com/file/d/1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN/view?usp=sharing
-download weight: epoch_00080.pth and put it in src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth folder
+download weight: epoch_00080.pth and put it in src/services/Text_to_Speech/StyleTTS2/Utils/ASR/ folder.
+download weight: epoch_2nd_00100.pth and put it in /StyleTTS2/Models/LJSpeech/ folder.
 
 # Run Docker Compose
 docker network create elk-net
 docker compose -f infrastructure/docker/docker-compose-monitor.yml up
-docker compose -f infrastructure/docker/docker-compose.yml up 
+docker compose -f infrastructure/docker/docker-compose.yml up
 docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
 
 # Run Docker ELK Compose
-docker compose -f infrastructure/docker/docker-compose.elk.yml up 
+docker compose -f infrastructure/docker/docker-compose.elk.yml up
 
 # Chạy minikube
 minikube start --driver=docker --gpus=all
 
-
-
+http://localhost:9001/static/index.html
 # Tạo namespace mới
 kubectl create namespace rag-app
 

@@ -15,7 +15,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+BASE_DIR = Path(__file__).parent
+WEB_DIR = BASE_DIR 
+UPLOAD_DIR = BASE_DIR / "uploads"
+# Serve frontend
+app.mount("/static", StaticFiles(directory=str(WEB_DIR), html=True), name="web")
+# Serve uploads
+app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 UPLOAD_ROOT = Path(__file__).parent / "uploads"
 IMAGE_DIR = UPLOAD_ROOT / "images"
@@ -76,7 +82,9 @@ def convert_audio_to_mp3(src: Path, dst: Path) -> None:
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0 or not dst.exists():
-        raise RuntimeError("Không thể chuyển đổi sang MP3. Kiểm tra cài đặt ffmpeg.")
+        # Bao gồm stderr trong thông báo lỗi để dễ debug
+        error_msg = f"Không thể chuyển đổi sang MP3. Kiểm tra cài đặt ffmpeg. Lỗi: {result.stderr}"
+        raise RuntimeError(error_msg)
 
 
 def build_success(payload: Dict) -> Dict:
@@ -96,22 +104,31 @@ async def upload(type: str = Form(...), file: UploadFile = File(...)):
         ensure_dirs()
 
         if type == "audio":
-            tmp_name = f"raw_{uuid.uuid4().hex}.webm"
+            # Lấy phần mở rộng gốc của tệp được tải lên
+            ext = get_extension(file.filename or "tmp") 
+            
+            # Sử dụng phần mở rộng gốc cho tệp tạm thời
+            tmp_name = f"raw_{uuid.uuid4().hex}.{ext}" 
             tmp_path = AUD_DIR / tmp_name
+            
+            # --- Logic Tải lên Tệp ---
             try:
                 await save_upload(file, tmp_path)
             except Exception as e:
                 print("Lỗi khi save_upload:", e)
                 if tmp_path.exists():
                     tmp_path.unlink(missing_ok=True)
-                raise
+                # Tùy chỉnh thông báo lỗi cho người dùng
+                raise HTTPException(status_code=400, detail=f"Lỗi lưu trữ tệp: {str(e)}")
 
+            # --- Logic Chuyển đổi sang MP3 ---
             output_name = f"audio_{uuid.uuid4().hex}.mp3"
             output_path = AUD_DIR / output_name
 
             try:
                 convert_audio_to_mp3(tmp_path, output_path)
             finally:
+                # Dọn dẹp tệp tạm thời luôn
                 if tmp_path.exists():
                     tmp_path.unlink(missing_ok=True)
 
@@ -151,7 +168,6 @@ async def upload(type: str = Form(...), file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail=str(e))
     
 if __name__ == "__main__":
-    print(f"Upload root directory: {UPLOAD_ROOT}")
     import uvicorn
     uvicorn.run(
         "upload:app",

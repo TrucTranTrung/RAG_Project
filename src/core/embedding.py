@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from chunking import DocumentProcessor
 from utils import *
 from db import *
-# import torch
+from pathlib import Path
 import torch
 torch.cuda.empty_cache()
 # --- MongoDB import ---
@@ -29,7 +29,10 @@ chunk_size = int(os.getenv("JAVA_SPLITTER_CHUNK_SIZE", "2000"))
 chunk_overlap = int(os.getenv("JAVA_SPLITTER_CHUNK_OVERLAP", "200"))
 
 # 1. Load PDF Documents
-raw_documents = DocumentProcessor.load_pdf_documents(os.getenv("PDF_DIRECTORY_PATH"))
+current_dir = Path(__file__).resolve().parent
+project_root = current_dir.parent.parent
+PDF_DIRECTORY_PATH = project_root / "data" / "raw"
+raw_documents = DocumentProcessor.load_pdf_documents(str(PDF_DIRECTORY_PATH))
 if not raw_documents:
     print("Pipeline stopped: No documents loaded.")
     exit()
