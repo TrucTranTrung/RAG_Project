@@ -5,7 +5,7 @@ import pytest
 
 # ================= CONFIG =================
 SERVER_URL = os.environ.get("SERVER_URL", "http://tts-api:8001")
-TRANSCRIBE_PATH = "/transcribe/" 
+TRANSCRIBE_PATH = "/transcribe" 
 
 # ================= HELPER =================
 def wait_for_server(url, timeout=30):
