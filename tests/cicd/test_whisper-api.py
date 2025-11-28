@@ -6,7 +6,7 @@ import wave
 import os
 
 # --- Cấu hình ---
-API_BASE_URL = "http://127.0.0.1:8000" 
+API_BASE_URL = "http://whisper-api:8000" 
 
 
 # --- Fixture để tạo và dọn dẹp file âm thanh giả ---
