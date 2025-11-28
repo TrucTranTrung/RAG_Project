@@ -1,11 +1,11 @@
-# test_chatbot_api_full.py
+import os
 import io
 import base64
 import pytest
 import requests
 from unittest.mock import patch, MagicMock
 
-SERVER_URL = "http://chatbot_api/answer"
+SERVER_URL = os.environ.get("SERVER_URL", "http://chatbot_api:4096/answer")
 TIMEOUT = 5
 
 
