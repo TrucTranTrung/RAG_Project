@@ -4,7 +4,7 @@ import requests
 import pytest
 
 # ================= CONFIG =================
-SERVER_URL = os.environ.get("SERVER_URL", "http://localhost:8001")
+SERVER_URL = os.environ.get("SERVER_URL", "http://tts-api:8001")
 TRANSCRIBE_PATH = "/transcribe/" 
 
 # ================= HELPER =================
