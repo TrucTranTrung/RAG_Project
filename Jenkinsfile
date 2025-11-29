@@ -28,7 +28,7 @@ pipeline {
 
         stage('Prepare .env and Start Services') {
             when {
-                changeset "/src/services/**"
+                changeset "src/services/**"
             }
             steps {
                 script {
@@ -38,37 +38,37 @@ pipeline {
                         echo "Nội dung config/.env:"
                         sh 'cat config/.env || true'
 
-                        // Nếu bạn vẫn muốn khởi động bằng docker compose để kiểm tra local run, giữ dòng này.
+                        // build local
                         sh 'docker compose -f infrastructure/docker/docker-compose.yml up -d --build || true'
                     }
                 }
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Build Docker Images (tag from compose)') {
             when {
-                changeset "/src/services/**"
+                changeset "src/services/**"
             }
             steps {
                 script {
-                    echo "Bắt đầu build từng image và gán tag ${IMAGE_TAG}..."
+                    echo "Đã build bằng docker compose ở stage trước — sẽ tag lại các image với ${IMAGE_TAG}"
 
-                    // Build TTS
-                    def ttsBuildCmd = "-f ../../src/services/Text_to_Speech/dockerfile ../../src/services/Text_to_Speech"
-                    docker.build("${TTS_IMAGE_NAME}:${IMAGE_TAG}", ttsBuildCmd)
-                    sh "docker tag ${TTS_IMAGE_NAME}:${IMAGE_TAG} ${TTS_IMAGE_NAME}:latest"
+                    // Tên image theo docker-compose (bản gốc của bạn)
+                    def ttsOrig = "${TTS_IMAGE_NAME}:v1.0"        // hoặc tên hiện có trong compose
+                    def sttOrig = "${STT_IMAGE_NAME}:v1.0"
+                    def chatbotOrig = "${CHATBOT_IMAGE_NAME}:v1.0"
 
-                    // Build STT (whisper)
-                    def sttBuildCmd = "-f ../../src/services/Faster_Whisper/dockerfile ../../src/services/Faster_Whisper"
-                    docker.build("${STT_IMAGE_NAME}:${IMAGE_TAG}", sttBuildCmd)
-                    sh "docker tag ${STT_IMAGE_NAME}:${IMAGE_TAG} ${STT_IMAGE_NAME}:latest"
+                    // Tag lại với IMAGE_TAG và latest
+                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:${IMAGE_TAG} || true"
+                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:latest || true"
 
-                    // Build Chatbot
-                    def chatbotBuildCmd = "-f ../../src/services/chatbot_api/dockerfile ../../src/services/chatbot_api"
-                    docker.build("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}", chatbotBuildCmd)
-                    sh "docker tag ${CHATBOT_IMAGE_NAME}:${IMAGE_TAG} ${CHATBOT_IMAGE_NAME}:latest"
+                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:${IMAGE_TAG} || true"
+                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:latest || true"
 
-                    echo "Build hoàn tất."
+                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:${IMAGE_TAG} || true"
+                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:latest || true"
+
+                    echo "Tagging hoàn tất."
                 }
             }
         }
