@@ -53,8 +53,8 @@ pipeline {
                 script {
                     echo "Đã build bằng docker compose ở stage trước — sẽ tag lại các image với ${IMAGE_TAG}"
 
-                    // Tên image theo docker-compose (bản gốc của bạn)
-                    def ttsOrig = "${TTS_IMAGE_NAME}:v1.0"        // hoặc tên hiện có trong compose
+                    // Tên image theo docker-compose 
+                    def ttsOrig = "${TTS_IMAGE_NAME}:v1.0"       
                     def sttOrig = "${STT_IMAGE_NAME}:v1.0"
                     def chatbotOrig = "${CHATBOT_IMAGE_NAME}:v1.0"
 
