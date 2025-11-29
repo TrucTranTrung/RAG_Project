@@ -134,7 +134,7 @@ pipeline {
         // Giai đoạn 4: Đẩy ảnh Docker lên Registry
         stage('Push Docker Images') {
             when {
-                changeset 'Container_Folder/**'
+                changeset '/src/services/**'
             }
             steps {
                 script {
@@ -153,7 +153,7 @@ pipeline {
                         docker.image("${STT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
                         docker.image("${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}").push("latest")
 
-                        sh 'docker compose -f infrastructure/docker/docker-compose.jenkins.yml push'
+                        // sh 'docker compose -f infrastructure/docker/docker-compose.jenkins.yml push'
                     }
                     
                     echo "Đẩy ảnh Docker hoàn tất."
