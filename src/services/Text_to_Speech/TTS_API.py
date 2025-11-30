@@ -217,6 +217,7 @@ def metrics():
     return Response(content=data, media_type=CONTENT_TYPE_LATEST)
 
 
+
 @app.post("/transcribe")
 async def transcribe_audio(text_input: str = Form(...)):
     request_id = str(uuid.uuid4())
