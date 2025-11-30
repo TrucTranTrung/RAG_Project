@@ -96,7 +96,7 @@ pipeline {
 
         stage('Push Docker Images') {
             when {
-                changeset '/src/services/**'
+                changeset 'src/services/**'
             }
             steps {
                 script {
