@@ -192,7 +192,7 @@ async def transcribe_audio(file: UploadFile = File(...)):
                 span.set_status(Status(StatusCode.ERROR, str(e)))
             except Exception:
                 span.set_attribute("error", True)
-                
-                
+
+
         logger.exception(f"STT failed for request {request_id}: {e}")
         return JSONResponse(status_code=500, content={"error": str(e)})

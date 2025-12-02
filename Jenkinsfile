@@ -24,6 +24,56 @@ pipeline {
             }
         }
 
+        stage('Ensure model (download from Google Drive)') {
+            steps {
+                script {
+                    def FILE_ID = '1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN'
+                    def OUT = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
+
+                    sh """
+                      set -e
+                      echo 'Ensure model path and parent exist...'
+                      mkdir -p \$(dirname ${OUT})
+
+                      if [ -f ${OUT} ]; then
+                        echo "Model already exists at ${OUT} (size: \$(stat -c%s ${OUT}) bytes). Skipping download."
+                        exit 0
+                      fi
+
+                      echo "Downloading model from Google Drive (id=${FILE_ID}) into ${OUT} ..."
+                      # fetch initial page to get potential confirm token (for large files)
+                      curl -c /tmp/gdcookies -s -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o /tmp/gdpage.html || true
+
+                      # try to extract confirm token
+                      CONFIRM=\$(grep -o 'confirm=[0-9A-Za-z_-]*' /tmp/gdpage.html | sed 's/confirm=//' | head -n1 || true)
+                      if [ -z "\$CONFIRM" ]; then
+                        CONFIRM=\$(sed -n 's/.*confirm=\\([^;&]*\\).*/\\1/p' /tmp/gdpage.html | head -n1 || true)
+                      fi
+
+                      if [ -n "\$CONFIRM" ]; then
+                        echo "Found confirm token: \$CONFIRM — performing confirmed download..."
+                        curl -Lb /tmp/gdcookies "https://drive.google.com/uc?export=download&confirm=\${CONFIRM}&id=${FILE_ID}" -o ${OUT}
+                      else
+                        echo "No confirm token found — trying direct download (works for small files)..."
+                        curl -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o ${OUT}
+                      fi
+
+                      # verify
+                      if [ ! -f ${OUT} ] || [ \$(stat -c%s ${OUT}) -lt 100 ]; then
+                        echo "ERROR: Download failed or file too small. Show page for debug:"
+                        sed -n '1,200p' /tmp/gdpage.html || true
+                        ls -la \$(dirname ${OUT}) || true
+                        exit 1
+                      fi
+
+                      # set permisssions
+                      chmod 644 ${OUT}
+                      echo "Downloaded model OK: \$(stat -c'%n %s bytes' ${OUT})"
+                    """
+                }
+            }
+        }
+
         stage('Prepare .env and Start Services') {
             when {
                 changeset "src/services/**"
@@ -33,10 +83,10 @@ pipeline {
                     withCredentials([string(credentialsId: ENV_CREDENTIALS_ID, variable: 'ENV_FILE_CONTENT')]) {
                         sh 'mkdir -p config'
                         sh 'echo "${ENV_FILE_CONTENT}" > config/.env'
-                        echo "Nội dung config/.env:"
-                        sh 'cat config/.env || true'
+                        echo "Nội dung config/.env (first 50 lines):"
+                        sh 'sed -n "1,50p" config/.env || true'
 
-                        // build local
+                        // build local (compose sẽ dùng file .env để inject env variables)
                         sh 'docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml up -d --build'
                     }
                 }
