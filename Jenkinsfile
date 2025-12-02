@@ -1,5 +1,3 @@
-// Jenkinsfile (Declarative Pipeline) - chỉnh sửa để build & push 3 images
-
 pipeline {
     agent any
     environment {
@@ -39,7 +37,7 @@ pipeline {
                         sh 'cat config/.env || true'
 
                         // build local
-                        sh 'docker compose -f infrastructure/docker/docker-compose.yml up -d --build || true'
+                        sh 'docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml up -d --build'
                     }
                 }
             }

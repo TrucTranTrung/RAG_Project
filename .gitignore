@@ -1,6 +1,7 @@
 # Ignore all files in the StyleTTS2/Models/LJSpeech directory
 src/services/Text_to_Speech/StyleTTS2/Models/LJSpeech/epoch_2nd_00100.pth
 src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth
+src/services/jenkin_upgrade/epoch_00080.pth
 __pycache__/
 *.pyc
 src/services/Faster_Whisper/models--Systran--faster-whisper-medium

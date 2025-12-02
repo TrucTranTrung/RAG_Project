@@ -14,7 +14,7 @@ services:
     volumes:
       - ./jenkins_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/daniel/Documents/RAG_Project/src/services/StyleTTS2/Utils/ASR/epoch_00080.pth:/app/StyleTTS2/Utils/ASR/epoch_00080.pth:ro
+      - /home/daniel/Documents/RAG_Project/src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth:/app/StyleTTS2/Utils/ASR/epoch_00080.pth:ro
     dns:
       - 8.8.8.8
       - 1.1.1.1

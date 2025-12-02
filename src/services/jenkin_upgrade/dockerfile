@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
-    git
+    git 
 
 # Tạo thư mục cho GPG key của Docker
 RUN install -m 0755 -d /etc/apt/keyrings
@@ -22,10 +22,11 @@ RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   tee /etc/apt/sources.list.d/docker.list > /dev/null
-
+RUN mkdir -p /app/StyleTTS2/Utils/ASR/
+COPY epoch_00080.pth \
+     /app/StyleTTS2/Utils/ASR/epoch_00080.pth
 # Cập nhật lại danh sách gói sau khi đã thêm kho lưu trữ mới
-RUN apt-get update
-RUN apt-get install -y docker-ce-cli docker-compose-plugin
+RUN apt-get update && apt-get install -y docker-ce-cli docker-compose-plugin
 RUN ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
 
 # Chuyển về người dùng jenkins mặc định để đảm bảo an toàn
