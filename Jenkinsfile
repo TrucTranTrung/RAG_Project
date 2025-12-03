@@ -75,7 +75,7 @@ pipeline {
                         sh 'sed -n "1,50p" config/.env || true'
 
                         // build local (compose sẽ dùng file .env để inject env variables)
-                        sh "docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml up -d --build"
+                        sh "docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml build"
                     }
                 }
             }
