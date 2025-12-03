@@ -39,11 +39,9 @@ pipeline {
                         exit 0
                     fi
 
-                    echo "Downloading model with gdown..."
-                    pip install --user gdown || true
-                    export PATH=\$PATH:\$HOME/.local/bin
-
-                    gdown --id ${FILE_ID} -O ${OUT}
+                    echo "Downloading model using python -m gdown..."
+                    python3 -m pip install --user gdown || true
+                    python3 -m gdown ${FILE_ID} -O ${OUT}
 
                     if [ ! -f "${OUT}" ] || [ \$(stat -c%s "${OUT}") -lt 100000 ]; then
                         echo "Download failed or file too small."
@@ -56,6 +54,7 @@ pipeline {
                 }
             }
         }
+
 
 
         stage('Prepare .env and Start Services') {
