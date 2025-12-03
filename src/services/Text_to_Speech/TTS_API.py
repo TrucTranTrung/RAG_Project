@@ -249,6 +249,7 @@ async def transcribe_audio(text_input: str = Form(...)):
                 text = text + '.'
                 t0 = time.time()
 
+
                 # add span for this particular inference segment
                 with tracer.start_as_current_span(f"inference_segment.{idx}") as seg_span:
                     seg_span.set_attribute("segment_index", idx)
