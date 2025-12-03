@@ -66,17 +66,21 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: ENV_CREDENTIALS_ID, variable: 'ENV_FILE_CONTENT')]) {
-                        sh 'mkdir -p config'
-                        sh 'echo "${ENV_FILE_CONTENT}" > config/.env'
+                        sh "mkdir -p config"
+                        
+                        // Sử dụng double-quotes để biến ENV_FILE_CONTENT được expand
+                        sh "echo \"${ENV_FILE_CONTENT}\" > config/.env"
+                        
                         echo "Nội dung config/.env (first 50 lines):"
                         sh 'sed -n "1,50p" config/.env || true'
 
                         // build local (compose sẽ dùng file .env để inject env variables)
-                        sh 'docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml up -d --build'
+                        sh "docker compose --env-file config/.env -f infrastructure/docker/docker-compose.yml up -d --build"
                     }
                 }
             }
         }
+
 
         stage('Build Docker Images (tag from compose)') {
             when {
