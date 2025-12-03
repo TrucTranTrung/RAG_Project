@@ -24,7 +24,7 @@ pipeline {
             }
         }
 
-        stage('Ensure model (download via gdown)') {
+        stage('Ensure model (download GDrive)') {
             steps {
                 script {
                     def FILE_ID = '1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN'
@@ -35,13 +35,20 @@ pipeline {
                     mkdir -p \$(dirname ${OUT})
 
                     if [ -f "${OUT}" ] && [ \$(stat -c%s "${OUT}") -ge 100000 ]; then
-                        echo "Model exists. Skip."
+                        echo "Model exists, skip."
                         exit 0
                     fi
 
-                    echo "Downloading model using python -m gdown..."
-                    python3 -m pip install --user gdown || true
-                    python3 -m gdown ${FILE_ID} -O ${OUT}
+                    echo "Downloading..."
+                    curl -c /tmp/cookie -s -L \
+                        "https://drive.google.com/uc?export=download&id=${FILE_ID}" \
+                        -o /tmp/tmpfile
+
+                    CONFIRM=\$(grep -o 'confirm=[^&]*' /tmp/tmpfile | sed 's/confirm=//' | head -n1)
+
+                    curl -L -b /tmp/cookie \
+                        "https://drive.google.com/uc?export=download&confirm=\$CONFIRM&id=${FILE_ID}" \
+                        -o ${OUT}
 
                     if [ ! -f "${OUT}" ] || [ \$(stat -c%s "${OUT}") -lt 100000 ]; then
                         echo "Download failed or file too small."
@@ -49,12 +56,11 @@ pipeline {
                     fi
 
                     chmod 644 ${OUT}
-                    echo "Download OK: \$(stat -c%s ${OUT}) bytes"
+                    echo "Downloaded OK: \$(stat -c%s ${OUT}) bytes"
                     """
                 }
             }
         }
-
 
 
         stage('Prepare .env and Start Services') {
