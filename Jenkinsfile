@@ -24,30 +24,34 @@ pipeline {
             }
         }
 
-        stage('Download model') {
+        stage('Download model from HF Hub') {
             steps {
                 script {
-                    def FILE_ID = "1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN"
-                    def OUT = "src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth"
+                    def OUT = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
+                    def HF_URL = 'https://huggingface.co/Daniel172003/rag_stt/blob/main/epoch_00080.pth'
 
                     sh """
                     mkdir -p \$(dirname ${OUT})
 
-                    echo "Downloading model..."
-                    curl -L "https://drive.google.com/uc?export=download&confirm=t&id=${FILE_ID}" \
-                        -o ${OUT}
+                    if [ -f "${OUT}" ] && [ \$(stat -c%s "${OUT}") -ge 100000 ]; then
+                        echo "Model exists. Skip download."
+                        exit 0
+                    fi
 
-                    if [ \$(stat -c%s ${OUT}) -lt 100000 ]; then
-                        echo "ERROR: File too small — Google blocked the download."
+                    echo "Downloading model from Hugging Face..."
+                    curl -L ${HF_URL} -o ${OUT}
+
+                    if [ ! -f "${OUT}" ] || [ \$(stat -c%s "${OUT}") -lt 100000 ]; then
+                        echo "Download failed or file too small."
                         exit 1
                     fi
 
-                    echo "Model downloaded OK: \$(stat -c%s ${OUT}) bytes"
+                    chmod 644 ${OUT}
+                    echo "Downloaded OK: \$(stat -c%s ${OUT}) bytes"
                     """
                 }
             }
         }
-
 
 
         stage('Prepare .env and Start Services') {
