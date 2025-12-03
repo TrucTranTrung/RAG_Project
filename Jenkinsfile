@@ -24,43 +24,30 @@ pipeline {
             }
         }
 
-        stage('Ensure model (download GDrive)') {
+        stage('Download model') {
             steps {
                 script {
-                    def FILE_ID = '1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN'
-                    def OUT = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
+                    def FILE_ID = "1Yx92zfeAjdsh5wddji8vrqpZdGw1eyrN"
+                    def OUT = "src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth"
 
                     sh """
-                    set -e
                     mkdir -p \$(dirname ${OUT})
 
-                    if [ -f "${OUT}" ] && [ \$(stat -c%s "${OUT}") -ge 100000 ]; then
-                        echo "Model exists, skip."
-                        exit 0
-                    fi
-
-                    echo "Downloading..."
-                    curl -c /tmp/cookie -s -L \
-                        "https://drive.google.com/uc?export=download&id=${FILE_ID}" \
-                        -o /tmp/tmpfile
-
-                    CONFIRM=\$(grep -o 'confirm=[^&]*' /tmp/tmpfile | sed 's/confirm=//' | head -n1)
-
-                    curl -L -b /tmp/cookie \
-                        "https://drive.google.com/uc?export=download&confirm=\$CONFIRM&id=${FILE_ID}" \
+                    echo "Downloading model..."
+                    curl -L "https://drive.google.com/uc?export=download&confirm=t&id=${FILE_ID}" \
                         -o ${OUT}
 
-                    if [ ! -f "${OUT}" ] || [ \$(stat -c%s "${OUT}") -lt 100000 ]; then
-                        echo "Download failed or file too small."
+                    if [ \$(stat -c%s ${OUT}) -lt 100000 ]; then
+                        echo "ERROR: File too small — Google blocked the download."
                         exit 1
                     fi
 
-                    chmod 644 ${OUT}
-                    echo "Downloaded OK: \$(stat -c%s ${OUT}) bytes"
+                    echo "Model downloaded OK: \$(stat -c%s ${OUT}) bytes"
                     """
                 }
             }
         }
+
 
 
         stage('Prepare .env and Start Services') {

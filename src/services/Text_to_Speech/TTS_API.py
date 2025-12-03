@@ -245,6 +245,7 @@ async def transcribe_audio(text_input: str = Form(...)):
             valid_sentences = [s for s in sentences if s.strip() != ""]
             req_span.set_attribute("segments_count", len(valid_sentences))
 
+
             for idx, text in enumerate(valid_sentences):
                 text = text + '.'
                 t0 = time.time()
