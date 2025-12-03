@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     def OUT = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
-                    def HF_URL = 'https://huggingface.co/Daniel172003/rag_stt/blob/main/epoch_00080.pth'
+                    def HF_URL = 'https://huggingface.co/Daniel172003/rag_stt/resolve/main/epoch_00080.pth'
 
                     sh """
                     mkdir -p \$(dirname ${OUT})
