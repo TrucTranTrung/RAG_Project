@@ -27,27 +27,47 @@ pipeline {
         stage('Download model from HF Hub') {
             steps {
                 script {
-                    def OUT = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
-                    def HF_URL = 'https://huggingface.co/Daniel172003/rag_stt/resolve/main/epoch_00080.pth'
+                    def OUT_ASR = 'src/services/Text_to_Speech/StyleTTS2/Utils/ASR/epoch_00080.pth'
+                    def HF_URL_ASR = 'https://huggingface.co/Daniel172003/rag_stt/resolve/main/epoch_00080.pth'
+                    def OUT_LIN = 'src/services/Text_to_Speech/StyleTTS2/Models/LJSpeech/epoch_2nd_00100.pth'
+                    def HF_URL_LIN = 'https://huggingface.co/Daniel172003/rag_stt/resolve/main/epoch_2nd_00100.pth'
 
                     sh """
-                    mkdir -p \$(dirname ${OUT})
+                    mkdir -p \$(dirname ${OUT_ASR})
+                    mkdir -p \$(dirname ${OUT_LIN})
 
-                    if [ -f "${OUT}" ] && [ \$(stat -c%s "${OUT}") -ge 100000 ]; then
+                    if [ -f "${OUT_ASR}" ] && [ \$(stat -c%s "${OUT_ASR}") -ge 100000 ]; then
                         echo "Model exists. Skip download."
                         exit 0
                     fi
 
                     echo "Downloading model from Hugging Face..."
-                    curl -L ${HF_URL} -o ${OUT}
+                    curl -L ${HF_URL_ASR} -o ${OUT_ASR}
 
-                    if [ ! -f "${OUT}" ] || [ \$(stat -c%s "${OUT}") -lt 100000 ]; then
+                    if [ ! -f "${OUT_ASR}" ] || [ \$(stat -c%s "${OUT_ASR}") -lt 100000 ]; then
                         echo "Download failed or file too small."
                         exit 1
                     fi
 
-                    chmod 644 ${OUT}
-                    echo "Downloaded OK: \$(stat -c%s ${OUT}) bytes"
+                    chmod 644 ${OUT_ASR}
+                    echo "Downloaded OK: \$(stat -c%s ${OUT_ASR}) bytes"
+
+                    ----
+                    if [ -f "${OUT_LIN}" ] && [ \$(stat -c%s "${OUT_LIN}") -ge 100000 ]; then
+                        echo "Model exists. Skip download."
+                        exit 0
+                    fi
+
+                    echo "Downloading model from Hugging Face..."
+                    curl -L ${HF_URL_LIN} -o ${OUT_LIN}
+
+                    if [ ! -f "${OUT_LIN}" ] || [ \$(stat -c%s "${OUT_LIN}") -lt 100000 ]; then
+                        echo "Download failed or file too small."
+                        exit 1
+                    fi
+
+                    chmod 644 ${OUT_LIN}
+                    echo "Downloaded OK: \$(stat -c%s ${OUT_LIN}) bytes"
                     """
                 }
             }
