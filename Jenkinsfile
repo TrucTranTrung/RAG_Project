@@ -114,7 +114,7 @@ pipeline {
             steps {
                 script {
                     echo "Chuẩn bị môi trường test sử dụng Docker..."
-                    docker.image('nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04').inside('--user root --network elk-net') {
+                    docker.image('python:3.10-slim').inside('--user root --network elk-net') {
                         sh 'apt-get update && apt-get install -y --no-install-recommends build-essential python3-dev git python3-pip espeak libpq-dev gcc && rm -rf /var/lib/apt/lists/*'
                         sh 'python3 -m pip install --upgrade pip'
                         sh 'python3 -m pip install -r jenkins_requirements.txt || true'
