@@ -26,11 +26,7 @@
 </table>
 
 ## CI/CD Jenskin
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/5f1d08ce-bc2c-451c-807f-d7b7cfd449d0" width="700"></td>
-  </tr>
-</table>
+<img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/5f1d08ce-bc2c-451c-807f-d7b7cfd449d0" />
 
 # Prepare
 ```bash
