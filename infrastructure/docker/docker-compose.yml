@@ -3,7 +3,7 @@ services:
     build:
       context: ../../src/services/Faster_Whisper
       dockerfile: dockerfile
-    image: tructran172003/whisper-api:v1.0
+    image: tructran172003/whisper-api:latest
     ports:
       - "8000:8000"
     labels:
@@ -29,7 +29,7 @@ services:
     build:
       context: ../../src/services/Text_to_Speech
       dockerfile: dockerfile
-    image: tructran172003/tts-api:v1.0
+    image: tructran172003/tts-api:latest
     ports:
       - "8001:8001"
     labels:
@@ -58,7 +58,7 @@ services:
     build:
       context: ../../src/services/chatbot_api
       dockerfile: dockerfile
-    image: tructran172003/chatbot-api:v1.0
+    image: tructran172003/chatbot-api:latest
     env_file:
       - ../../config/.env
     labels:
