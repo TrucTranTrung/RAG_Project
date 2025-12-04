@@ -20,19 +20,17 @@
 ## Monitoring Logs
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/a8483253-9f01-4875-a267-c92c644d7e7b" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="500"></td>
+    <td><img src="https://github.com/user-attachments/assets/a8483253-9f01-4875-a267-c92c644d7e7b" width="500"></td>
   </tr>
 </table>
 
 ## CI/CD Jenskin
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/5f1d08ce-bc2c-451c-807f-d7b7cfd449d0" width="700"></td>
   </tr>
 </table>
-
-
 
 # Prepare
 ```bash
