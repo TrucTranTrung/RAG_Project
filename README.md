@@ -29,12 +29,16 @@ download weight: epoch_2nd_00100.pth and put it in /StyleTTS2/Models/LJSpeech/ f
 
 # Run Docker Compose
 docker network create elk-net
-docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 docker compose -f infrastructure/docker/docker-compose.yml up
-docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
 
-# Run Docker ELK Compose
+# Run Docker ELK Compose for logs monitor
 docker compose -f infrastructure/docker/docker-compose.elk.yml up
+
+# Run Docker Monitor Compose for monitor GPU, CPU....
+docker compose -f infrastructure/docker/docker-compose-monitor.yml up
+
+# Run Docker Jenskin Compose for CI/CD
+docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
 
 # Chạy minikube
 minikube start --driver=docker --gpus=all

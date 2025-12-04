@@ -1,5 +1,4 @@
-streamlit==1.38.0
-streamlit-webrtc==0.47.0
-st-audiorec==0.1.0
-requests==2.32.3
-numpy==2.2.5
+fastapi>=0.95.0
+uvicorn[standard]>=0.22.0
+python-multipart>=0.0.6
+aiofiles>=23.1.0

@@ -1,29 +1,37 @@
-# Base image with CUDA, cuDNN, Ubuntu 22.04
-FROM nvidia/cuda:12.3.2-cudnn9-runtime-ubuntu22.04
+# Base image: python slim (sử dụng Debian Slim)
+FROM python:3.10-slim
 
-# Avoid interactive prompts
+# Avoid interactive prompts and keep Python unbuffered
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
-# Install Python 3.10 and pip
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    pip3 install --upgrade pip && \
-    rm -rf /var/lib/apt/lists/*
-
-# Set working directory
+# Set workdir
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install system packages: ffmpeg (ffprobe đi kèm), build tools (tùy chọn)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ffmpeg \
+      ca-certificates \
+      gcc \
+      build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy toàn bộ code frontend vào container
-COPY chatbot_app.py .
+# Copy only requirements first (cache pip layer)
+COPY requirements.txt /app/requirements.txt
 
-# Expose Streamlit default port
-EXPOSE 8501
+# Upgrade pip and install python deps
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r /app/requirements.txt
 
-# Run Streamlit frontend
-CMD ["streamlit", "run", "chatbot_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Copy toàn bộ source code vào working dir
+COPY . /app
+
+# Tạo folder uploads (đảm bảo có quyền ghi)
+RUN chown -R root:root /app/uploads
+
+# Expose port
+EXPOSE 9001
+
+# Run uvicorn (reload=False cho production; nếu muốn dev dùng reload=True)
+CMD ["python", "upload.py"]

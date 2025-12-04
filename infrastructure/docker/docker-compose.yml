@@ -94,20 +94,21 @@ services:
     networks:
       - elk-net
 
-
   # frontend:
   #   build:
-  #     context: ../RAG_Project/Container_Folder/Front_end   # chỗ có Dockerfile frontend
+  #     context: ../../src/services/Front_end  
   #     dockerfile: dockerfile
-  #  # image: tructran172003/frontend:v1.0
+  #   image: tructran172003/frontend:v1.0
   #   ports:
-  #     - "8501:8501"
+  #     - "9001:9001"
   #   depends_on:
   #     - chatbot_api
   #     - whisper-api
   #     - tts-api
   #   networks:
-  #     - my-network
+  #     - elk-net
+
+
 volumes:
   pgdata:
 
