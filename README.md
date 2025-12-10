@@ -5,17 +5,8 @@
 - For monitoring, logging, and observability, the infrastructure integrates Grafana, Prometheus, and the ELK stack.
 - Alert: This project required GPU for model
 
-## Front-end
-<img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
+## Project Pipeline
 
-## Monitoring Prometheus
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/477ce692-c64d-4f12-b216-7183a0881911" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/a8483253-9f01-4875-a267-c92c644d7e7b" width="300"></td>
-  </tr>
-</table>
 
 ## Monitoring Logs
 <table>
@@ -54,10 +45,27 @@ docker compose -f infrastructure/docker/docker-compose.yml up
 <img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
 
 # Run Docker ELK Compose for logs monitor
+```bash
 docker compose -f infrastructure/docker/docker-compose.elk.yml up
+```
+
+- Kibana port is 5601, you can access to query at: localhost:5601
 
 # Run Docker Monitor Compose for monitor GPU, CPU....
+```bash
 docker compose -f infrastructure/docker/docker-compose-monitor.yml up
+```
+
+- Granfa port is 3000, you can access to query at: localhost:3000
+- Grafana has 3 dashboards: DCGM for GPU, node-exporter for CPU and cadvisor for container
+
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/477ce692-c64d-4f12-b216-7183a0881911" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/a8483253-9f01-4875-a267-c92c644d7e7b" width="300"></td>
+  </tr>
+</table>
 
 # Run Docker Jenskin Compose for CI/CD
 docker compose -f infrastructure/docker/docker-compose.jenkins.yml up

@@ -94,19 +94,19 @@ services:
     networks:
       - elk-net
 
-  # frontend:
-  #   build:
-  #     context: ../../src/services/Front_end  
-  #     dockerfile: dockerfile
-  #   image: tructran172003/frontend:v1.0
-  #   ports:
-  #     - "9001:9001"
-  #   depends_on:
-  #     - chatbot_api
-  #     - whisper-api
-  #     - tts-api
-  #   networks:
-  #     - elk-net
+  frontend:
+    build:
+      context: ../../src/services/Front_end  
+      dockerfile: dockerfile
+    image: tructran172003/frontend:v1.0
+    ports:
+      - "9001:9001"
+    depends_on:
+      - chatbot_api
+      - whisper-api
+      - tts-api
+    networks:
+      - elk-net
 
 
 volumes:
