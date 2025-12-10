@@ -29,10 +29,17 @@ docker network create elk-net
 docker compose -f infrastructure/docker/docker-compose.yml up
 ```
 
+# Push Data to PG Vector
+```bash
+conda activate rag_env
+python src/core/embedding.py
+```
+
 - Frontend is at: http://localhost:9001/static/index.html
 
 ## Front-end
 <img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
+
 
 # Run Docker ELK Compose for logs monitor
 ```bash
