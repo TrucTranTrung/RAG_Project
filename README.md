@@ -8,16 +8,6 @@
 ## Project Pipeline
 <img width="1196" height="789" alt="Screenshot from 2025-12-10 16-11-48" src="https://github.com/user-attachments/assets/a532194c-74b6-40f9-af0f-b2a6e7bcb63b" />
 
-## Monitoring Logs
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/acfaeeb5-7a49-44b2-a5d2-e7656ff57347" width="500"></td>
-    <td><img src="https://github.com/user-attachments/assets/a8483253-9f01-4875-a267-c92c644d7e7b" width="500"></td>
-  </tr>
-</table>
-
-## CI/CD Jenskin
-<img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/5f1d08ce-bc2c-451c-807f-d7b7cfd449d0" />
 
 # Prepare
 ```bash
@@ -50,8 +40,13 @@ docker compose -f infrastructure/docker/docker-compose.elk.yml up
 ```
 
 - Kibana port is 5601, you can access to query at: localhost:5601
+- Access Observability -> Stream to query logs in container
+  
+## Monitoring Logs
+<img width="1846" height="881" alt="Screenshot from 2025-12-10 16-15-02" src="https://github.com/user-attachments/assets/0cf12738-029b-4d31-a641-845b752e82f1" />
 
 # Run Docker Monitor Compose for monitor GPU, CPU....
+
 ```bash
 docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 ```
@@ -67,8 +62,19 @@ docker compose -f infrastructure/docker/docker-compose-monitor.yml up
   </tr>
 </table>
 
+- Access Jeager at localhost:16686
+- Choose service for tracing
+
+## Jeager Tracing
+<img width="1844" height="930" alt="Screenshot from 2025-12-10 16-23-58" src="https://github.com/user-attachments/assets/b45d63c6-a510-4529-95a6-c2cdeedc52ff" />
+
 # Run Docker Jenskin Compose for CI/CD
 docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
+
+- Jenkins port is 8080, you can access to query at: localhost:8080
+
+## CI/CD Jenskin
+<img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/5f1d08ce-bc2c-451c-807f-d7b7cfd449d0" />
 
 # Chạy minikube
 minikube start --driver=docker --gpus=all
