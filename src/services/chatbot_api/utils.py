@@ -1,12 +1,6 @@
-import requests,os
 from dotenv import load_dotenv
-from pathlib import Path
-import os
-import google.generativeai as genai
-genai.configure(api_key=os.getenv("API_GEMINI_ENTITIES"))
 # Tìm đường dẫn tới file .env ở thư mục gốc
 load_dotenv()
-# from prompt import prompt_entities,prompt_keyword
 import spacy
 
 _nlp = None

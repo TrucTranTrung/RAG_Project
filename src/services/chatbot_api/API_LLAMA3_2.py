@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from typing import Union
 from db import query_similar_vectors_from_pgvector, get_pgvector_store
-from model import get_entities_as_string_GEMINI
+from model import get_answer_from_context_GPT
 from utils import get_top_k_contexts
 from prompt import prompt_template
 
@@ -259,7 +259,7 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
             reranked_indices = get_top_k_contexts(documents, valid_text, similarities, k=3)
             req_span.set_attribute("contexts_count", len(reranked_indices))
 
-            output_text = get_entities_as_string_GEMINI(prompt_template, information=reranked_indices, question=valid_text)
+            output_text = get_answer_from_context_GPT(prompt_template, information=reranked_indices, question=valid_text)
 
             # --- Nếu cần TTS ---
             if audio and not question:

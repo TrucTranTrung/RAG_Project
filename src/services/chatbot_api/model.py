@@ -1,24 +1,18 @@
-from prompt import prompt_template  
-import requests
-# from Embedding_Store.Model import *
 import os
-import json
 from pathlib import Path
 from dotenv import load_dotenv
-import google.generativeai as genai
+from openai import OpenAI
 
 # Lấy đường dẫn đến file hiện tại
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("API_GEMINI_ENTITIES")
-def get_entities_as_string_GEMINI(
+client = OpenAI(api_key=os.getenv("API_GPT_KEY"))
+def get_answer_from_context_GPT(
     prompt_template: str,
     information: list[str],
     question: str
 ) -> str:
     try:
-        model = genai.GenerativeModel("gemini-2.0-flash")
-
         processed_information = " ".join(information)
         processed_information = processed_information.replace('\n', ' ').replace('\t', ' ')
         processed_information = " ".join(processed_information.split())
@@ -29,20 +23,19 @@ def get_entities_as_string_GEMINI(
             question=question
         )
 
-        response = model.generate_content(prompt)
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.2,
+            max_tokens=100
+        )
 
-        text = response.text or ""
-
-        output_list = [
-            i.strip().lower()
-            for i in text.replace('[','').replace(']','').replace('"','').split(',')
-            if i.strip()
-        ]
-
-        return ", ".join(output_list)
+        return response.choices[0].message.content.strip()
 
     except Exception as e:
-        print("❌ Gemini error:", e)
+        print("❌ GPT error:", e)
         return ""
 
 
