@@ -53,7 +53,6 @@ docker compose -f infrastructure/docker/docker-compose.elk.yml up
 <img width="1846" height="881" alt="Screenshot from 2025-12-10 16-15-02" src="https://github.com/user-attachments/assets/0cf12738-029b-4d31-a641-845b752e82f1" />
 
 # Run Docker Monitor Compose for monitor GPU, CPU....
-
 ```bash
 docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 ```
@@ -76,7 +75,9 @@ docker compose -f infrastructure/docker/docker-compose-monitor.yml up
 <img width="1844" height="930" alt="Screenshot from 2025-12-10 16-23-58" src="https://github.com/user-attachments/assets/b45d63c6-a510-4529-95a6-c2cdeedc52ff" />
 
 # Run Docker Jenskin Compose for CI/CD
+```bash
 docker compose -f infrastructure/docker/docker-compose.jenkins.yml up
+```
 
 - Jenkins port is 8080, you can access to query at: localhost:8080
 

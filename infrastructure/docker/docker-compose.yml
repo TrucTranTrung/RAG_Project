@@ -58,7 +58,7 @@ services:
     build:
       context: ../../src/services/chatbot_api
       dockerfile: dockerfile
-    image: tructran172003/chatbot-api:latest
+    image: tructran172003/chatbot-api:v0.1
     env_file:
       - ../../config/.env
     labels:

@@ -27,8 +27,7 @@ RUN pip install --upgrade pip && \
 # Copy toàn bộ source code vào working dir
 COPY . /app
 
-# Tạo folder uploads (đảm bảo có quyền ghi)
-RUN chown -R root:root /app/uploads
+RUN mkdir -p /app/uploads && chown -R root:root /app/uploads
 
 # Expose port
 EXPOSE 9001

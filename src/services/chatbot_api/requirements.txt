@@ -16,3 +16,5 @@ opentelemetry-instrumentation-fastapi
 opentelemetry-instrumentation-requests
 python-json-logger
 deprecated
+google-generativeai
+spacy

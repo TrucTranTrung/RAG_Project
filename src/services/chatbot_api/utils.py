@@ -1,38 +1,59 @@
 import requests,os
 from dotenv import load_dotenv
 from pathlib import Path
-
+import os
+import google.generativeai as genai
+genai.configure(api_key=os.getenv("API_GEMINI_ENTITIES"))
 # Tìm đường dẫn tới file .env ở thư mục gốc
 load_dotenv()
+# from prompt import prompt_entities,prompt_keyword
+import spacy
 
-# Lấy API key
-GEMINI_API_KEY = os.getenv("API_GEMINI_ENTITIES")
-from prompt import prompt_entities,prompt_keyword
+_nlp = None
+
+def get_nlp():
+    global _nlp
+    if _nlp is None:
+        _nlp = spacy.load("en_core_web_sm")
+    return _nlp
  
-# --- Extract keywords with POS filtering ---
+
 def extract_keywords_from_question(question, top_n=5):
-    url = os.getenv("API_GEMINI_ENTITIES")
-    prompt = prompt_keyword.format(top_n=top_n, text=question)
-    payload = {"contents": [{"parts": [{"text": prompt}]}]}
     try:
-        response = requests.post(url, headers={"Content-Type": "application/json"}, json=payload).json()
-        text = response['candidates'][0]['content']['parts'][0]['text']
-        return [i.strip().lower() for i in text.replace('[','').replace(']','').replace('"','').split(',') if i.strip()]
+        nlp = get_nlp()
+        doc = nlp(question)
+
+        keywords = [
+            token.lemma_.lower()
+            for token in doc
+            if token.pos_ in {"NOUN", "PROPN", "VERB"}
+            and not token.is_stop
+            and token.is_alpha
+        ]
+
+        # Giữ thứ tự, bỏ trùng
+        seen = set()
+        keywords = [k for k in keywords if not (k in seen or seen.add(k))]
+
+        return keywords[:top_n]
+
     except Exception as e:
         print(f"[Keyword Extraction Error] {e}")
         return []
 
-# --- Extract named entities (names, objects) ---
+
 def extract_entities(question):
-    url = os.getenv("API_GEMINI_ENTITIES")
-    prompt = prompt_entities.format(text=question)
     try:
-        response = requests.post(url, headers={"Content-Type": "application/json"}, json={
-            "contents": [{"parts": [{"text": prompt}]}]
-        }).json()
-        text = response['candidates'][0]['content']['parts'][0]['text']
-        # Làm sạch như trong extract_keywords_from_question
-        return [i.strip().lower() for i in text.replace('[','').replace(']','').replace('"','').replace("'", '').split(',') if i.strip()]
+        nlp = get_nlp()
+        doc = nlp(question)
+
+        entities = {
+            ent.text.lower()
+            for ent in doc.ents
+        }
+
+        return list(entities)
+
     except Exception as e:
         print(f"[Entity extraction error] {e}")
         return []
