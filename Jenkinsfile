@@ -90,20 +90,23 @@ pipeline {
                 script {
                     echo "Đã build bằng docker compose ở stage trước — sẽ tag lại các image với ${IMAGE_TAG}"
 
-                    // Tên image theo docker-compose 
-                    def ttsOrig = "${TTS_IMAGE_NAME}:v1.0"       
-                    def sttOrig = "${STT_IMAGE_NAME}:v1.0"
-                    def chatbotOrig = "${CHATBOT_IMAGE_NAME}:v1.0"
+                    // Debug: Liệt kê image để xem docker compose thực sự đã build ra cái tên gì
+                    sh "docker images | grep ${env.DOCKER_REGISTRY_USER} || true"
 
-                    // Tag lại với IMAGE_TAG và latest
-                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:${IMAGE_TAG} || true"
-                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:latest || true"
+                    // SỬA: Giả định docker compose build ra tag 'latest' (mặc định) thay vì 'v1.0'
+                    def ttsOrig = "${TTS_IMAGE_NAME}:latest"       
+                    def sttOrig = "${STT_IMAGE_NAME}:latest"
+                    def chatbotOrig = "${CHATBOT_IMAGE_NAME}:latest"
 
-                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:${IMAGE_TAG} || true"
-                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:latest || true"
-
-                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:${IMAGE_TAG} || true"
-                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:latest || true"
+                    // Tag lại với IMAGE_TAG (BỎ '|| true' để nếu lỗi thì dừng pipeline ngay)
+                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:${IMAGE_TAG}"
+                    
+                    // Tag latest không cần thiết phải tag lại nếu nguồn đã là latest, 
+                    sh "docker tag ${ttsOrig} ${TTS_IMAGE_NAME}:latest" 
+                    sh "docker tag ${sttOrig} ${STT_IMAGE_NAME}:latest"
+                    sh "docker tag ${chatbotOrig} ${CHATBOT_IMAGE_NAME}:latest"
 
                     echo "Tagging hoàn tất."
                 }

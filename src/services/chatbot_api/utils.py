@@ -19,44 +19,45 @@ def get_nlp():
  
 
 def extract_keywords_from_question(question, top_n=5):
-    try:
-        nlp = get_nlp()
-        doc = nlp(question)
+    nlp = get_nlp()
+    doc = nlp(question)
 
-        keywords = [
-            token.lemma_.lower()
-            for token in doc
-            if token.pos_ in {"NOUN", "PROPN", "VERB"}
-            and not token.is_stop
-            and token.is_alpha
-        ]
+    keywords = [
+        token.lemma_.lower()
+        for token in doc
+        if token.pos_ in {"NOUN", "PROPN", "ADJ"}
+        and not token.is_stop
+        and token.is_alpha
+    ]
 
-        # Giữ thứ tự, bỏ trùng
-        seen = set()
-        keywords = [k for k in keywords if not (k in seen or seen.add(k))]
+    seen = set()
+    keywords = [k for k in keywords if not (k in seen or seen.add(k))]
 
-        return keywords[:top_n]
-
-    except Exception as e:
-        print(f"[Keyword Extraction Error] {e}")
-        return []
+    return keywords[:top_n]
 
 
-def extract_entities(question):
-    try:
-        nlp = get_nlp()
-        doc = nlp(question)
+def extract_entities(question, top_n=5):
+    nlp = get_nlp()
+    doc = nlp(question)
 
-        entities = {
-            ent.text.lower()
-            for ent in doc.ents
-        }
+    noun_phrases = []
 
-        return list(entities)
+    for chunk in doc.noun_chunks:
+        text = chunk.text.lower().strip()
 
-    except Exception as e:
-        print(f"[Entity extraction error] {e}")
-        return []
+        if any(tok.is_stop for tok in chunk):
+            continue
+
+        if len(text) < 3:
+            continue
+
+        noun_phrases.append(text)
+
+    # unique + giữ thứ tự
+    seen = set()
+    noun_phrases = [x for x in noun_phrases if not (x in seen or seen.add(x))]
+
+    return noun_phrases[:top_n]
 
 
 # --- Rerank contexts ---
