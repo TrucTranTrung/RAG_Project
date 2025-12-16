@@ -12,6 +12,7 @@ GUIDELINES:
 - Avoid restating entire sentences or paragraphs from CONTEXT.
 - Keep the tone professional, empathetic, and conversational — as if explaining to a student or client.
 - If CONTEXT does not provide enough information, say exactly: "Not enough information to answer the question."
+- The answer should be concise, ideally within 100 words.
 
 FORMAT:
 1–2 paragraphs that clearly address the QUESTION.
