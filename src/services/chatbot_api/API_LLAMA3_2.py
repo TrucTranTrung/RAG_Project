@@ -289,7 +289,6 @@ async def rag_api(question: str = Form(None), audio: Union[UploadFile, str] = Fi
             return {"type": "text", "content": output_text}
 
 
-
     except Exception as e:
         total = time.time() - REQUEST_START
         REQUEST_LATENCY.labels(service=SERVICE_NAME_STR, route=route).observe(total)
