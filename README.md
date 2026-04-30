@@ -6,7 +6,7 @@
 - Alert: This project required GPU for model
 
 ## Project Pipeline
-<img width="1196" height="789" alt="Screenshot from 2025-12-10 16-11-48" src="https://github.com/user-attachments/assets/a532194c-74b6-40f9-af0f-b2a6e7bcb63b" />
+<img width="1219" height="712" alt="Screenshot from 2026-04-30 21-20-18" src="https://github.com/user-attachments/assets/07387c38-2f68-4bf6-9e3b-90e4df13e19e" />
 
 
 # Prepare
