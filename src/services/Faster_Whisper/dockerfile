@@ -15,6 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive TZ=US && \
         libespeak1 && \
     rm -rf /var/lib/apt/lists/*
 
+    
 # Tạo symlink python -> python3 để tiện sử dụng
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
