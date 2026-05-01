@@ -2,7 +2,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import os
-from typing import List, Dict, Any
+from typing import List
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from tqdm.auto import tqdm
@@ -24,6 +24,22 @@ else:
     print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 
 similarity_threshold = float(os.getenv("SIMILARITY_THRESHOLD_FOR_MERGE"))
+
+
+def _embedding_device() -> str:
+    configured_device = os.getenv("EMBEDDING_DEVICE", "auto").lower()
+    if configured_device != "auto":
+        return configured_device
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def _embedding_batch_size(default: int = 8) -> int:
+    try:
+        return max(1, int(os.getenv("EMBEDDING_BATCH_SIZE", str(default))))
+    except ValueError:
+        return default
+
+
 # print(os.getenv('MODEL_NAME_EMBED'))
 # print(f"Similarity threshold: {similarity_threshold} (type: {type(similarity_threshold)})")
 class DocumentProcessor:
@@ -49,13 +65,15 @@ class DocumentProcessor:
     def initialize_embedding_model(model_name: str) -> HuggingFaceEmbeddings:
         # print(f"Initializing embedding model: {model_name}...")
         try:
+            device = _embedding_device()
+            batch_size = _embedding_batch_size()
             embeddings_model = HuggingFaceEmbeddings(
                 model_name=model_name,
-                model_kwargs={'device': 'cuda'},
+                model_kwargs={'device': device},
                 encode_kwargs={'normalize_embeddings': True,
-                            'batch_size': 64}
+                               'batch_size': batch_size}
             )
-            print("Embedding model initialized.")
+            print(f"Embedding model initialized on {device} with batch size {batch_size}.")
             return embeddings_model
         except Exception as e:
             print(f"Error initializing embedding model: {e}")
@@ -217,4 +235,3 @@ class DocumentProcessor:
             
         print(f"Semantic merging resulted in {len(merged_documents)} final chunks.")
         return merged_documents
-

@@ -1,11 +1,13 @@
 # pip install langchain-postgres langchain-huggingface python-dotenv psycopg-binary sentence-transformers
 import os
 from typing import List
+import torch
 from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_postgres import PGVector
 from urllib.parse import quote_plus
 from dotenv import load_dotenv
+from tqdm.auto import tqdm
 
 # __file__ là biến trỏ đến file Python hiện tại
 script_directory = os.path.abspath(os.path.dirname(__file__))
@@ -20,8 +22,38 @@ if os.path.exists(dotenv_path):
 else:
     print(f"Cảnh báo: Không tìm thấy file .env tại {dotenv_path}")
 
-embedding_model = HuggingFaceEmbeddings(model_name=os.getenv("MODEL_NAME_EMBED"))
-# print("Embedding model initialized.")
+def _embedding_device() -> str:
+    configured_device = os.getenv("EMBEDDING_DEVICE", "auto").lower()
+    if configured_device != "auto":
+        return configured_device
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def _embedding_batch_size(default: int = 8) -> int:
+    try:
+        return max(1, int(os.getenv("EMBEDDING_BATCH_SIZE", str(default))))
+    except ValueError:
+        return default
+
+
+def _pgvector_insert_batch_size(default: int = 8) -> int:
+    try:
+        return max(1, int(os.getenv("PGVECTOR_INSERT_BATCH_SIZE", str(default))))
+    except ValueError:
+        return default
+
+
+embedding_device = _embedding_device()
+embedding_batch_size = _embedding_batch_size()
+embedding_model = HuggingFaceEmbeddings(
+    model_name=os.getenv("MODEL_NAME_EMBED"),
+    model_kwargs={"device": embedding_device},
+    encode_kwargs={
+        "normalize_embeddings": True,
+        "batch_size": embedding_batch_size,
+    },
+)
+print(f"PGVector embedding model initialized on {embedding_device} with batch size {embedding_batch_size}.")
 
 def get_pgvector_store(collection_name: str) -> PGVector:
     from urllib.parse import quote_plus
@@ -63,12 +95,22 @@ def store_documents_in_pgvector(
     collection_name = vector_store.collection_name
     print(f"Saving {len(documents_to_store)} document into collection '{collection_name}'...")
     
+    insert_batch_size = _pgvector_insert_batch_size()
     try:
-        # Hàm add_documents sẽ thêm các document vào database
-        vector_store.add_documents(documents_to_store)
+        for start in tqdm(
+            range(0, len(documents_to_store), insert_batch_size),
+            desc="Saving documents to PGVector",
+        ):
+            batch = documents_to_store[start:start + insert_batch_size]
+            vector_store.add_documents(batch)
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
         print(f"✅ Successfully saved documents.")
     except Exception as e:
         print(f"❌ Error saving documents to PGvector: {e}")
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        raise
 
 
 def query_similar_vectors_from_pgvector(
@@ -87,5 +129,4 @@ def query_similar_vectors_from_pgvector(
     except Exception as e:
         print(f"❌ Error querying vector: {e}")
         return []
-
 

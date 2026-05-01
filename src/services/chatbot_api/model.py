@@ -1,20 +1,57 @@
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
 
 # Lấy đường dẫn đến file hiện tại
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("API_GPT_KEY"))
+CHAT_MODEL_PROVIDER = os.getenv("CHAT_MODEL_PROVIDER", "local").lower()
+
+
+def _clean_text(text: str) -> str:
+    text = text.replace("\n", " ").replace("\t", " ")
+    return " ".join(text.split())
+
+
+def _get_openai_client():
+    from openai import OpenAI
+
+    return OpenAI(api_key=os.getenv("API_GPT_KEY"))
+
+
+def get_answer_from_context_LOCAL(
+    prompt_template: str,
+    information: list[str],
+    question: str
+) -> str:
+    """
+    Lightweight local demo responder.
+    It does not run an LLM, so it works without API quota and without GPU memory.
+    """
+    processed_information = _clean_text(" ".join(information))
+    if not processed_information:
+        return "I do not have enough context in the local knowledge base to answer that demo question."
+
+    max_chars = int(os.getenv("LOCAL_DEMO_MAX_CONTEXT_CHARS", "700"))
+    context_preview = processed_information[:max_chars].strip()
+    if len(processed_information) > max_chars:
+        context_preview += "..."
+
+    return (
+        "Demo local answer based on the retrieved context: "
+        f"{context_preview}"
+    )
+
+
 def get_answer_from_context_GPT(
     prompt_template: str,
     information: list[str],
     question: str
 ) -> str:
+    if CHAT_MODEL_PROVIDER == "local":
+        return get_answer_from_context_LOCAL(prompt_template, information, question)
+
     try:
-        processed_information = " ".join(information)
-        processed_information = processed_information.replace('\n', ' ').replace('\t', ' ')
-        processed_information = " ".join(processed_information.split())
+        processed_information = _clean_text(" ".join(information))
 
         prompt = prompt_template.format(
             subject="about psychology",
@@ -22,8 +59,9 @@ def get_answer_from_context_GPT(
             question=question
         )
 
+        client = _get_openai_client()
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=os.getenv("OPENAI_CHAT_MODEL", "gpt-4o-mini"),
             messages=[
                 {"role": "user", "content": prompt}
             ],

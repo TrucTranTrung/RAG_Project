@@ -34,8 +34,27 @@ docker compose -f infrastructure/docker/docker-compose.yml up
 conda activate rag_env
 python src/core/embedding.py
 ```
+For small or busy GPUs, lower the embedding workload before running:
+```bash
+export EMBEDDING_BATCH_SIZE=4
+export PGVECTOR_INSERT_BATCH_SIZE=4
+python src/core/embedding.py
+```
+Use `EMBEDDING_DEVICE=cpu` if CUDA memory is still not available.
 
 - Frontend is at: http://localhost:9001/static/index.html
+
+# Chat Model Provider
+The chatbot can run without OpenAI/Gemini quota for demos:
+```bash
+export CHAT_MODEL_PROVIDER=local
+```
+This returns a simple answer from retrieved PGVector context and does not load a local LLM.
+To use OpenAI again:
+```bash
+export CHAT_MODEL_PROVIDER=openai
+export OPENAI_CHAT_MODEL=gpt-4o-mini
+```
 
 ## Front-end
 <img width="1851" height="922" alt="Screenshot from 2025-11-21 14-46-32" src="https://github.com/user-attachments/assets/b6e6cb66-66c7-4813-a044-83598d33a282" />
