@@ -458,7 +458,7 @@
     // AI integration
     const ai = {
         generateResponse: async function (userMessage, audio, videos, conversationHistory, onStream) {
-            console.log('[AI Service] Đang sử dụng Gemini AI');
+            console.log(`[AI Service] Đang sử dụng ${CONFIG.OLLAMA_MODEL}`);
             return await this.generateWithOllama(userMessage, audio, videos, conversationHistory, onStream);
         },
 

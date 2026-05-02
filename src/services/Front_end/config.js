@@ -4,17 +4,16 @@
  */
 
 window.CHAT_CONFIG = {
-    // Cấu hình Ollama AI
+    // Cấu hình RAG bot API
     ollama: {
-        // Bật/tắt sử dụng Ollama (true/false)
+        // Bật/tắt sử dụng bot API (true/false)
         enabled: true,
         
-        // URL API của Ollama (mặc định: http://localhost:11434)
+        // URL API của chatbot service
         apiUrl: 'http://localhost:4096/answer/',
         
-        // Tên model Ollama bạn muốn sử dụng
-        // Các model phổ biến: llama3.2, mistral, phi3, gemma2
-        model: 'Gemini'
+        // Tên model hiển thị trong giao diện
+        model: 'RAG Bot'
     },
 
     upload: {

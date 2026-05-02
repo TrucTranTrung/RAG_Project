@@ -45,15 +45,35 @@ Use `EMBEDDING_DEVICE=cpu` if CUDA memory is still not available.
 - Frontend is at: http://localhost:9001/static/index.html
 
 # Chat Model Provider
-The chatbot can run without OpenAI/Gemini quota for demos:
+Use a real chat model for final answers. Gemini is the default provider:
 ```bash
-export CHAT_MODEL_PROVIDER=local
+export CHAT_MODEL_PROVIDER=gemini
+export API_GPT_KEY=your_gemini_api_key
+export GEMINI_MODEL=gemini-2.5-flash
 ```
-This returns a simple answer from retrieved PGVector context and does not load a local LLM.
-To use OpenAI again:
+You can also use a clearer Gemini key name:
+```bash
+export GEMINI_API_KEY=your_gemini_api_key
+```
+
+OpenAI is still supported:
 ```bash
 export CHAT_MODEL_PROVIDER=openai
+export OPENAI_API_KEY=your_openai_api_key
 export OPENAI_CHAT_MODEL=gpt-4o-mini
+```
+
+For a real local bot, run Ollama and point the service at it:
+```bash
+export CHAT_MODEL_PROVIDER=local
+export OLLAMA_BASE_URL=http://host.docker.internal:11434
+export OLLAMA_MODEL=llama3.2
+ollama pull llama3.2
+```
+
+For offline demos only, use the extractive fallback:
+```bash
+export CHAT_MODEL_PROVIDER=extractive
 ```
 
 ## Front-end
